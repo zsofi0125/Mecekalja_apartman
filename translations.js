@@ -9,6 +9,7 @@
  */
 const T = {
     en: {
+        logo: "Apartment Mecsekalja",
         pv: "Preview:",
         n1: "The apartment",
         n2: "Gallery",
@@ -48,6 +49,7 @@ const T = {
         map_btn: "Directions from here"
     },
     hu: {
+        logo: "Mecsekalja apartman",
         pv: "Előnézet:",
         n1: "Az apartman",
         n2: "Galéria",
@@ -87,6 +89,7 @@ const T = {
         map_btn: "Útvonaltervezés innen"
     },
     de: {
+        logo: "Apartment Mecsekalja",
         pv: "Vorschau:",
         n1: "Die Wohnung",
         n2: "Galerie",
