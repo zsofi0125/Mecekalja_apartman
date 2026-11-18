@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mecsekalja Apartman · Pécs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Viewport / Device Preview Simulator -->
+    <div class="bar">
+        <span id="pv"></span>
+        <button id="bd" class="on">Desktop</button>
+        <button id="bm">Mobile</button>
+    </div>
+
+    <div class="stage" id="st">
+        <!-- Header & Navigation -->
+        <header class="nav">
+            <a href="#" class="logo">Mecsekalja apartman</a>
+            <ul>
+                <li><a href="#about" data-i="n1"></a></li>
+                <li><a href="#gallery" data-i="n2"></a></li>
+                <li><a href="#area" data-i="n3"></a></li>
+                <li><a href="#events" data-i="n4"></a></li>
+            </ul>
+            <div class="lang">
+                <span class="lang-ic" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                        <path d="M2 12h20" />
+                    </svg>
+                </span>
+                <button class="on" data-l="hu">HU</button>
+                <button data-l="en">EN</button>
+                <button data-l="de">DE</button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="tag" data-i="tag"></span>
+            <h1 data-i="h1"></h1>
+            <p data-i="sub"></p>
+            <div class="btns">
+                <a class="btn" href="#book" data-i="b1"></a>
+                <a class="btn alt" href="#book" data-i="b2"></a>
+            </div>
+            <svg viewBox="0 0 800 150" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 90 Q120 20 260 70 T520 50 T800 80V150H0Z" fill="#a9c9ae" opacity=".6" />
+                <path d="M0 120 Q160 60 320 105 T640 90 T800 110V150H0Z" fill="#6f9f7e" opacity=".7" />
+                <path d="M0 140 Q200 100 400 130 T800 125V150H0Z" fill="#2f5d46" />
+            </svg>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="split">
+                <div>
+                    <h2 data-i="h2a"></h2>
+                    <p data-i="pa"></p>
+                    <div class="facts">
+                        <span data-i="f1"></span>
+                        <span data-i="f2"></span>
+                        <span data-i="f3"></span>
+                    </div>
+                </div>
+                <div class="grid" style="grid-template-columns:1fr 1fr">
+                    <div class="card">
+                        <div class="ic">👨‍👩‍👧</div>
+                        <h3 data-i="c1"></h3>
+                        <p data-i="d1"></p>
+                    </div>
+                    <div class="card">
+                        <div class="ic">🌳</div>
+                        <h3 data-i="c2"></h3>
+                        <p data-i="d2"></p>
+                    </div>
+                    <div class="card">
+                        <div class="ic">🥾</div>
+                        <h3 data-i="c3"></h3>
+                        <p data-i="d3"></p>
+                    </div>
+                    <div class="card">
+                        <div class="ic">🚗</div>
+                        <h3 data-i="c4"></h3>
+                        <p data-i="d4"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h2 data-i="h2b"></h2>
+            <div class="gal">
+                <div data-i="ph"></div>
+                <div data-i="ph"></div>
+                <div data-i="ph"></div>
+                <div data-i="ph"></div>
+            </div>
+        </section>
+
+        <!-- Area / Surroundings Section -->
+        <section class="area" id="area">
+            <h2 data-i="h2c"></h2>
+            <p data-i="pc"></p>
+            <ul>
+                <li><span data-i="a1"></span><b>[ ● ]</b></li>
+                <li><span data-i="a2"></span><b>[ ● ]</b></li>
+                <li><span data-i="a3"></span><b>[ ● ]</b></li>
+            </ul>
+        </section>
+
+        <!-- Booking CTA Section -->
+        <section class="cta" id="book">
+            <h2 data-i="h2d"></h2>
+            <p data-i="pd"></p>
+            <div class="btns">
+                <a class="btn" href="#" data-i="b1"></a>
+                <a class="btn alt" href="#" data-i="b2"></a>
+            </div>
+        </section>
+
+        <!-- Programs & Events Calendar Section -->
+        <section id="events">
+            <h2 id="h2e"></h2>
+            <p id="pe" style="color:var(--mute)"></p>
+            <div class="chips" id="chips"></div>
+            <div class="cw">
+                <div class="cal" id="cal"></div>
+                <div class="dp" id="dp"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>© 2026 Mecsekalja Apartman · Pécs, Hungary · [email / phone]</footer>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="translations.js"></script>
+    <script src="events.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
