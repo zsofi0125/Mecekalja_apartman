@@ -6,11 +6,11 @@
     <title>Mecsekalja Apartman · Pécs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Plus Jakarta Sans (Headings), Inter (Body & UI), Space Mono (Monospace) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -57,7 +57,9 @@
             <div class="btns">
                 <a class="btn" href="#book" data-i="b1"></a>
                 <a class="btn alt" href="#book" data-i="b2"></a>
+                <a class="btn alt" href="#book" data-i="b3"></a>
             </div>
+            <img src="img/tv_tower.svg" alt="Pécs TV-torony" class="hero-tower" aria-hidden="true">
             <svg viewBox="0 0 800 150" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M0 90 Q120 20 260 70 T520 50 T800 80V150H0Z" fill="#a9c9ae" opacity=".6" />
                 <path d="M0 120 Q160 60 320 105 T640 90 T800 110V150H0Z" fill="#6f9f7e" opacity=".7" />
@@ -105,11 +107,15 @@
         <!-- Gallery Section -->
         <section id="gallery">
             <h2 data-i="h2b"></h2>
-            <div class="gal">
-                <div data-i="ph"></div>
-                <div data-i="ph"></div>
-                <div data-i="ph"></div>
-                <div data-i="ph"></div>
+            <div class="gal-wrap">
+                <div class="gal">
+                    <div class="gal-item g4 clone" data-i="ph" aria-hidden="true"></div>
+                    <div class="gal-item g1" data-i="ph"></div>
+                    <div class="gal-item g2" data-i="ph"></div>
+                    <div class="gal-item g3" data-i="ph"></div>
+                    <div class="gal-item g4" data-i="ph"></div>
+                    <div class="gal-item g1 clone" data-i="ph" aria-hidden="true"></div>
+                </div>
             </div>
         </section>
 
@@ -124,6 +130,42 @@
             </ul>
         </section>
 
+        <!-- Programs & Events Calendar Section -->
+        <section id="events">
+            <h2 id="h2e"></h2>
+            <p id="pe" style="color:var(--mute)"></p>
+            <div class="chips" id="chips"></div>
+            <div class="cw">
+                            <div class="cal" id="cal"></div>
+                            <div class="dp" id="dp"></div>
+                            <div class="map-card" id="map">
+                                <div class="map-header">
+                                    <div class="map-addr-wrap">
+                                        <span class="ic" aria-hidden="true">📍</span>
+                                        <span class="map-addr" data-i="map_addr">7635 Pécs, Kerényi Károly u. 8/A</span>
+                                    </div>
+                                    <a href="https://www.google.com/maps/dir/?api=1&origin=P%C3%A9cs%2C+Ker%C3%A9nyi+K%C3%A1roly+u.+8%2FA"
+                                        target="_blank" rel="noopener noreferrer" class="map-dir-btn">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                            stroke-linejoin="round" aria-hidden="true">
+                                            <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                                        </svg>
+                                        <span data-i="map_btn"></span>
+                                    </a>
+                                </div>
+                                <div class="map-frame">
+                                    <iframe
+                                        src="https://maps.google.com/maps?q=P%C3%A9cs%2C+Ker%C3%A9nyi+K%C3%A1roly+u.+8%2FA&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        title="Mecsekalja Apartman - Pécs, Kerényi Károly u. 8/A">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+        </section>
+
         <!-- Booking CTA Section -->
         <section class="cta" id="book">
             <h2 data-i="h2d"></h2>
@@ -131,17 +173,7 @@
             <div class="btns">
                 <a class="btn" href="#" data-i="b1"></a>
                 <a class="btn alt" href="#" data-i="b2"></a>
-            </div>
-        </section>
-
-        <!-- Programs & Events Calendar Section -->
-        <section id="events">
-            <h2 id="h2e"></h2>
-            <p id="pe" style="color:var(--mute)"></p>
-            <div class="chips" id="chips"></div>
-            <div class="cw">
-                <div class="cal" id="cal"></div>
-                <div class="dp" id="dp"></div>
+                <a class="btn alt" href="#" data-i="b3"></a>
             </div>
         </section>
 

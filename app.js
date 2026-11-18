@@ -175,18 +175,98 @@
         const st = $('st');
         const bd = $('bd');
         const bm = $('bm');
+        const galWrap = document.querySelector('.gal-wrap');
+        let initCarouselLoop = null;
+
+        if (galWrap) {
+            const items = galWrap.querySelectorAll('.gal-item');
+            let isJumping = false;
+            let scrollTimer = null;
+
+            function goToSlide(index, smooth = false) {
+                if (!items[index]) return;
+                galWrap.scrollTo({
+                    left: items[index].offsetLeft,
+                    behavior: smooth ? 'smooth' : 'instant'
+                });
+            }
+
+            function checkInfiniteLoop() {
+                if (isJumping) return;
+                // Only run when in mobile scrollable view
+                if (galWrap.scrollWidth <= galWrap.clientWidth) return;
+                if (items.length < 6) return;
+
+                const sl = galWrap.scrollLeft;
+                const tolerance = 15; // px
+
+                // Snapped to first clone (Clone of Slide 4) -> instantly jump to real Slide 4 (index 4)
+                if (sl <= items[0].offsetLeft + tolerance) {
+                    isJumping = true;
+                    galWrap.style.scrollSnapType = 'none';
+                    goToSlide(4, false);
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            galWrap.style.scrollSnapType = 'x mandatory';
+                            isJumping = false;
+                        });
+                    });
+                }
+                // Snapped to last clone (Clone of Slide 1) -> instantly jump to real Slide 1 (index 1)
+                else if (sl >= items[5].offsetLeft - tolerance) {
+                    isJumping = true;
+                    galWrap.style.scrollSnapType = 'none';
+                    goToSlide(1, false);
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            galWrap.style.scrollSnapType = 'x mandatory';
+                            isJumping = false;
+                        });
+                    });
+                }
+            }
+
+            initCarouselLoop = function () {
+                if (galWrap.scrollWidth > galWrap.clientWidth && items[1]) {
+                    goToSlide(1, false);
+                }
+            };
+
+            galWrap.addEventListener('scrollend', checkInfiniteLoop);
+            galWrap.addEventListener('scroll', () => {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(checkInfiniteLoop, 80);
+            }, { passive: true });
+
+            requestAnimationFrame(() => {
+                initCarouselLoop();
+            });
+
+            window.addEventListener('resize', () => {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(initCarouselLoop, 150);
+            });
+        }
 
         if (bd && bm && st) {
             bd.addEventListener('click', () => {
                 st.classList.remove('m');
                 bd.classList.add('on');
                 bm.classList.remove('on');
+                if (galWrap) {
+                    galWrap.scrollLeft = 0;
+                }
             });
 
             bm.addEventListener('click', () => {
                 st.classList.add('m');
                 bm.classList.add('on');
                 bd.classList.remove('on');
+                if (initCarouselLoop) {
+                    requestAnimationFrame(() => {
+                        initCarouselLoop();
+                    });
+                }
             });
         }
 

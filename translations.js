@@ -19,6 +19,7 @@ const T = {
         sub: "A cosy apartment in a quiet green suburb of Pécs, with room for the whole family to unwind.",
         b1: "Book on Airbnb",
         b2: "Book on Booking.com",
+        b3: "Book on Szállás.hu",
         h2a: "Cosy, calm and made for families",
         pa: "Wake up to birdsong, spend your days in the hills or in Pécs’s old town, and come home to a peaceful street and a comfortable apartment.",
         f1: "[●] guests",
@@ -40,7 +41,11 @@ const T = {
         a2: "Pécs city centre",
         a3: "Zsolnay Cultural Quarter",
         h2d: "Ready for your stay in Pécs?",
-        pd: "Check dates and book on your favourite platform."
+        pd: "Check dates and book on your favourite platform.",
+        map_h: "Map & Directions",
+        map_sub: "Easily accessible hillside location in a peaceful green suburb of Pécs. Plan your route directly from the apartment.",
+        map_addr: "7635 Pécs, Kerényi Károly u. 8/A",
+        map_btn: "Directions from here"
     },
     hu: {
         pv: "Előnézet:",
@@ -53,6 +58,7 @@ const T = {
         sub: "Hangulatos apartman Pécs csendes, zöld elővárosában, hely az egész családnak a kikapcsolódásra.",
         b1: "Foglalás Airbnb-n",
         b2: "Foglalás Booking.com-on",
+        b3: "Foglalás Szállás.hu-n",
         h2a: "Hangulatos, csendes, családoknak",
         pa: "Ébredjen madárcsicsergésre, töltse a napot a hegyekben vagy Pécs belvárosában, és térjen haza egy békés utcába, egy kényelmes apartmanba.",
         f1: "[●] vendég",
@@ -74,7 +80,11 @@ const T = {
         a2: "Pécs belvárosa",
         a3: "Zsolnay Kulturális Negyed",
         h2d: "Készen áll pécsi pihenésére?",
-        pd: "Nézze meg az időpontokat, és foglaljon a kedvenc platformján."
+        pd: "Nézze meg az időpontokat, és foglaljon a kedvenc platformján.",
+        map_h: "Térkép és megközelítés",
+        map_sub: "Könnyen megközelíthető elhelyezkedés a Mecsek lábánál, csendes zöldövezetben. Tervezze meg útvonalát közvetlenül az apartmantól.",
+        map_addr: "7635 Pécs, Kerényi Károly u. 8/A",
+        map_btn: "Útvonaltervezés innen"
     },
     de: {
         pv: "Vorschau:",
@@ -87,6 +97,7 @@ const T = {
         sub: "Eine gemütliche Wohnung in einem ruhigen, grünen Vorort von Pécs, mit Platz für die ganze Familie.",
         b1: "Auf Airbnb buchen",
         b2: "Auf Booking.com buchen",
+        b3: "Auf Szállás.hu buchen",
         h2a: "Gemütlich, ruhig und familienfreundlich",
         pa: "Wachen Sie bei Vogelgesang auf, verbringen Sie die Tage in den Bergen oder in der Altstadt von Pécs und kehren Sie in eine friedliche Straße zurück.",
         f1: "[●] Gäste",
@@ -108,7 +119,11 @@ const T = {
         a2: "Zentrum von Pécs",
         a3: "Zsolnay-Kulturviertel",
         h2d: "Bereit für Ihren Aufenthalt in Pécs?",
-        pd: "Daten prüfen und auf Ihrer bevorzugten Plattform buchen."
+        pd: "Daten prüfen und auf Ihrer bevorzugten Plattform buchen.",
+        map_h: "Karte & Anfahrt",
+        map_sub: "Leicht erreichbare Lage am Fuße des Mecsek in einem ruhigen grünen Vorort. Planen Sie Ihre Route direkt ab der Unterkunft.",
+        map_addr: "7635 Pécs, Kerényi Károly u. 8/A",
+        map_btn: "Route von hier planen"
     }
 };
 

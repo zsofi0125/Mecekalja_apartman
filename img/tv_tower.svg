@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 360" width="120" height="360">
+  <defs>
+    <!-- Subtle cylindrical shading to match the vector illustration -->
+    <linearGradient id="tower-shade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.12" />
+      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.22" />
+    </linearGradient>
+  </defs>
+
+  <!-- Spire / Antenna (Top) -->
+  <g id="spire">
+    <!-- Tip -->
+    <rect x="59" y="10" width="2" height="22" fill="#d32f2f" />
+    <!-- Upper Mast -->
+    <rect x="58" y="32" width="4" height="16" fill="#ffffff" />
+    <rect x="58" y="48" width="4" height="14" fill="#d32f2f" />
+    <rect x="57.5" y="62" width="5" height="10" fill="#81d4fa" />
+    <!-- Mid Mast -->
+    <rect x="57" y="72" width="6" height="18" fill="#ffffff" />
+    <rect x="57" y="90" width="6" height="18" fill="#d32f2f" />
+    <!-- Lower Mast -->
+    <rect x="56" y="108" width="8" height="20" fill="#ffffff" />
+    <rect x="55" y="128" width="10" height="14" fill="#d32f2f" />
+    <!-- Collar above decks -->
+    <rect x="52" y="142" width="16" height="10" rx="1" fill="#81d4fa" />
+  </g>
+
+  <!-- Upper Observation Deck -->
+  <g id="upper-deck">
+    <rect x="42" y="152" width="36" height="6" rx="2" fill="#d32f2f" />
+    <rect x="40" y="158" width="40" height="8" rx="2" fill="#ffffff" />
+    <!-- Observation Windows -->
+    <rect x="42" y="160" width="36" height="4" rx="1" fill="#263238" />
+    <rect x="42" y="166" width="36" height="5" rx="2" fill="#d32f2f" />
+  </g>
+
+  <!-- Connector Neck -->
+  <g id="neck">
+    <rect x="49" y="171" width="22" height="7" fill="#ffffff" />
+    <rect x="49" y="178" width="22" height="6" fill="#81d4fa" />
+  </g>
+
+  <!-- Lower Main Deck (Restaurant / Viewing Pod) -->
+  <g id="lower-deck">
+    <rect x="44" y="184" width="32" height="5" rx="2" fill="#d32f2f" />
+    <rect x="42" y="189" width="36" height="7" rx="2" fill="#ffffff" />
+    <!-- Panoramic Windows -->
+    <rect x="44" y="191" width="32" height="3.5" rx="1" fill="#263238" />
+    <rect x="44" y="196" width="32" height="6" rx="2" fill="#d32f2f" />
+    <rect x="47" y="202" width="26" height="5" rx="1" fill="#ffffff" />
+    <rect x="49" y="207" width="22" height="5" rx="1" fill="#d32f2f" />
+  </g>
+
+  <!-- Main Tapered Concrete Shaft -->
+  <g id="shaft">
+    <!-- Upper shaft -->
+    <polygon points="51,212 69,212 71,245 49,245" fill="#81d4fa" />
+    <!-- Mid shaft -->
+    <polygon points="49,245 71,245 74,295 46,295" fill="#ffffff" />
+    <!-- Lower shaft -->
+    <polygon points="46,295 74,295 78,345 42,345" fill="#81d4fa" />
+    <!-- Base Flare -->
+    <polygon points="42,345 78,345 84,360 36,360" fill="#ffffff" />
+  </g>
+
+  <!-- Overlay Shading for Depth -->
+  <g pointer-events="none">
+    <rect x="56" y="32" width="8" height="110" fill="url(#tower-shade)" />
+    <rect x="40" y="152" width="40" height="19" rx="2" fill="url(#tower-shade)" />
+    <rect x="42" y="184" width="36" height="28" rx="2" fill="url(#tower-shade)" />
+    <polygon points="51,212 69,212 84,360 36,360" fill="url(#tower-shade)" />
+  </g>
+</svg>
