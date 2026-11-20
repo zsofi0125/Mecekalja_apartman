@@ -703,7 +703,7 @@ footer a {
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    /* No overscroll-behavior: at either end of the list the scroll continues on the page */
     /* Reserve the scrollbar's space so cards do not change width between short and long days */
     scrollbar-gutter: stable;
     padding-right: 0.25rem;
@@ -942,17 +942,22 @@ footer a {
     height: 6.75rem;
 }
 
-/* Mobile sequence for #events: 1. Calendar, 2. Program list, 3. Google Maps */
+/* Mobile sequence for #events: 1. Calendar, 2. Filters, 3. Program list, 4. Google Maps */
 .cal {
     order: 1;
 }
 
-.dp {
+.chips {
     order: 2;
+    margin: 0;
+}
+
+.dp {
+    order: 3;
 }
 
 .map-card {
-    order: 3;
+    order: 4;
 }
 
 /* --------------------------------------------------------------------------
@@ -964,21 +969,29 @@ footer a {
        exactly one card gap separates calendar and map. */
     .cw {
         grid-template-columns: 1.1fr 1fr;
-        grid-template-rows: auto auto;
+        grid-template-rows: auto auto auto;
         column-gap: var(--cw-gap);
         row-gap: 0;
         align-items: start;
     }
 
+    /* Filters sit above the whole widget on desktop */
+    .chips {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin: 1rem 0;
+        order: unset;
+    }
+
     .cal {
         grid-column: 1;
-        grid-row: 1;
+        grid-row: 2;
         order: unset;
     }
 
     .map-card {
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 3;
         margin-top: var(--cw-gap);
         order: unset;
     }
@@ -987,7 +1000,7 @@ footer a {
        as tall as the left column (stretched) and its .dp-list scrolls inside that height. */
     .dp {
         grid-column: 2;
-        grid-row: 1 / -1;
+        grid-row: 2 / -1;
         align-self: stretch;
         contain: size;
         max-height: none;

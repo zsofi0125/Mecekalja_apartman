@@ -140,7 +140,7 @@
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    /* No overscroll-behavior: at either end of the list the scroll continues on the page */
     /* Reserve the scrollbar's space so cards do not change width between short and long days */
     scrollbar-gutter: stable;
     padding-right: 0.25rem;

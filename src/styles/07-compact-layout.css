@@ -34,15 +34,20 @@
     height: 6.75rem;
 }
 
-/* Mobile sequence for #events: 1. Calendar, 2. Program list, 3. Google Maps */
+/* Mobile sequence for #events: 1. Calendar, 2. Filters, 3. Program list, 4. Google Maps */
 .cal {
     order: 1;
 }
 
-.dp {
+.chips {
     order: 2;
+    margin: 0;
+}
+
+.dp {
+    order: 3;
 }
 
 .map-card {
-    order: 3;
+    order: 4;
 }
