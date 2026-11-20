@@ -18,6 +18,7 @@ permissions:
   pages: write
   id-token: write
   issues: write
+  actions: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
@@ -89,6 +90,19 @@ jobs:
           cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
           mkdir -p _site/img/icons
           cp img/icons/*.webp _site/img/icons/
+
+      # A re-run keeps the previous attempt's artifacts under the same run id, and deploy-pages
+      # refuses to pick between two "github-pages" artifacts. Remove stale ones before uploading.
+      - name: Remove stale Pages artifacts from earlier attempts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
+            --jq '.artifacts[] | select(.name == "github-pages") | .id' |
+          while read -r artifact_id; do
+            echo "Deleting stale artifact $artifact_id"
+            gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$artifact_id"
+          done
 
       - name: Upload static website artifact
         uses: actions/upload-pages-artifact@v3
