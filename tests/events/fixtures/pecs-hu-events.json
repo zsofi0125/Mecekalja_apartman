@@ -1,0 +1,229 @@
+[
+ {
+  "link": "https://pecs.hu/programok/muveszetpedagogiai-foglalkozas-felnotteknek-11-21/",
+  "title": {
+   "rendered": "Művészetpedagógiai foglalkozás felnőtteknek"
+  },
+  "program_category": [
+   2394,
+   2401
+  ],
+  "acf": {
+   "meta_data": [
+    {
+     "acf_fc_layout": "ticket-info",
+     "link": {
+      "title": "Jegyvásárlás",
+      "url": "https://jegymester.hu/production/384057/muveszetpedagogiai-foglalkozas-felnotteknek-a-zsolnay-aranykora-kiallitason/38041662",
+      "target": "_blank"
+     }
+    },
+    {
+     "acf_fc_layout": "url",
+     "link": {
+      "title": "",
+      "url": "https://www.zsolnaynegyed.hu/programok/muveszetpedagogiai-foglalkozas-felnotteknek-a-zsolnay-aranykora-kiallitason",
+      "target": "_blank"
+     }
+    },
+    {
+     "acf_fc_layout": "event",
+     "start_date": "2026-11-21",
+     "start_time": "15:00:00",
+     "end_date": "2026-11-21",
+     "end_time": "",
+     "multi_day_event": "",
+     "recurring_event": {
+      "is_recurring_event": false,
+      "": null
+     },
+     "is_free": false,
+     "is_featured_event": false,
+     "location": "",
+     "event_gmap": {
+      "address": "Pécs, Zsolnay Negyed Látogatóközpont, Felsővámház utca, Magyarország",
+      "lat": 46.0784484,
+      "lng": 18.2481479,
+      "zoom": 14,
+      "place_id": "ChIJ_59h8zexQkcRBdwkT4QxvLA",
+      "name": "Zsolnay Negyed Látogatóközpont",
+      "street_number": 52,
+      "street_name": "Felsővámház utca",
+      "street_name_short": "Felsővámház u.",
+      "city": "Pécs",
+      "post_code": 7626,
+      "country": "Magyarország",
+      "country_short": "HU"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "link": "https://pecs.hu/programok/babakepzotol-az-egyetemi-klinikaig-az-erzsebet-tudomanyegyetem-szulo-es-nobeteg-klinikajanak-tortenete/",
+  "title": {
+   "rendered": "Bábaképzőtől az egyetemi klinikáig: Az Erzsébet Tudományegyetem Szülő- és Nőbeteg Klinikájának története"
+  },
+  "program_category": [
+   2401
+  ],
+  "acf": {
+   "meta_data": [
+    {
+     "acf_fc_layout": "url",
+     "link": {
+      "title": "",
+      "url": "https://www.lib.pte.hu/hu/babakepzotol_az_egyetemi_klinikaig_%E2%80%93_az_erzsebet_tudomanyegyetem_szulo-_es_nobeteg_klinikajanak_tortenete_-862",
+      "target": "_blank"
+     }
+    },
+    {
+     "acf_fc_layout": "event",
+     "start_date": "2026-03-25",
+     "start_time": "14:00:00",
+     "end_date": "2026-12-31",
+     "end_time": "18:00:00",
+     "multi_day_event": "1",
+     "recurring_event": {
+      "is_recurring_event": false,
+      "": null
+     },
+     "is_free": false,
+     "is_featured_event": false,
+     "location": "",
+     "event_gmap": {
+      "address": "Pécs, Szepesy Ignác utca 3, Magyarország",
+      "lat": 46.0785966,
+      "lng": 18.2268626,
+      "zoom": 14,
+      "place_id": "ChIJgbdqyKOxQkcRGTKIZSNuj2Y",
+      "name": "Szepesy Ignác u. 3",
+      "street_number": 3,
+      "street_name": "Szepesy Ignác utca",
+      "street_name_short": "Szepesy Ignác u.",
+      "city": "Pécs",
+      "post_code": 7621,
+      "country": "Magyarország",
+      "country_short": "HU"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "link": "https://pecs.hu/programok/egyeni-borkosotlok-a-pecsi-puspoksegen/",
+  "title": {
+   "rendered": "Egyéni borkóstolók a Pécsi Püspökségen"
+  },
+  "program_category": [
+   2399
+  ],
+  "acf": {
+   "meta_data": [
+    {
+     "acf_fc_layout": "ticket-info",
+     "link": {
+      "title": "Jegyinformáció",
+      "url": "https://pecsipuspokseg.hu/jegyarak-es-nyitvatartas/?fbclid=IwY2xjawQUyNxleHRuA2FlbQIxMABicmlkETFMbW9HY3RBc09VRmZuNGV1c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvGtlxrXr-nWfOi7jp9ApFGc9L_eOl8wxvMqKaFE5bX_7STZ90y-Q8sfFDwX_aem_QDLcRyTh3NP3L9kdIuKzWQ",
+      "target": "_blank"
+     }
+    },
+    {
+     "acf_fc_layout": "url",
+     "link": {
+      "title": "",
+      "url": "https://pecsipuspokseg.hu/szolgaltatasok/borkostolo/",
+      "target": "_blank"
+     }
+    },
+    {
+     "acf_fc_layout": "event",
+     "start_date": "2026-07-18",
+     "start_time": "17:00:00",
+     "end_date": "2026-12-05",
+     "end_time": "18:30:00",
+     "multi_day_event": "1",
+     "recurring_event": {
+      "is_recurring_event": true,
+      "": null
+     },
+     "is_free": false,
+     "is_featured_event": false,
+     "location": "",
+     "event_gmap": {
+      "address": "Pécs, Püspöki Magtár Látogatóközpont, Aradi vértanúk útja, Magyarország",
+      "lat": 46.0787296,
+      "lng": 18.2222035,
+      "zoom": 14,
+      "place_id": "ChIJzY9AKKOxQkcRN9a4z-4swjs",
+      "name": "Püspöki Magtár Látogatóközpont",
+      "street_name": "Aradi vértanúk útja",
+      "city": "Pécs",
+      "post_code": 7625,
+      "country": "Magyarország",
+      "country_short": "HU"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "link": "https://pecs.hu/programok/varazsora-megrazo-kiserletek-12-28/",
+  "title": {
+   "rendered": "Varázsóra – Megrázó kísérletek"
+  },
+  "program_category": [
+   2400
+  ],
+  "acf": {
+   "meta_data": [
+    {
+     "acf_fc_layout": "event",
+     "start_date": "2026-12-28",
+     "start_time": "14:00:00",
+     "end_date": "2026-12-28",
+     "end_time": "",
+     "multi_day_event": "",
+     "recurring_event": {
+      "is_recurring_event": false,
+      "": null
+     },
+     "is_free": false,
+     "is_featured_event": false,
+     "location": "",
+     "event_gmap": {
+      "address": "Pécs, Zsolnay Negyed Látogatóközpont, Felsővámház utca, Magyarország",
+      "lat": 46.0784484,
+      "lng": 18.2481479,
+      "zoom": 14,
+      "place_id": "ChIJ_59h8zexQkcRBdwkT4QxvLA",
+      "name": "Zsolnay Negyed Látogatóközpont",
+      "street_number": 52,
+      "street_name": "Felsővámház utca",
+      "street_name_short": "Felsővámház u.",
+      "city": "Pécs",
+      "post_code": 7626,
+      "country": "Magyarország",
+      "country_short": "HU"
+     }
+    },
+    {
+     "acf_fc_layout": "url",
+     "link": {
+      "title": "",
+      "url": "https://www.zsolnaynegyed.hu/programok/varazsora-megrazo-kiserletek-2023",
+      "target": "_blank"
+     }
+    },
+    {
+     "acf_fc_layout": "ticket-info",
+     "link": {
+      "title": "Jegyvásárlás",
+      "url": "https://jegymester.hu/production/381359/zsolnay-kulturalis-negyed-24-es-terem-varazsora-megrazo-kiserletek",
+      "target": "_blank"
+     }
+    }
+   ]
+  }
+ }
+]

@@ -34,10 +34,10 @@ function toRawEvent(row, origin) {
 }
 
 /**
- * @param {{ id: string, label: string, homepage: string, listPageUrl: string }} config
+ * @param {{ id: string, label: string, homepage: string, listPageUrl: string, minEvents: number }} config
  * @returns {import('../types.mjs').EventSource}
  */
-export function createProgramsCmsSource({ id, label, homepage, listPageUrl }) {
+export function createProgramsCmsSource({ id, label, homepage, listPageUrl, minEvents }) {
     const { origin } = new URL(listPageUrl);
 
     async function fetchSection(contentId, window) {
@@ -63,7 +63,7 @@ export function createProgramsCmsSource({ id, label, homepage, listPageUrl }) {
     }
 
     return {
-        id, label, homepage,
+        id, label, homepage, minEvents,
         async scrape(window) {
             const $ = load(await fetchText(listPageUrl));
             const contentIds = [...new Set(

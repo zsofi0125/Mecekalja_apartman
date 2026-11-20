@@ -35,8 +35,15 @@ h2 {
     background: var(--sage);
     display: grid;
     place-items: center;
-    font-size: 1.25rem;
     margin-bottom: 0.625rem;
+}
+
+/* The decorative icon keeps the emoji's footprint: centred inside the same 2.625rem tile */
+.card .ic img {
+    width: 1.75rem;
+    height: 1.75rem;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .card h3 {
@@ -184,6 +191,18 @@ h2 {
     letter-spacing: 0.06em;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+}
+
+/* Distance values (~11 km) are orange pills like the booking buttons: --sun fill with --on-sun text.
+   Orange text directly on this section's background would be unreadable on the light theme (1.5:1).
+   Scoped to #area; the column heading keeps its plain green text. */
+.area li:not(.col-head) > b {
+    background: var(--sun);
+    color: var(--on-sun);
+    padding: 0.125rem 0.625rem;
+    border-radius: 6.1875rem;
+    /* Keep the pill's own height when a long label wraps onto several lines */
+    align-self: flex-start;
 }
 
 .cta {

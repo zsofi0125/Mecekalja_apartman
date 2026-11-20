@@ -1,0 +1,125 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:PUBLISH
+CALSCALE:GREGORIAN
+PRODID:-//WordPress - MECv7.14.0//EN
+X-ORIGINAL-URL:https://iranypecs.hu/
+X-WR-CALNAME:Irány Pécs
+X-WR-CALDESC:Pécs turisztikai tájékoztató központja
+REFRESH-INTERVAL;VALUE=DURATION:PT1H
+X-PUBLISHED-TTL:PT1H
+X-MS-OLK-FORCEINSPECTOROPEN:TRUE
+BEGIN:VEVENT
+CLASS:PUBLIC
+UID:MEC-f56d8183992b6c54c92c16a8519a6e2b@iranypecs.hu
+DTSTART:20261120T070000Z
+DTEND:20261120T170000Z
+DTSTAMP:20240628T122400Z
+RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA
+CREATED:20240628
+LAST-MODIFIED:20240710
+PRIORITY:5
+SEQUENCE:2
+TRANSP:OPAQUE
+SUMMARY:Régi könyvek titkai
+DESCRIPTION:\nA frissen megújult állandó kiállítást Szeberényi Gábor, a PTE Egyetemi Könyvtár és Tudásközpont főigazgatója; Simon-Wagner István, a Pécsi Püspöki Bíróság helyettes bírósági helynöke, valamint Boda Miklós, nyugalmazott irodalomtörténész és könyvtáros nyitotta meg június 11-én.\n\n\n\nSzeberényi Gábor, a PTE Egyetemi Könyvtár és Tudásközpont főigazgatója így nyilatkozott a megnyitón: „A célunk az volt, hogy minden tudományterületet a maga korának megfelelő színvonalon képviseljünk.”, majd hangsúlyozta: “Ez egy használható, oktatható és nyitott könyvtár, amely a püspök szándékainak megfelelően ma is nyilvános könyvtárként működik.”\n\n\n\nA 250 éves Klimo Könyvtár már vagy 100 éve működik egyetemi könyvtárként.\n\n\n\nTovábbi részletek: https://univpecs.com/kultura/regi_konyvek_titkai\n
+URL:https://iranypecs.hu/program/regi-konyvek-titkai/
+ORGANIZER;CN=Pécsi Tudományegyetem:MAILTO:info@pte.hu
+CATEGORIES:Egyházi programok,Kiállítás
+LOCATION:7621 Pécs, Szepesy utca 3.
+ATTACH;FMTTYPE=image/jpeg:https://iranypecs.hu/wp-content/uploads/2024/06/Regi-konyvek-titkai-meghivo.jpg
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+UID:MEC-1587965fb4d4b5afe8428a4a024feb0d@iranypecs.hu
+DTSTART:20261120T090000Z
+DTEND:20261120T170000Z
+DTSTAMP:20240503T161100Z
+RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA,SU
+CREATED:20240503
+LAST-MODIFIED:20240816
+PRIORITY:5
+SEQUENCE:6
+TRANSP:OPAQUE
+SUMMARY:Pécsi egyetemtörténeti állandó kiállítás
+DESCRIPTION:\nA Pécsi Tudományegyetem 2023-ban ünnepelte az Erzsébet Tudományegyetem Pécsre költözésének százéves évfordulóját. A centenáriumi programsorozat részeként megújult a Szepesy utcában található egyetemtörténeti állandó kiállítás. A kiállításban a középkori, 1367-ben alapított egyetemtől a 21. századig mutatják be az egyetem és jogelőd intézményeinek történetét. Az új kiállítás tudományterületenként ismerteti az egyetemi karok történetét, az itt oktató professzorok munkásságát, a hallgatói életet, a tudományos munkát. Az egyetem klinikái és az itt folyó gyógyító tevékenység is külön egységet képez, melyet orvosi eszközök, fényképek, a betegek emlékei színesítenek. Néhány különlegesség is látható, például Ádám Antal alkotmánybírói lánca, Szentágothai János mikroszkópja, Prinz Gyula személyes tárgyai, Keserü Ilona egy műve, egy Commodore számítógép vagy az egyetem rektorait ábrázoló festmények.\n
+URL:https://iranypecs.hu/program/pecsi-egyetemtorteneti-allando-kiallitas/
+ORGANIZER;CN=Pécsi Tudományegyetem:MAILTO:info@pte.hu
+CATEGORIES:Kiállítás
+LOCATION:7621 Pécs, Szepesy utca 3.
+ATTACH;FMTTYPE=image/jpeg:https://iranypecs.hu/wp-content/uploads/2024/05/630_src.jpg
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+UID:MEC-69c8d2b4af56551603877db8d897360f@iranypecs.hu
+DTSTART:20261230T183000Z
+DTEND:20261230T203000Z
+DTSTAMP:20261118T134200Z
+CREATED:20261118
+LAST-MODIFIED:20261118
+PRIORITY:5
+SEQUENCE:5
+TRANSP:OPAQUE
+SUMMARY:Karácsonyi dallamok
+DESCRIPTION:\nOtt Rezső ünnepi válogatása\n\n\n\nNincs karácsony ének nélkül! Talán egyetlen ünnephez sem kapcsolódik annyi kultikus ének, mint karácsonyhoz. Ilyenkor akár még a plázákban is templomi énekek szólnak. Önnek melyik a kedvence? A Mennyből az angyal? A Csendes éj? Pásztorok, pásztorok; Fel nagy örömre; Jingle Bells? Ezen a koncerten jó eséllyel ezekkel mind lehet találkozni. De nem plázában, hanem templomban. \n\n\n\nÉnekszó, orgona – talán ez is hozzátartozik az ünnephez. Mint ahogyan a szép ruhák, a felkerekedés, a közösségi élmény, a találkozások és az elcsendesedés. \n\n\n\nErre kínál lehetőséget ez a koncert, ahol Ott Rezső nagysikerű karácsonyi dalciklusai mellett a fiatal orgonaművész, Balatoni Sándor karácsonyi orgonaműve is megszólal. \n\n\n\nÉs ez még nem minden! Ön is azok közé tartozik, akiknek nemcsak egyházi művek jutnak eszébe a karácsonyról, hanem például a Diótörő vagy a Reszkessetek, betörők is? Erről a koncertről ezek sem hiányoznak majd! De hallotta már ezeket a dallamokat orgonán? Most itt a lehetőség! \n\n\n\nJegyvásárlás online a filharmonia.jegymester.hu oldalon. \n
+URL:https://iranypecs.hu/program/karacsonyi-dallamok/
+CATEGORIES:Buli/koncert,Zene
+LOCATION:7621 Pécs, Dóm tér 2.
+ATTACH;FMTTYPE=image/jpeg:https://iranypecs.hu/wp-content/uploads/2026/11/t2-karacsonyi-dallamok.jpg
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+UID:MEC-c80728aa924ef2e490a13188e1178518@iranypecs.hu
+DTSTART:20261212T180000Z
+DTEND:20261212T200000Z
+DTSTAMP:20261118T132800Z
+CREATED:20261118
+LAST-MODIFIED:20261118
+PRIORITY:5
+SEQUENCE:1
+TRANSP:OPAQUE
+SUMMARY:Penta Essentia – a magyar lélek hangján
+DESCRIPTION:\nHamvas Béla Öt géniusz című esszéje nyomán\n\n\n\n„Magyarnak lenni annyit jelent, mint az öt géniusz világában egyensúlyt teremteni” – írja Hamvas Béla esszéjében. Eszerint a Kárpát-medencét öt géniusz szellemisége uralja: Nyugat kultiváltsága, Kelet tüze, Észak komolysága és Dél derűje egyszerre hat az itt élőre és akkor még az ötödik géniuszról, az önmagában is sokrétű Erdélyről nem is beszéltünk. Ez a különleges helyzet lehetőségeket és egyben kihívásokkal teli sorsot ad a magyar embernek: a társadalom és az egyén szintjén is összhangba kell hoznia az őt körülvevő és lelkét tápláló erőket.\n\n\n\nEz a gondolat ihlette Keresztury-Albert Zsolt zeneszerző a mohácsi vész 500. évfordulójára szánt, tárogatóra, énekhangra, szimfonikus zenekarra és kórusra komponált színpadi zeneművét, amellyel a magyar lét esszenciális értékeinek kíván mementót állítani.\n\n\n\nAz identitáskeresés kultikus útjára invitálja az közönséget, hogy a próza, a komolyzene, a népdalok és a tárogató éneklő hangjának összefonódásában avassa be az öt géniusz világába, és járja be lélekben történelmi hazánk varázslatos vidékeit Délvidéktől Erdélyig.\n\n\n\nDÉL – Délibábos DélvidékNYUGAT – Dunántúli Nap és HoldÉSZAK – Magyarbődi trilógia\n\n\n\n-SZÜNET-\n\n\n\nERDÉLY – Kalotaszegi évszakokKELET – A Pusztában\n\n\n\nELŐADÓK:Szent István FilharmonikusokVox Laurus Vegyeskar és a Budapesti KórusAlbert Anna Leona – énekGubinecz Ákos – énekBánföldi Szilárd – narrátorDobozy Ágoston – zongoraErdő Zoltán – tárogatóvezényel: Safarek Krisztián\n\n\n\nMŰSOR:Keresztury-Albert Zsolt: Penta Essentia (Zene az öt géniusz földjéről – a magyar lélek hangján)\n\n\n\nJegyek válthatók:a Kodály Központban,a Ticket Express irodáiban,a Pécsi Püspökség infopontjain, nyitvatartási időben (Rózsakert Shop, Pécsi Székesegyház),a koncert előtt a helyszínen, valamintonline a www.jegymester.hu oldalon.\n
+URL:https://iranypecs.hu/program/penta-essentia-a-magyar-lelek-hangjan/
+CATEGORIES:Buli/koncert,Zene
+LOCATION:7622 Pécs, Breuer Marcell sétány 4.
+ATTACH;FMTTYPE=image/jpeg:https://iranypecs.hu/wp-content/uploads/2026/11/Penta-Essentia.jpg
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+UID:MEC-fd0844cddec522c72993e744add7ed20@iranypecs.hu
+DTSTART:20261204T173000Z
+DTEND:20261204T183000Z
+DTSTAMP:20261118T125500Z
+CREATED:20261118
+LAST-MODIFIED:20261118
+PRIORITY:5
+SEQUENCE:6
+TRANSP:OPAQUE
+SUMMARY:Miért nem értjük egymást? – Közös nevezők nyomában
+DESCRIPTION:\nLimpár Imre előadása\n\n\n\nElbeszélünk egymás mellett. Férfi nem érti a nőt, nő a férfit. Anyós értetlenkedik vején, meny pedig apósán. Szülő nem érti a gyerekét, a serdülő pedig bosszankodva tartja feleslegesnek anyja vagy apja „mániáit”. Főnök hüledezik beosztottja lépésein, mindeközben az alkalmazott gyűlölve szemléli, hogy odafönt már megint mit találtak ki neki.\n\n\n\nMiért nem találunk utat egymáshoz? Lehetséges-e, ha nem is a legkisebb közös többszörös, de legalább egy közös nevező megtalálása?\n\n\n\nAz előadás során először okokat, miérteket, aztán megoldásokat, kézzelfogható hogyanokat keresünk majd. Egyszerűen fogalmazva olyan kommunikációs hidak felépítésébe vágunk, amivel végre érthetőbb lesz a másik fél, s kicsit mi magunk is.\n\n\n\nElőadó: Limpár Imre tanácsadó, szakpszichológusSokkal inkább a jövő, mintsem a múlt érdekli. Elsősorban a hogyanok foglalkoztatják és a változás mikéntjei.Szakterületei: időgazdálkodás, karriermenedzsment, konfliktus- és stresszkezelés, az önbizalom pszichológiája.\n\n\n\nEddig megjelent könyvei:A siker tervezhető (2018)100 mondat, amely megváltoztatta az életemet (2020)A lélek igazságai (2022)\n\n\n\nJegyvásárlás online a jegy.hu oldalon.\n
+URL:https://iranypecs.hu/program/miert-nem-ertjuk-egymast-kozos-nevezok-nyomaban/
+CATEGORIES:Egyéb
+LOCATION:7621 Pécs, Széchenyi tér 7-8.
+ATTACH;FMTTYPE=image/jpeg:https://iranypecs.hu/wp-content/uploads/2026/11/Limpar-Imre.jpg
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+UID:MEC-38398fab1dd3cccf0f624d935a57898d@iranypecs.hu
+DTSTART:20261125T180000Z
+DTEND:20261125T190000Z
+DTSTAMP:20261118T124200Z
+CREATED:20261118
+LAST-MODIFIED:20261118
+PRIORITY:5
+SEQUENCE:9
+TRANSP:OPAQUE
+SUMMARY:Egy kis esti fizika: Erdélyi Ádám: Katalízis a mindennapjainkban
+DESCRIPTION:\nMilyen irányba tart ma a katalizátorfejlesztés, mik a jelenlegi legégetőbb kihívások? \n\n\n\nA katalízis a modern társadalom egyik kulcsfontosságú, mégis gyakran láthatatlan alappillére, amely számos mindennapi folyamat és ipari technológia hatékonyságát és fenntarthatóságát biztosítja. \n\n\n\nAz előadás célja bemutatni, hogy a katalitikus folyamatok miként jelennek meg a hétköznapi élet különböző területein, az energiatermeléstől és közlekedéstől kezdve az élelmiszeriparon át egészen a környezetvédelemig vagy gyógyszeriparig.\n\n\n\nErdélyi Ádám kémikus a fenntartható kémiai technológiák és a korszerű katalizátorfejlesztés kutatója. Munkájának középpontjában a körforgásos gazdaságot támogató innovatív kémiai eljárások, valamint a műanyagok környezetbarát újrahasznosításának lehetőségei állnak.\n\n\n\nHelyszín: Művészetek és Irodalom Háza – Fülep Lajos-terem\n\n\n\nMegvalósult a Nemzeti Kulturális Alap támogatásával.\n\n\n\nJegyvásárlás online a jegymester.hu oldalon. \n
+URL:https://iranypecs.hu/program/egy-kis-esti-fizika-erdelyi-adam-katalizis-a-mindennapjainkban/
+ORGANIZER;CN=Zsolnay Örökségkezelő Nonprofit Kft.:MAILTO:info@zsn.hu
+CATEGORIES:Egyéb
+LOCATION:7621 Pécs, Széchenyi tér 7-8.
+ATTACH;FMTTYPE=image/jpeg:https://iranypecs.hu/wp-content/uploads/2026/11/Erdelyi-Adam.jpg
+END:VEVENT
+END:VCALENDAR

@@ -6,8 +6,11 @@ import { SITE_URL } from '../site.config.mjs';
 
 const USER_AGENT = `MecsekaljaApartmanEventsBot/1.0 (+${SITE_URL})`;
 const REQUEST_TIMEOUT_MS = 25_000;
-const PAUSE_BETWEEN_REQUESTS_MS = 400;
-const RETRY_DELAY_MS = 1_500;
+
+/** Overridable through the environment so tests run without waiting. */
+const readDelay = (name, fallbackMs) => Number(process.env[name] ?? fallbackMs);
+const pauseBetweenRequestsMs = () => readDelay('EVENTS_REQUEST_PAUSE_MS', 400);
+const retryDelayMs = () => readDelay('EVENTS_RETRY_DELAY_MS', 1_500);
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -22,11 +25,11 @@ async function request(url, init = {}) {
         try {
             const response = await fetch(url, { ...init, headers, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
             if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
-            await sleep(PAUSE_BETWEEN_REQUESTS_MS);
+            await sleep(pauseBetweenRequestsMs());
             return response;
         } catch (error) {
             if (attempt >= 2) throw error;
-            await sleep(RETRY_DELAY_MS);
+            await sleep(retryDelayMs());
         }
     }
 }

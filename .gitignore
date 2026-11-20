@@ -1,2 +1,5 @@
 node_modules/
 _site/
+scrape-report.json
+scrape-report.md
+scrape-issue-body.md

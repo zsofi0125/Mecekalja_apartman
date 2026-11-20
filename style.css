@@ -49,7 +49,11 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    /* No scroll-padding-top: anchor links must land with the target section's top edge at the top
+       of the viewport. The header is not pinned (.stage has overflow: hidden, which makes
+       position: sticky inert), so reserving space for it left part of the previous section
+       visible above the target. If the header is ever made truly sticky, set scroll-padding-top
+       to its height. */
 }
 
 body {
@@ -318,8 +322,15 @@ h2 {
     background: var(--sage);
     display: grid;
     place-items: center;
-    font-size: 1.25rem;
     margin-bottom: 0.625rem;
+}
+
+/* The decorative icon keeps the emoji's footprint: centred inside the same 2.625rem tile */
+.card .ic img {
+    width: 1.75rem;
+    height: 1.75rem;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .card h3 {
@@ -469,6 +480,18 @@ h2 {
     white-space: nowrap;
 }
 
+/* Distance values (~11 km) are orange pills like the booking buttons: --sun fill with --on-sun text.
+   Orange text directly on this section's background would be unreadable on the light theme (1.5:1).
+   Scoped to #area; the column heading keeps its plain green text. */
+.area li:not(.col-head) > b {
+    background: var(--sun);
+    color: var(--on-sun);
+    padding: 0.125rem 0.625rem;
+    border-radius: 6.1875rem;
+    /* Keep the pill's own height when a long label wraps onto several lines */
+    align-self: flex-start;
+}
+
 .cta {
     text-align: center;
     background: var(--green);
@@ -566,8 +589,9 @@ footer a {
 }
 
 .cw {
+    --cw-gap: 1.125rem;
     display: grid;
-    gap: 1.125rem;
+    gap: var(--cw-gap);
 }
 
 .cal,
@@ -665,6 +689,52 @@ footer a {
     font-variant-numeric: tabular-nums;
 }
 
+/* Program list card: the date heading stays visible while the cards scroll underneath.
+   Mobile: the card is capped in height. Desktop (08-desktop.css): it takes the height of the
+   calendar + map column instead. */
+.dp {
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+    max-height: 70dvh;
+}
+
+.dp-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Reserve the scrollbar's space so cards do not change width between short and long days */
+    scrollbar-gutter: stable;
+    padding-right: 0.25rem;
+}
+
+/* Firefox only: Chromium and Safari use the ::-webkit-scrollbar rules below, because there the
+   standard properties would override them and bring back the native arrow buttons. */
+@supports not selector(::-webkit-scrollbar) {
+    .dp-list {
+        scrollbar-width: thin;
+        scrollbar-color: color-mix(in srgb, var(--green) 45%, transparent) transparent;
+    }
+}
+
+.dp-list::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.dp-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dp-list::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--green) 45%, transparent);
+    border-radius: 6.1875rem;
+}
+
+.dp-list::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--green) 70%, transparent);
+}
+
 .pg {
     display: flex;
     gap: 0.75rem;
@@ -719,11 +789,6 @@ footer a {
 .bd2 em.k {
     background: #e8b45f;
     color: #3b2a0a;
-}
-
-.bd2 em.n {
-    background: var(--line);
-    color: var(--mute);
 }
 
 .pk-l {
@@ -894,9 +959,14 @@ footer a {
    9. Responsive Enhancements (viewport >= 47.5rem)
    -------------------------------------------------------------------------- */
 @media (min-width: 47.5rem) {
+    /* Calendar and map form one flush left column; the program list fills the right column
+       and ends exactly where the map ends. Row spacing comes from the map's margin only, so
+       exactly one card gap separates calendar and map. */
     .cw {
         grid-template-columns: 1.1fr 1fr;
         grid-template-rows: auto auto;
+        column-gap: var(--cw-gap);
+        row-gap: 0;
         align-items: start;
     }
 
@@ -909,12 +979,18 @@ footer a {
     .map-card {
         grid-column: 1;
         grid-row: 2;
+        margin-top: var(--cw-gap);
         order: unset;
     }
 
+    /* `contain: size` makes the list's own length irrelevant to the grid, so the card is exactly
+       as tall as the left column (stretched) and its .dp-list scrolls inside that height. */
     .dp {
         grid-column: 2;
-        grid-row: 1 / span 2;
+        grid-row: 1 / -1;
+        align-self: stretch;
+        contain: size;
+        max-height: none;
         order: unset;
     }
 

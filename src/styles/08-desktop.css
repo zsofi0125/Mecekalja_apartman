@@ -2,9 +2,14 @@
    9. Responsive Enhancements (viewport >= 47.5rem)
    -------------------------------------------------------------------------- */
 @media (min-width: 47.5rem) {
+    /* Calendar and map form one flush left column; the program list fills the right column
+       and ends exactly where the map ends. Row spacing comes from the map's margin only, so
+       exactly one card gap separates calendar and map. */
     .cw {
         grid-template-columns: 1.1fr 1fr;
         grid-template-rows: auto auto;
+        column-gap: var(--cw-gap);
+        row-gap: 0;
         align-items: start;
     }
 
@@ -17,12 +22,18 @@
     .map-card {
         grid-column: 1;
         grid-row: 2;
+        margin-top: var(--cw-gap);
         order: unset;
     }
 
+    /* `contain: size` makes the list's own length irrelevant to the grid, so the card is exactly
+       as tall as the left column (stretched) and its .dp-list scrolls inside that height. */
     .dp {
         grid-column: 2;
-        grid-row: 1 / span 2;
+        grid-row: 1 / -1;
+        align-self: stretch;
+        contain: size;
+        max-height: none;
         order: unset;
     }
 

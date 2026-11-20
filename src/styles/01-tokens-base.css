@@ -49,7 +49,11 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    /* No scroll-padding-top: anchor links must land with the target section's top edge at the top
+       of the viewport. The header is not pinned (.stage has overflow: hidden, which makes
+       position: sticky inert), so reserving space for it left part of the previous section
+       visible above the target. If the header is ever made truly sticky, set scroll-padding-top
+       to its height. */
 }
 
 body {

@@ -7,12 +7,12 @@ const luminance = hex => {
 const ratio = (a, b) => { const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05); };
 
 const themes = {
-    light: { bg: '#f4f7f1', card: '#ffffff', ink: '#1f2d25', mute: '#4f5f56', green: '#2f5d46', sage: '#d9e6d6', heroTop: '#cfe5d3' },
-    dark: { bg: '#141c17', card: '#1c2822', ink: '#eaf1ea', mute: '#a3b4a8', green: '#8cc5a0', sage: '#25382d', heroTop: '#1f3a2b' }
+    light: { bg: '#f4f7f1', card: '#ffffff', ink: '#1f2d25', mute: '#4f5f56', green: '#2f5d46', sage: '#d9e6d6', heroTop: '#cfe5d3', sun: '#e8b45f', onSun: '#1f2d25' },
+    dark: { bg: '#141c17', card: '#1c2822', ink: '#eaf1ea', mute: '#a3b4a8', green: '#8cc5a0', sage: '#25382d', heroTop: '#1f3a2b', sun: '#e8b45f', onSun: '#1f2d25' }
 };
 const pairs = [
     ['ink', 'bg'], ['mute', 'bg'], ['mute', 'card'], ['green', 'bg'], ['green', 'card'],
-    ['green', 'sage'], ['mute', 'sage'], ['bg', 'green'], ['green', 'heroTop'], ['mute', 'heroTop']
+    ['green', 'sage'], ['mute', 'sage'], ['bg', 'green'], ['green', 'heroTop'], ['mute', 'heroTop'], ['onSun', 'sun']
 ];
 let failures = 0;
 for (const [theme, colors] of Object.entries(themes)) {

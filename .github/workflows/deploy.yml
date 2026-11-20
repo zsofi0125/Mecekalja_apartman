@@ -12,10 +12,12 @@ on:
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# (issues: write lets the scraper open and close its alert issue)
 permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
@@ -23,11 +25,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Type check, contrast check, scraper tests and an offline build; a failure here blocks the deploy.
+  checks:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
   deploy:
+    needs: checks
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,8 +60,23 @@ jobs:
           key: events-cache-${{ github.run_id }}
           restore-keys: events-cache-
 
-      - name: Scrape events and build pages
-        run: npm run build
+      # Exits with an error (so nothing below runs and the previous site stays live) only when
+      # the result as a whole looks broken, e.g. most sources failing or the event total collapsing.
+      - name: Scrape events
+        id: scrape
+        run: npm run scrape
+
+      # Opens, refreshes or closes the "Event scraper needs attention" issue from scrape-report.json.
+      # Must never block the deploy itself.
+      - name: Update scraper alert issue
+        if: always() && steps.scrape.conclusion != 'skipped'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/events/sync-alert-issue.mjs
+
+      - name: Build pages
+        run: npm run build:pages
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -60,8 +85,10 @@ jobs:
         run: |
           mkdir -p _site/img
           cp -r hu en de _site/
-          cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon.svg sitemap.xml robots.txt _site/
+          cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
           cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
+          mkdir -p _site/img/icons
+          cp img/icons/*.webp _site/img/icons/
 
       - name: Upload static website artifact
         uses: actions/upload-pages-artifact@v3

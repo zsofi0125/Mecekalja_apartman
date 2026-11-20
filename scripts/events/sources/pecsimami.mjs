@@ -63,6 +63,7 @@ export const pecsimamiSource = {
     id: 'pecsimami',
     label: 'pecsimami.hu',
     homepage: START_URL,
+    minEvents: 30,
     async scrape(window) {
         /** @type {RawEvent[]} */
         const events = [];

@@ -3,133 +3,94 @@
  * events from today up to LOOKAHEAD_DAYS ahead near Pécs, tags and deduplicates them,
  * and writes events-data.js for the Programs section.
  *
- * A failing (or suddenly empty) source never fails the build: its last good result
- * from src/data/events-cache.json is used instead and a warning is printed.
+ * A failing source never fails the run by itself: its last good result from
+ * src/data/events-cache.json is used and the problem is reported. The run only exits
+ * with an error (so nothing is deployed) when the result as a whole looks broken –
+ * see health.mjs. Every run writes scrape-report.json / scrape-report.md.
  * Usage: npm run scrape (also part of npm run build)
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import { EVENT_SOURCES } from './sources/index.mjs';
 import { getEventWindow } from './dates.mjs';
 import { tagEvent } from './tagging.mjs';
 import { dedupeEvents } from './dedupe.mjs';
+import {
+    collectSource, fitToWindow, normalizeCache, renderEventsDataFile, sortChronologically, toBrowserProgram
+} from './pipeline.mjs';
+import { evaluateRun, renderReportMarkdown } from './health.mjs';
 
 const CACHE_FILE = 'src/data/events-cache.json';
 const OUTPUT_FILE = 'events-data.js';
-/** Centre of Pécs; touring performances further away than MAX_DISTANCE_KM are dropped. */
-const PECS_CENTRE = { lat: 46.0727, lng: 18.2323 };
-const MAX_DISTANCE_KM = 45;
+const REPORT_JSON_FILE = 'scrape-report.json';
+const REPORT_MARKDOWN_FILE = 'scrape-report.md';
 
-/** @typedef {import('./types.mjs').RawEvent} RawEvent */
-/** @typedef {import('./types.mjs').TaggedEvent} TaggedEvent */
-/** @typedef {import('./types.mjs').EventWindow} EventWindow */
-/** @typedef {Record<string, { fetchedAt: string, events: RawEvent[] }>} EventsCache */
+const runUrl = process.env.GITHUB_RUN_ID && process.env.GITHUB_REPOSITORY
+    ? `${process.env.GITHUB_SERVER_URL ?? 'https://github.com'}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+    : null;
 
-/** @returns {Promise<EventsCache>} */
 async function readCache() {
     try {
-        return JSON.parse(await readFile(CACHE_FILE, 'utf8'));
+        return normalizeCache(JSON.parse(await readFile(CACHE_FILE, 'utf8')));
     } catch {
-        return {};
+        return normalizeCache(null);
     }
 }
 
-function distanceKm(from, to) {
-    const toRadians = degrees => (degrees * Math.PI) / 180;
-    const dLat = toRadians(to.lat - from.lat);
-    const dLng = toRadians(to.lng - from.lng);
-    const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRadians(from.lat)) * Math.cos(toRadians(to.lat)) * Math.sin(dLng / 2) ** 2;
-    return 6371 * 2 * Math.asin(Math.sqrt(a));
+/** Shows up as an annotation on the GitHub run page; plain text elsewhere. */
+function logProblem(level, message) {
+    console[level === 'error' ? 'error' : 'warn'](process.env.GITHUB_ACTIONS ? `::${level}::${message}` : `⚠ ${message}`);
 }
 
-/**
- * Drops events outside the window or far from Pécs, and clips multi-day events to the window
- * (so a long exhibition starts "today" and matches the same exhibition from another source).
- * @param {RawEvent} event
- * @param {EventWindow} window
- * @returns {RawEvent|null}
- */
-function fitToWindow(event, window) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(event.startDate)) return null;
-    if (event.coordinates && distanceKm(PECS_CENTRE, event.coordinates) > MAX_DISTANCE_KM) return null;
-    const lastDay = event.endDate && event.endDate > event.startDate ? event.endDate : event.startDate;
-    if (lastDay < window.firstDay || event.startDate > window.lastDay) return null;
-
-    const startDate = event.startDate < window.firstDay ? window.firstDay : event.startDate;
-    const endDate = lastDay > window.lastDay ? window.lastDay : lastDay;
-    return { ...event, startDate, endDate: endDate > startDate ? endDate : null };
-}
-
-/**
- * Scrapes one source, falling back to its cached result on error or on an empty result.
- * @returns {Promise<{ events: RawEvent[], fromCache: boolean }>}
- */
-async function collectSource(source, window, cache) {
-    const cached = cache[source.id]?.events || [];
-    const cachedInWindow = cached.filter(event => fitToWindow(event, window));
-    try {
-        const events = await source.scrape(window);
-        if (!events.length && cachedInWindow.length) {
-            console.warn(`⚠ ${source.label}: returned no events, using ${cachedInWindow.length} cached (${cache[source.id].fetchedAt})`);
-            return { events: cached, fromCache: true };
-        }
-        cache[source.id] = { fetchedAt: new Date().toISOString(), events };
-        return { events, fromCache: false };
-    } catch (error) {
-        const detail = error instanceof Error ? error.message : String(error);
-        console.warn(`⚠ ${source.label}: ${detail}${cached.length ? ` – using cached data from ${cache[source.id].fetchedAt}` : ' – no cached data, skipped'}`);
-        return { events: cached, fromCache: true };
-    }
-}
-
-/** @param {TaggedEvent} event */
-function toBrowserProgram(event) {
-    return {
-        dates: event.endDate ? `${event.startDate}..${event.endDate}` : event.startDate,
-        ...(event.time ? { time: event.time } : {}),
-        ...(event.venue ? { venue: event.venue } : {}),
-        category: event.category,
-        kidFriendly: event.kidFriendly,
-        title: { hu: event.title },
-        url: event.url,
-        source: event.source
-    };
-}
-
-function renderOutput(programs, activeSources, updatedOn) {
-    const lines = programs.map(program => `    ${JSON.stringify(program)}`).join(',\n');
-    return `/**
- * GENERATED by scripts/events/index.mjs (npm run scrape) – do not edit by hand.
- * Upcoming events scraped from the sources listed in EVENTS_FEED.
- */
-
-/** @type {Program[]} */
-const SCRAPED_EVENTS = [
-${lines}
-];
-
-/** @type {EventsFeed} */
-const EVENTS_FEED = ${JSON.stringify({ updatedOn, sources: activeSources }, null, 4)};
-`;
-}
-
-const window = getEventWindow();
+const now = new Date();
+const window = getEventWindow(now);
 const cache = await readCache();
-/** @type {TaggedEvent[]} */
+const previousTotal = cache.lastRun?.total ?? null;
+
+/** @type {import('./types.mjs').TaggedEvent[]} */
 const tagged = [];
+const sourceReports = [];
 const activeSources = [];
 
 for (const source of EVENT_SOURCES) {
-    const { events, fromCache } = await collectSource(source, window, cache);
+    const { events, report } = await collectSource(source, window, cache.sources, now);
     const inWindow = events.map(event => fitToWindow(event, window)).filter(Boolean);
     tagged.push(...inWindow.map(event => ({ ...event, source: source.id, ...tagEvent(event, source.id) })));
+    sourceReports.push(report);
     if (inWindow.length) activeSources.push({ label: source.label, url: source.homepage });
-    console.log(`${fromCache ? '↺' : '✓'} ${source.label}: ${events.length} scraped, ${inWindow.length} in window`);
+    const icon = { ok: '✓', cached: '↺', failed: '✗' }[report.status];
+    console.log(`${icon} ${source.label}: ${report.scraped ?? 'error'} scraped, ${report.inWindow} in window${report.reason ? ` – ${report.reason}` : ''}`);
 }
 
-const programs = dedupeEvents(tagged)
-    .sort((a, b) => a.startDate.localeCompare(b.startDate) || (a.time || '99').localeCompare(b.time || '99') || a.title.localeCompare(b.title, 'hu'))
-    .map(toBrowserProgram);
+const programs = sortChronologically(dedupeEvents(tagged));
+const totalEvents = programs.length;
+const verdict = evaluateRun({ sources: sourceReports, totalEvents, previousTotal });
+/** @type {import('./types.mjs').ScrapeReport} */
+const report = {
+    generatedAt: now.toISOString(),
+    window,
+    totalEvents,
+    previousTotal,
+    mergedDuplicates: tagged.length - totalEvents,
+    sources: sourceReports,
+    ...verdict
+};
 
-await writeFile(CACHE_FILE, JSON.stringify(cache, null, 1) + '\n');
-await writeFile(OUTPUT_FILE, renderOutput(programs, activeSources, window.firstDay));
-console.log(`Wrote ${programs.length} events (${tagged.length - programs.length} duplicates merged) from ${activeSources.length} sources to ${OUTPUT_FILE}`);
+const markdown = renderReportMarkdown(report, runUrl);
+await writeFile(REPORT_JSON_FILE, JSON.stringify(report, null, 2) + '\n');
+await writeFile(REPORT_MARKDOWN_FILE, markdown);
+if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown);
+
+for (const problem of report.problems) logProblem(report.verdict === 'abort' ? 'error' : 'warning', problem);
+for (const note of report.notes) console.log(`ℹ ${note}`);
+
+if (report.verdict === 'abort') {
+    // Keep the good per-source results, but leave events-data.js and the previous total alone.
+    await writeFile(CACHE_FILE, JSON.stringify(cache, null, 1) + '\n');
+    console.error(`Aborted: ${report.problems[0]}`);
+    process.exitCode = 1;
+} else {
+    cache.lastRun = { total: totalEvents, at: now.toISOString() };
+    await writeFile(CACHE_FILE, JSON.stringify(cache, null, 1) + '\n');
+    await writeFile(OUTPUT_FILE, renderEventsDataFile(programs.map(toBrowserProgram), activeSources, window.firstDay));
+    console.log(`Wrote ${totalEvents} events (${report.mergedDuplicates} duplicates merged) from ${activeSources.length} sources to ${OUTPUT_FILE} [${report.verdict}]`);
+}

@@ -1,0 +1,77 @@
+{
+ "error": [],
+ "success": [],
+ "response": [
+  {
+   "name": "Dallam és bábu egy ütemre - kiállítás",
+   "date": "2026.11.20.",
+   "time": "",
+   "date_string": "<strong>2026.05.09. - 2026.12.30.</strong>",
+   "location": "Bóbita Bábszínház",
+   "place": "Bóbita Bábszínház",
+   "tags": [
+    {
+     "name": "Bábszínház",
+     "url": "babszinhaz"
+    },
+    {
+     "name": "Kiállítás",
+     "url": "kiallitas"
+    }
+   ],
+   "url": "http://www.zsolnaynegyed.hu/programok/dallam-es-babu-egy-utemre-kiallitas",
+   "current_day_iteration": "2026-11-20",
+   "day_start_original": "2026-05-09"
+  },
+  {
+   "name": "Amiről a sírok mesélnek",
+   "date": "2026.11.20.",
+   "time": "14:00",
+   "date_string": "<strong>2026.11.20.</strong> 14:00",
+   "location": "Cella Septichora Látogatóközpont",
+   "place": "Cella Septichora Látogatóközpont",
+   "tags": [
+    {
+     "name": "Vezetés",
+     "url": "vezetes"
+    },
+    {
+     "name": "Történelmi",
+     "url": "tortenelmi"
+    }
+   ],
+   "url": "http://www.vilagoroksegpecs.hu/programok/vilagoroksegi-setak",
+   "current_day_iteration": "2026-11-20",
+   "day_start_original": "2026-11-20"
+  },
+  {
+   "name": "Mázba zárt mesék",
+   "date": "2026.11.21.",
+   "time": "10:00",
+   "date_string": "<strong>2026.11.21.</strong> 10:00 - 11:00",
+   "location": "Sikorski Villa",
+   "place": "Sikorski Villa",
+   "tags": [
+    {
+     "name": "Gyerek",
+     "url": "gyerek"
+    },
+    {
+     "name": "Családi",
+     "url": "csaladi"
+    },
+    {
+     "name": "Foglalkozás",
+     "url": "foglalkozas"
+    },
+    {
+     "name": "Képzőműv.",
+     "url": "kepzomuv"
+    }
+   ],
+   "url": "http://www.zsolnaynegyed.hu/programok/mazba-zart-mesek",
+   "current_day_iteration": "2026-11-21",
+   "day_start_original": "2026-11-21"
+  }
+ ]
+}

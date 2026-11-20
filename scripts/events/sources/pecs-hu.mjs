@@ -43,6 +43,7 @@ export const pecsHuSource = {
     id: 'pecs-hu',
     label: 'pecs.hu',
     homepage: 'https://pecs.hu/programok/',
+    minEvents: 20,
     async scrape() {
         const categoryNames = await fetchCategoryNames();
         const events = [];

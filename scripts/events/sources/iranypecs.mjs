@@ -70,6 +70,7 @@ export const iranyPecsSource = {
     id: 'iranypecs',
     label: 'iranypecs.hu',
     homepage: 'https://iranypecs.hu/programok/',
+    minEvents: 20,
     async scrape(window) {
         /** @type {RawEvent[]} */
         const events = [];

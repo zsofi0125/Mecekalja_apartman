@@ -131,16 +131,14 @@
      * @param {Program} program
      * @param {boolean} isPickOfTheDay
      * @param {EventsLabelSet} labels
-     * @param {typeof EVENTS_NOTES} notes
      * @param {LanguageCode} language
      */
-    function renderProgramCard(program, isPickOfTheDay, labels, notes, language) {
+    function renderProgramCard(program, isPickOfTheDay, labels, language) {
         const title = escapeHtml(getProgramTitle(program, language));
         const safeUrl = program.url ? toSafeUrl(program.url) : '';
         const titleMarkup = safeUrl
             ? `<a href="${safeUrl}" target="_blank" rel="noopener">${title}</a>`
             : title;
-        const kidLabel = program.kidFriendly ? '👶 ' + labels.ok : notes[language].no;
 
         return `
             <div class="pg ${isPickOfTheDay ? 'pk' : ''}">
@@ -152,7 +150,7 @@
                         ${program.venue ? `<em class="pg-venue">📍 ${escapeHtml(program.venue)}</em>` : ''}
                         ${program.distanceKm === undefined ? '' : `<em>~${Number(program.distanceKm)} ${escapeHtml(labels.km)}</em>`}
                         <em>${escapeHtml(labels.t[program.category])}</em>
-                        <em class="${program.kidFriendly ? 'k' : 'n'}">${escapeHtml(kidLabel)}</em>
+                        ${program.kidFriendly ? `<em class="k">👶 ${escapeHtml(labels.ok)}</em>` : ''}
                     </div>
                 </div>
             </div>`;
@@ -161,10 +159,9 @@
     /**
      * @param {LanguageCode} language
      * @param {EventsLabelSet} labels
-     * @param {typeof EVENTS_NOTES} notes
      * @param {string} locale
      */
-    function renderDayPrograms(language, labels, notes, locale) {
+    function renderDayPrograms(language, labels, locale) {
         const container = byId('dp');
         if (!container) return;
 
@@ -186,13 +183,14 @@
             visiblePrograms = [pickOfTheDay, ...visiblePrograms.filter(program => program !== pickOfTheDay)];
         }
 
-        const heading = `<h3>${escapeHtml(selectedDate.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' }))}</h3>`;
+        const heading = `<h3 id="dp-heading">${escapeHtml(selectedDate.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' }))}</h3>`;
         const body = visiblePrograms.length
             ? visiblePrograms
-                  .map(program => renderProgramCard(program, program === pickOfTheDay, labels, notes, language))
+                  .map(program => renderProgramCard(program, program === pickOfTheDay, labels, language))
                   .join('')
             : `<p>${escapeHtml(labels.none)}</p>`;
-        container.innerHTML = `${heading}${body}${renderSourceNote(labels, locale)}`;
+        // The heading stays put; the cards and the source note scroll (keyboard-focusable, named by the heading).
+        container.innerHTML = `${heading}<div class="dp-list" role="region" tabindex="0" aria-labelledby="dp-heading">${body}${renderSourceNote(labels, locale)}</div>`;
     }
 
     /**
@@ -226,7 +224,7 @@
 
         renderCategoryChips(labels);
         renderCalendar(locale, labels);
-        renderDayPrograms(activeLanguage, labels, EVENTS_NOTES, locale);
+        renderDayPrograms(activeLanguage, labels, locale);
     }
 
     function initEventsWidget() {

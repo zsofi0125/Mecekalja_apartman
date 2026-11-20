@@ -19,13 +19,15 @@ export const EVENT_SOURCES = [
         id: 'pecsiprogram',
         label: 'pecsiprogram.hu',
         homepage: 'https://www.pecsiprogram.hu/',
-        listPageUrl: 'https://www.pecsiprogram.hu/programok'
+        listPageUrl: 'https://www.pecsiprogram.hu/programok',
+        minEvents: 30
     }),
     createProgramsCmsSource({
         id: 'zsolnaynegyed',
         label: 'zsolnaynegyed.hu',
         homepage: 'https://www.zsolnaynegyed.hu/programok',
-        listPageUrl: 'https://www.zsolnaynegyed.hu/programok'
+        listPageUrl: 'https://www.zsolnaynegyed.hu/programok',
+        minEvents: 20
     }),
     pecsHuSource,
     iranyPecsSource,

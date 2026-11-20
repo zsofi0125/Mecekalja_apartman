@@ -26,8 +26,9 @@
 }
 
 .cw {
+    --cw-gap: 1.125rem;
     display: grid;
-    gap: 1.125rem;
+    gap: var(--cw-gap);
 }
 
 .cal,
@@ -125,6 +126,52 @@
     font-variant-numeric: tabular-nums;
 }
 
+/* Program list card: the date heading stays visible while the cards scroll underneath.
+   Mobile: the card is capped in height. Desktop (08-desktop.css): it takes the height of the
+   calendar + map column instead. */
+.dp {
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+    max-height: 70dvh;
+}
+
+.dp-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Reserve the scrollbar's space so cards do not change width between short and long days */
+    scrollbar-gutter: stable;
+    padding-right: 0.25rem;
+}
+
+/* Firefox only: Chromium and Safari use the ::-webkit-scrollbar rules below, because there the
+   standard properties would override them and bring back the native arrow buttons. */
+@supports not selector(::-webkit-scrollbar) {
+    .dp-list {
+        scrollbar-width: thin;
+        scrollbar-color: color-mix(in srgb, var(--green) 45%, transparent) transparent;
+    }
+}
+
+.dp-list::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.dp-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dp-list::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--green) 45%, transparent);
+    border-radius: 6.1875rem;
+}
+
+.dp-list::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--green) 70%, transparent);
+}
+
 .pg {
     display: flex;
     gap: 0.75rem;
@@ -179,11 +226,6 @@
 .bd2 em.k {
     background: #e8b45f;
     color: #3b2a0a;
-}
-
-.bd2 em.n {
-    background: var(--line);
-    color: var(--mute);
 }
 
 .pk-l {

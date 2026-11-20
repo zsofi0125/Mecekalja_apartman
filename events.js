@@ -7,7 +7,7 @@
  */
 
 /** @typedef {'hu'|'en'|'de'} LanguageCode */
-/** @typedef {'relax'|'active'|'culture'|'family'|'food'} ProgramCategory */
+/** @typedef {'relax'|'active'|'culture'|'family'|'concert'|'food'} ProgramCategory */
 
 /**
  * A recurring program (has `months`) or a dated event (has `dates`).

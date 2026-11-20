@@ -17,7 +17,6 @@
  * @property {string} all
  * @property {string} kid
  * @property {string} ok
- * @property {string} no
  * @property {string} km
  * @property {string} pick
  * @property {string} none
@@ -37,7 +36,6 @@ const EVENTS_LABELS = {
         all: 'All',
         kid: 'For kids',
         ok: 'Kid-friendly',
-        no: 'Not for little ones',
         km: 'km away',
         pick: 'Pick of the day',
         none: 'Nothing matches these filters.',
@@ -49,6 +47,7 @@ const EVENTS_LABELS = {
             active: 'Active',
             culture: 'Culture',
             family: 'Family fun',
+            concert: 'Koncertek',
             food: 'Food & wine'
         }
     },
@@ -60,7 +59,6 @@ const EVENTS_LABELS = {
         all: 'Mind',
         kid: 'Gyerekeknek',
         ok: 'Gyerekbarát',
-        no: 'Kisgyerekeknek nem ideális',
         km: 'km-re',
         pick: 'A nap ajánlata',
         none: 'Nincs a szűrőknek megfelelő program.',
@@ -72,6 +70,7 @@ const EVENTS_LABELS = {
             active: 'Aktív',
             culture: 'Kultúra',
             family: 'Családi program',
+            concert: 'Koncertek',
             food: 'Gasztro és bor'
         }
     },
@@ -83,7 +82,6 @@ const EVENTS_LABELS = {
         all: 'Alle',
         kid: 'Für Kinder',
         ok: 'Kinderfreundlich',
-        no: 'Nicht für Kleinkinder',
         km: 'km entfernt',
         pick: 'Tipp des Tages',
         none: 'Keine Programme für diese Filter.',
@@ -95,24 +93,9 @@ const EVENTS_LABELS = {
             active: 'Aktiv',
             culture: 'Kultur',
             family: 'Familienspaß',
+            concert: 'Koncertek',
             food: 'Essen & Wein'
         }
-    }
-};
-
-/**
- * Event source disclaimers and notes.
- */
-/** @type {Record<LanguageCode, {no: string}>} */
-const EVENTS_NOTES = {
-    en: {
-        no: 'Not specifically for kids'
-    },
-    hu: {
-        no: 'Nem kifejezetten gyerekeknek'
-    },
-    de: {
-        no: 'Nicht speziell für Kinder'
     }
 };
 
