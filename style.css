@@ -428,8 +428,9 @@ h2 {
     box-sizing: border-box;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    aspect-ratio: 4/3;
+    aspect-ratio: 3/4;
     border-radius: 16px;
+    overflow: hidden;
     display: flex;
     align-items: end;
     padding: 14px;
@@ -439,6 +440,22 @@ h2 {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+}
+
+.feat-grid {
+    grid-template-columns: 1fr;
+}
+
+.gal-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.gal-extra {
+    display: none;
 }
 
 .gal-item.g1 {
@@ -468,6 +485,38 @@ h2 {
     gap: 12px;
     padding: 12px 0;
     border-bottom: 1px solid var(--line);
+}
+
+.area li.col-head {
+    padding: 4px 0 8px;
+}
+
+.area li.col-head b {
+    font-size: 11px;
+    opacity: 0.8;
+    white-space: normal;
+    text-align: right;
+}
+
+.area li.no-line {
+    border-bottom: 0;
+    padding-bottom: 4px;
+    font-weight: 600;
+}
+
+.area li.sub {
+    display: block;
+    padding: 0 0 8px 18px;
+}
+
+.area li.sub ul {
+    margin-top: 0;
+}
+
+.area li.sub li {
+    font-size: 14px;
+    padding: 8px 0;
+    color: var(--mute);
 }
 
 .area ul {
@@ -988,6 +1037,14 @@ footer a {
         grid-template-columns: repeat(4, 1fr);
     }
 
+    .feat-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gal-item img {
+        object-fit: contain;
+    }
+
     .split {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1005,7 +1062,7 @@ footer a {
 
     .gal {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         gap: 14px;
         width: auto;
         scroll-snap-type: none;
@@ -1015,18 +1072,17 @@ footer a {
         display: none !important;
     }
 
-    .gal-item {
+    .gal-item,
+    .gal-extra {
+        display: block;
         flex: none;
         width: auto;
         min-width: 0;
         max-width: none;
+        padding: 0;
+        aspect-ratio: 3 / 4;
         scroll-snap-align: none;
         scroll-snap-stop: normal;
-    }
-
-    .gal-item.g1 {
-        grid-row: span 2;
-        aspect-ratio: auto;
     }
 
     .map-frame {
