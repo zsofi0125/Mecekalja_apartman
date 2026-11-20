@@ -196,15 +196,15 @@ const U = {
 const X = {
     en: {
         no: 'Not specifically for kids',
-        src: 'Event listings from pecsiprogram.hu, pecs.hu, pecsimami.hu and programturizmus.hu, last updated 18 Nov 2026.'
+        src: 'Event listings from pecsiprogram.hu, pecs.hu, pecsimami.hu and programturizmus.hu, last updated 20 Nov 2026.'
     },
     hu: {
         no: 'Nem kifejezetten gyerekeknek',
-        src: 'Az események forrásai: pecsiprogram.hu, pecs.hu, pecsimami.hu és programturizmus.hu, utolsó frissítés: 2026. 11. 18.'
+        src: 'Az események forrásai: pecsiprogram.hu, pecs.hu, pecsimami.hu és programturizmus.hu, utolsó frissítés: 2026. 11. 20.'
     },
     de: {
         no: 'Nicht speziell für Kinder',
-        src: 'Veranstaltungen von pecsiprogram.hu, pecs.hu, pecsimami.hu und programturizmus.hu, Stand 18.11.2026.'
+        src: 'Veranstaltungen von pecsiprogram.hu, pecs.hu, pecsimami.hu und programturizmus.hu, Stand 20.11.2026.'
     }
 };
 
