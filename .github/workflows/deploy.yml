@@ -54,7 +54,7 @@ jobs:
       # Last good scrape per source; used when a source is down or changed its markup.
       # Each run saves a new entry; the newest one is restored on the next run.
       - name: Restore event scrape cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: src/data/events-cache.json
           key: events-cache-${{ github.run_id }}
