@@ -14,12 +14,12 @@ const WIDTHS = [480, 800, 1200];
 
 /** Gallery order matters: it is the order shown on the page. */
 export const GALLERY_SOURCES = [
+    'bedrooms/IMG_7060.JPG',
     'bedrooms/IMG_7049.JPG',
-    'kitchen/IMG_7044.JPG',
-    'bedrooms/IMG_7052.JPG',
-    'bedrooms/IMG_7056.JPG',
-    'bedrooms/IMG_7059.JPG',
-    'bathroom/IMG_7033.JPEG'
+    'kitchen/IMG_7046.JPG',
+    'bathroom/IMG_7033.JPEG',
+    'entrance/IMG_7064.JPG',
+    'bedrooms/IMG_7056.JPG'
 ];
 
 await mkdir(OUTPUT_DIR, { recursive: true });

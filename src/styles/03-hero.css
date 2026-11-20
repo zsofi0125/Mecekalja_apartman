@@ -35,20 +35,6 @@
     z-index: 3;
 }
 
-.tag {
-    display: inline-block;
-    background: var(--sage);
-    color: var(--green);
-    padding: 0.3125rem 0.75rem;
-    border-radius: 6.1875rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
-}
-
 .hero h1 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-weight: 700;
@@ -82,7 +68,7 @@
     text-decoration: none;
     background: var(--green);
     color: var(--bg);
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     white-space: nowrap;
 }
 

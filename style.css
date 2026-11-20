@@ -13,6 +13,7 @@
     --green: #2f5d46;
     --sage: #d9e6d6;
     --sun: #e8b45f;
+    --on-sun: #1f2d25;
     --line: #dfe8dc;
     --stage: #e6ece3;
     --hero-top: #cfe5d3;
@@ -169,7 +170,7 @@ h3 {
 .lang .lang-ic {
     margin-left: 0.375rem;
     margin-right: 2px;
-    color: var(--mute);
+    color: var(--sun);
     display: inline-flex;
     align-items: center;
 }
@@ -233,20 +234,6 @@ h3 {
     z-index: 3;
 }
 
-.tag {
-    display: inline-block;
-    background: var(--sage);
-    color: var(--green);
-    padding: 0.3125rem 0.75rem;
-    border-radius: 6.1875rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
-}
-
 .hero h1 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-weight: 700;
@@ -280,7 +267,7 @@ h3 {
     text-decoration: none;
     background: var(--green);
     color: var(--bg);
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     white-space: nowrap;
 }
 
@@ -501,6 +488,28 @@ h2 {
     background: transparent;
     color: var(--bg);
     border-color: var(--bg);
+}
+
+/* Booking buttons (hero and CTA): orange at rest, a subtle brightness shine on hover */
+.btn,
+.btn.alt,
+.cta .btn,
+.cta .btn.alt {
+    background: var(--sun);
+    color: var(--on-sun);
+    border: 1.5px solid var(--sun);
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+    .btn:hover,
+    .btn.alt:hover,
+    .cta .btn:hover,
+    .cta .btn.alt:hover {
+        filter: brightness(1.18);
+        box-shadow: 0 0 14px rgba(235, 175, 95, 0.45);
+        opacity: 1;
+    }
 }
 
 .cta .btns {
@@ -948,8 +957,9 @@ footer a {
     }
 
     .hero h1 {
-        font-size: 3.75rem;
+        font-size: clamp(1.75rem, 4vw, 3.75rem);
         line-height: 1.1;
+        max-width: none;
     }
 
     .hero svg {

@@ -15,7 +15,7 @@
     <!-- Upper Mast -->
     <rect x="58" y="32" width="4" height="16" fill="#ffffff" />
     <rect x="58" y="48" width="4" height="14" fill="#d32f2f" />
-    <rect x="57.5" y="62" width="5" height="10" fill="#81d4fa" />
+    <rect x="57.5" y="62" width="5" height="10" fill="#8c8e91" />
     <!-- Mid Mast -->
     <rect x="57" y="72" width="6" height="18" fill="#ffffff" />
     <rect x="57" y="90" width="6" height="18" fill="#d32f2f" />
@@ -23,7 +23,7 @@
     <rect x="56" y="108" width="8" height="20" fill="#ffffff" />
     <rect x="55" y="128" width="10" height="14" fill="#d32f2f" />
     <!-- Collar above decks -->
-    <rect x="52" y="142" width="16" height="10" rx="1" fill="#81d4fa" />
+    <rect x="52" y="142" width="16" height="10" rx="1" fill="#8c8e91" />
   </g>
 
   <!-- Upper Observation Deck -->
@@ -38,7 +38,7 @@
   <!-- Connector Neck -->
   <g id="neck">
     <rect x="49" y="171" width="22" height="7" fill="#ffffff" />
-    <rect x="49" y="178" width="22" height="6" fill="#81d4fa" />
+    <rect x="49" y="178" width="22" height="6" fill="#8c8e91" />
   </g>
 
   <!-- Lower Main Deck (Restaurant / Viewing Pod) -->
@@ -55,13 +55,13 @@
   <!-- Main Tapered Concrete Shaft -->
   <g id="shaft">
     <!-- Upper shaft -->
-    <polygon points="51,212 69,212 71,245 49,245" fill="#81d4fa" />
+    <polygon points="51,212 69,212 71,245 49,245" fill="#8c8e91" />
     <!-- Mid shaft -->
-    <polygon points="49,245 71,245 74,295 46,295" fill="#ffffff" />
+    <polygon points="49,245 71,245 74,295 46,295" fill="#8c8e91" />
     <!-- Lower shaft -->
-    <polygon points="46,295 74,295 78,345 42,345" fill="#81d4fa" />
+    <polygon points="46,295 74,295 78,345 42,345" fill="#8c8e91" />
     <!-- Base Flare -->
-    <polygon points="42,345 78,345 84,360 36,360" fill="#ffffff" />
+    <polygon points="42,345 78,345 84,360 36,360" fill="#8c8e91" />
   </g>
 
   <!-- Overlay Shading for Depth -->

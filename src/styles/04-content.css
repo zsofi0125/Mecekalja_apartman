@@ -207,6 +207,28 @@ h2 {
     border-color: var(--bg);
 }
 
+/* Booking buttons (hero and CTA): orange at rest, a subtle brightness shine on hover */
+.btn,
+.btn.alt,
+.cta .btn,
+.cta .btn.alt {
+    background: var(--sun);
+    color: var(--on-sun);
+    border: 1.5px solid var(--sun);
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+    .btn:hover,
+    .btn.alt:hover,
+    .cta .btn:hover,
+    .cta .btn.alt:hover {
+        filter: brightness(1.18);
+        box-shadow: 0 0 14px rgba(235, 175, 95, 0.45);
+        opacity: 1;
+    }
+}
+
 .cta .btns {
     max-width: 21.25rem;
     margin: 1.25rem auto 0;
