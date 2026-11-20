@@ -1,0 +1,17 @@
+/* --------------------------------------------------------------------------
+   10. Language chooser (root page)
+   -------------------------------------------------------------------------- */
+.lang-chooser {
+    min-height: 100dvh;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--bg);
+}
+
+.lang-chooser h1 {
+    color: var(--green);
+}

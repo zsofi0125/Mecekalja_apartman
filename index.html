@@ -4,201 +4,28 @@
 <head>
     <meta charset="utf-8">
     <title>Mecsekalja Apartman · Pécs</title>
+    <meta name="description" content="Mecsekalja Apartman, Pécs – Magyar · English · Deutsch">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-    <!-- Google Fonts: Plus Jakarta Sans (Headings), Inter (Body & UI), Space Mono (Monospace) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
-
-    <!-- Stylesheet -->
+    <link rel="canonical" href="https://mecsakaljaapartman.hu/">
+    <link rel="alternate" hreflang="hu" href="https://mecsakaljaapartman.hu/hu/">
+    <link rel="alternate" hreflang="en" href="https://mecsakaljaapartman.hu/en/">
+    <link rel="alternate" hreflang="de" href="https://mecsakaljaapartman.hu/de/">
+    <link rel="alternate" hreflang="x-default" href="https://mecsakaljaapartman.hu/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
+    <script src="lang-redirect.js" defer></script>
 </head>
 
 <body>
-    <!-- Viewport / Device Preview Simulator -->
-    <div class="bar">
-        <span id="pv"></span>
-        <button id="bd" class="on">Desktop</button>
-        <button id="bm">Mobile</button>
-    </div>
-
-    <div class="stage" id="st">
-        <!-- Header & Navigation -->
-        <header class="nav">
-            <a href="#" class="logo" data-i="logo">Mecsekalja apartman</a>
-            <ul>
-                <li><a href="#about" data-i="n1"></a></li>
-                <li><a href="#gallery" data-i="n2"></a></li>
-                <li><a href="#area" data-i="n3"></a></li>
-                <li><a href="#events" data-i="n4"></a></li>
-            </ul>
-            <div class="lang">
-                <span class="lang-ic" aria-hidden="true">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                        <path d="M2 12h20" />
-                    </svg>
-                </span>
-                <button class="on" data-l="hu">HU</button>
-                <button data-l="en">EN</button>
-                <button data-l="de">DE</button>
-            </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <span class="tag" data-i="tag"></span>
-            <h1 data-i="h1"></h1>
-            <p data-i="sub"></p>
-            <div class="btns">
-                <a class="btn" href="#book" data-i="b1"></a>
-                <a class="btn alt" href="#book" data-i="b2"></a>
-                <a class="btn alt" href="#book" data-i="b3"></a>
-            </div>
-            <img src="img/tv_tower.svg" alt="Pécs TV-torony" class="hero-tower" aria-hidden="true">
-            <svg viewBox="0 0 800 150" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0 90 Q120 20 260 70 T520 50 T800 80V150H0Z" fill="#a9c9ae" opacity=".6" />
-                <path d="M0 120 Q160 60 320 105 T640 90 T800 110V150H0Z" fill="#6f9f7e" opacity=".7" />
-                <path d="M0 140 Q200 100 400 130 T800 125V150H0Z" fill="#2f5d46" />
-            </svg>
-        </section>
-
-        <!-- About Section -->
-        <section id="about">
-            <div class="split">
-                <div>
-                    <h2 data-i="h2a"></h2>
-                    <p data-i="pa"></p>
-                    <div class="facts">
-                        <span data-i="f1"></span>
-                        <span data-i="f2"></span>
-                    </div>
-                </div>
-                <div class="grid feat-grid">
-                    <div class="card">
-                        <div class="ic">🚗</div>
-                        <h3 data-i="c1"></h3>
-                        <p data-i="d1"></p>
-                    </div>
-                    <div class="card">
-                        <div class="ic">🥾</div>
-                        <h3 data-i="c2"></h3>
-                        <p data-i="d2"></p>
-                    </div>
-                    <div class="card">
-                        <div class="ic">🚌</div>
-                        <h3 data-i="c3"></h3>
-                        <p data-i="d3"></p>
-                    </div>
-                    <div class="card">
-                        <div class="ic">🛍️</div>
-                        <h3 data-i="c4"></h3>
-                        <p data-i="d4"></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section id="gallery">
-            <h2 data-i="h2b"></h2>
-            <div class="gal-wrap">
-                <div class="gal">
-                    <div class="gal-item g4 clone" aria-hidden="true"><img src="img/apartman_imgs/bedrooms/IMG_7056.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g1"><img src="img/apartman_imgs/bedrooms/IMG_7059.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g2"><img src="img/apartman_imgs/bedrooms/IMG_7049.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g3"><img src="img/apartman_imgs/kitchen/IMG_7044.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g4"><img src="img/apartman_imgs/bedrooms/IMG_7056.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g1 clone" aria-hidden="true"><img src="img/apartman_imgs/bedrooms/IMG_7049.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g5 gal-extra"><img src="img/apartman_imgs/bedrooms/IMG_7052.JPG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                    <div class="gal-item g6 gal-extra"><img src="img/apartman_imgs/bathroom/IMG_7033.JPEG" alt="Mecsekalja Apartman" loading="lazy"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Area / Surroundings Section -->
-        <section class="area" id="area">
-            <h2 data-i="h2c"></h2>
-            <p data-i="pc"></p>
-            <ul>
-                <li class="col-head"><span></span><b data-i="dist"></b></li>
-                <li><span data-i="a2"></span><b>~4 km</b></li>
-                <li><span data-i="a3"></span><b>~5 km</b></li>
-                <li><span data-i="a4"></span><b>~20 km</b></li>
-                <li class="no-line"><span data-i="a1"></span></li>
-                <li class="sub">
-                    <ul>
-                        <li><span data-i="r1"></span><b>~5 km</b></li>
-                        <li><span data-i="r2"></span><b>~7 km</b></li>
-                        <li><span data-i="r3"></span><b>~11 km</b></li>
-                        <li><span data-i="r4"></span><b>~24 km</b></li>
-                        <li><span data-i="r5"></span><b>~16 km</b></li>
-                    </ul>
-                </li>
-                <li><span data-i="a5"></span><b>~28 km</b></li>
-                <li><span data-i="a6"></span><b>~33 km</b></li>
-            </ul>
-        </section>
-
-        <!-- Programs & Events Calendar Section -->
-        <section id="events">
-            <h2 id="h2e"></h2>
-            <p id="pe" style="color:var(--mute)"></p>
-            <div class="chips" id="chips"></div>
-            <div class="cw">
-                            <div class="cal" id="cal"></div>
-                            <div class="dp" id="dp"></div>
-                            <div class="map-card" id="map">
-                                <div class="map-header">
-                                    <div class="map-addr-wrap">
-                                        <span class="ic" aria-hidden="true">📍</span>
-                                        <span class="map-addr" data-i="map_addr">7635 Pécs, Kerényi Károly u. 8/A</span>
-                                    </div>
-                                    <a href="https://www.google.com/maps/dir/?api=1&origin=P%C3%A9cs%2C+Ker%C3%A9nyi+K%C3%A1roly+u.+8%2FA"
-                                        target="_blank" rel="noopener noreferrer" class="map-dir-btn">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                                            stroke-linejoin="round" aria-hidden="true">
-                                            <polygon points="3 11 22 2 13 21 11 13 3 11" />
-                                        </svg>
-                                        <span data-i="map_btn"></span>
-                                    </a>
-                                </div>
-                                <div class="map-frame">
-                                    <iframe
-                                        src="https://maps.google.com/maps?q=P%C3%A9cs%2C+Ker%C3%A9nyi+K%C3%A1roly+u.+8%2FA&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                        title="Mecsekalja Apartman - Pécs, Kerényi Károly u. 8/A">
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-        </section>
-
-        <!-- Booking CTA Section -->
-        <section class="cta" id="book">
-            <h2 data-i="h2d"></h2>
-            <p data-i="pd"></p>
-            <div class="btns">
-                <a class="btn" href="#" data-i="b1"></a>
-                <a class="btn alt" href="#" data-i="b2"></a>
-                <a class="btn alt" href="#" data-i="b3"></a>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>© 2026 Mecsekalja Apartman · Pécs, Hungary · [email / phone]</footer>
-    </div>
-
-    <!-- Application Scripts -->
-    <script src="translations.js"></script>
-    <script src="events.js"></script>
-    <script src="app.js"></script>
+    <main class="lang-chooser">
+        <h1>Mecsekalja Apartman</h1>
+        <nav class="btns" aria-label="Language">
+                <a class="btn" href="hu/" hreflang="hu" lang="hu">Magyar</a>
+                <a class="btn alt" href="en/" hreflang="en" lang="en">English</a>
+                <a class="btn alt" href="de/" hreflang="de" lang="de">Deutsch</a>
+        </nav>
+    </main>
 </body>
 
 </html>

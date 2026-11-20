@@ -1,0 +1,234 @@
+/* --------------------------------------------------------------------------
+   6. General Content Sections & Cards
+   -------------------------------------------------------------------------- */
+section {
+    padding: 2.75rem 1.25rem;
+}
+
+h2 {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+}
+
+.grid {
+    display: grid;
+    gap: 0.875rem;
+    margin-top: 1.25rem;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1.125rem;
+    padding: 1.25rem;
+}
+
+.card .ic {
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 0.75rem;
+    background: var(--sage);
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    margin-bottom: 0.625rem;
+}
+
+.card h3 {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+.card p {
+    color: var(--mute);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.facts {
+    display: flex;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+    margin-top: 1.125rem;
+}
+
+.facts span {
+    background: var(--sage);
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    color: var(--green);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Gallery – mobile default: 1 full-width image per slide, no adjacent peeking */
+.gal-wrap {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-top: 1.25rem;
+    width: 100%;
+}
+
+.gal-wrap::-webkit-scrollbar {
+    display: none;
+}
+
+.gal {
+    position: relative;
+    display: flex;
+    gap: 0.875rem;
+    width: 100%;
+}
+
+.gal-item {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #a9c5a0, #5d8a5a);
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    align-items: end;
+    padding: 0;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.feat-grid {
+    grid-template-columns: 1fr;
+}
+
+.gal-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.area {
+    background: var(--sage);
+}
+
+.area li {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.area li.col-head {
+    padding: 0.25rem 0 0.5rem;
+}
+
+.area li.col-head b {
+    font-size: 0.6875rem;
+    white-space: normal;
+    text-align: right;
+}
+
+.area li.no-line {
+    border-bottom: 0;
+    padding-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.area li.sub {
+    display: block;
+    padding: 0 0 0.5rem 1.125rem;
+}
+
+.area li.sub ul {
+    margin-top: 0;
+}
+
+.area li.sub li {
+    font-size: 0.875rem;
+    padding: 0.5rem 0;
+    color: var(--mute);
+}
+
+.area ul {
+    padding: 0;
+    margin-top: 0.75rem;
+}
+
+.area b {
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.cta {
+    text-align: center;
+    background: var(--green);
+    color: var(--bg);
+}
+
+.cta h2 {
+    color: var(--bg);
+}
+
+.cta .btn {
+    background: var(--bg);
+    color: var(--green);
+}
+
+.cta .btn.alt {
+    background: transparent;
+    color: var(--bg);
+    border-color: var(--bg);
+}
+
+.cta .btns {
+    max-width: 21.25rem;
+    margin: 1.25rem auto 0;
+}
+
+footer {
+    padding: 2rem 1.25rem;
+    text-align: center;
+    color: var(--mute);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+footer a {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.1875rem;
+}

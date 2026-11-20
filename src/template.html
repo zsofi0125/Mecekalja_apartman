@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{metaTitle}}</title>
+    <meta name="description" content="{{metaDescription}}">
+    <meta http-equiv="Content-Security-Policy" content="{{contentSecurityPolicy}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="canonical" href="{{canonicalUrl}}">
+{{hreflangLinks}}
+    <link rel="icon" href="{{base}}favicon.svg" type="image/svg+xml">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Mecsekalja Apartman">
+    <meta property="og:title" content="{{metaTitle}}">
+    <meta property="og:description" content="{{metaDescription}}">
+    <meta property="og:url" content="{{canonicalUrl}}">
+    <meta property="og:image" content="{{ogImageUrl}}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="{{ogLocale}}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{metaTitle}}">
+    <meta name="twitter:description" content="{{metaDescription}}">
+    <meta name="twitter:image" content="{{ogImageUrl}}">
+
+    <script type="application/ld+json">{{structuredData}}</script>
+
+    <!-- Google Fonts: Plus Jakarta Sans (Headings), Inter (Body & UI), Space Mono (Monospace) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"></noscript>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{base}}style.css">
+</head>
+
+<body>
+    <div class="stage">
+        <!-- Header & Navigation -->
+        <header class="nav">
+            <a href="#" class="logo" data-i="brandName">Mecsekalja apartman</a>
+            <nav data-i-aria-label="navLabel" aria-label="">
+            <ul>
+                <li><a href="#about" data-i="navAbout"></a></li>
+                <li><a href="#gallery" data-i="navGallery"></a></li>
+                <li><a href="#area" data-i="navLocation"></a></li>
+                <li><a href="#events" data-i="navEvents"></a></li>
+            </ul>
+            </nav>
+            <div class="lang" role="group" data-i-aria-label="languageSwitcherLabel" aria-label="">
+                <span class="lang-ic" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                        <path d="M2 12h20" />
+                    </svg>
+                </span>
+                <a href="{{base}}hu/" hreflang="hu" lang="hu" data-lang-link="hu">HU</a>
+                <a href="{{base}}en/" hreflang="en" lang="en" data-lang-link="en">EN</a>
+                <a href="{{base}}de/" hreflang="de" lang="de" data-lang-link="de">DE</a>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <main>
+        <section class="hero">
+            <span class="tag" data-i="heroTag"></span>
+            <h1 data-i="heroTitle"></h1>
+            <p data-i="heroSubtitle"></p>
+            <div class="btns">
+                <a class="btn" href="#book" data-i="bookAirbnb"></a>
+                <a class="btn alt" href="#book" data-i="bookBookingCom"></a>
+                <a class="btn alt" href="#book" data-i="bookSzallasHu"></a>
+            </div>
+            <img src="{{base}}img/tv_tower.svg" alt="" class="hero-tower" aria-hidden="true">
+            <svg viewBox="0 0 800 150" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 90 Q120 20 260 70 T520 50 T800 80V150H0Z" fill="#a9c9ae" opacity=".6" />
+                <path d="M0 120 Q160 60 320 105 T640 90 T800 110V150H0Z" fill="#6f9f7e" opacity=".7" />
+                <path d="M0 140 Q200 100 400 130 T800 125V150H0Z" fill="#2f5d46" />
+            </svg>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="split">
+                <div>
+                    <h2 data-i="aboutTitle"></h2>
+                    <p data-i="aboutText"></p>
+                    <div class="facts">
+                        <span data-i="factGuests"></span>
+                        <span data-i="factBedrooms"></span>
+                    </div>
+                </div>
+                <div class="grid feat-grid">
+                    <div class="card">
+                        <div class="ic">🚗</div>
+                        <h3 data-i="featureParkingTitle"></h3>
+                        <p data-i="featureParkingText"></p>
+                    </div>
+                    <div class="card">
+                        <div class="ic">🥾</div>
+                        <h3 data-i="featureHikingTitle"></h3>
+                        <p data-i="featureHikingText"></p>
+                    </div>
+                    <div class="card">
+                        <div class="ic">🚌</div>
+                        <h3 data-i="featureTransitTitle"></h3>
+                        <p data-i="featureTransitText"></p>
+                    </div>
+                    <div class="card">
+                        <div class="ic">🛍️</div>
+                        <h3 data-i="featureShopsTitle"></h3>
+                        <p data-i="featureShopsText"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h2 data-i="galleryTitle"></h2>
+            <div class="gal-wrap">
+                <div class="gal">
+                    <div class="gal-item"><img src="{{base}}img/gallery/7049-800.webp" srcset="{{base}}img/gallery/7049-480.webp 480w, {{base}}img/gallery/7049-800.webp 800w, {{base}}img/gallery/7049-1200.webp 1200w" sizes="(min-width: 47.5rem) 30vw, 100vw" width="800" height="1067" data-i-alt="galleryPhotoAlt1" alt="" loading="lazy" decoding="async"></div>
+                    <div class="gal-item"><img src="{{base}}img/gallery/7044-800.webp" srcset="{{base}}img/gallery/7044-480.webp 480w, {{base}}img/gallery/7044-800.webp 800w, {{base}}img/gallery/7044-1200.webp 1200w" sizes="(min-width: 47.5rem) 30vw, 100vw" width="800" height="1067" data-i-alt="galleryPhotoAlt2" alt="" loading="lazy" decoding="async"></div>
+                    <div class="gal-item"><img src="{{base}}img/gallery/7052-800.webp" srcset="{{base}}img/gallery/7052-480.webp 480w, {{base}}img/gallery/7052-800.webp 800w, {{base}}img/gallery/7052-1200.webp 1200w" sizes="(min-width: 47.5rem) 30vw, 100vw" width="800" height="1067" data-i-alt="galleryPhotoAlt3" alt="" loading="lazy" decoding="async"></div>
+                    <div class="gal-item"><img src="{{base}}img/gallery/7056-800.webp" srcset="{{base}}img/gallery/7056-480.webp 480w, {{base}}img/gallery/7056-800.webp 800w, {{base}}img/gallery/7056-1200.webp 1200w" sizes="(min-width: 47.5rem) 30vw, 100vw" width="800" height="1067" data-i-alt="galleryPhotoAlt4" alt="" loading="lazy" decoding="async"></div>
+                    <div class="gal-item"><img src="{{base}}img/gallery/7059-800.webp" srcset="{{base}}img/gallery/7059-480.webp 480w, {{base}}img/gallery/7059-800.webp 800w, {{base}}img/gallery/7059-1200.webp 1200w" sizes="(min-width: 47.5rem) 30vw, 100vw" width="800" height="1067" data-i-alt="galleryPhotoAlt5" alt="" loading="lazy" decoding="async"></div>
+                    <div class="gal-item"><img src="{{base}}img/gallery/7033-800.webp" srcset="{{base}}img/gallery/7033-480.webp 480w, {{base}}img/gallery/7033-800.webp 800w, {{base}}img/gallery/7033-1200.webp 1200w" sizes="(min-width: 47.5rem) 30vw, 100vw" width="800" height="1067" data-i-alt="galleryPhotoAlt6" alt="" loading="lazy" decoding="async"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Area / Surroundings Section -->
+        <section class="area" id="area">
+            <h2 data-i="locationTitle"></h2>
+            <p data-i="locationIntro"></p>
+            <ul>
+                <li class="col-head"><span></span><b data-i="distanceHeading"></b></li>
+                <li><span data-i="placeCityCentre"></span><b>~4 km</b></li>
+                <li><span data-i="placeZsolnay"></span><b>~5 km</b></li>
+                <li><span data-i="placeOrfu"></span><b>~20 km</b></li>
+                <li class="no-line"><span data-i="placeHiking"></span></li>
+                <li class="sub">
+                    <ul>
+                        <li><span data-i="hikeTettyeMisinaDomorkapu"></span><b>~5 km</b></li>
+                        <li><span data-i="hikePecsOrfu"></span><b>~7 km</b></li>
+                        <li><span data-i="hikeJakabHegy"></span><b>~11 km</b></li>
+                        <li><span data-i="hikeObanyaValley"></span><b>~24 km</b></li>
+                        <li><span data-i="hikeHidasiValley"></span><b>~16 km</b></li>
+                    </ul>
+                </li>
+                <li><span data-i="placeHarkany"></span><b>~28 km</b></li>
+                <li><span data-i="placeSiklos"></span><b>~33 km</b></li>
+            </ul>
+        </section>
+
+        <!-- Programs & Events Calendar Section -->
+        <section id="events">
+            <h2 id="h2e"></h2>
+            <p id="pe" class="events-intro"></p>
+            <div class="chips" id="chips"></div>
+            <div class="cw">
+                            <div class="cal" id="cal"></div>
+                            <div class="dp" id="dp"></div>
+                            <div class="map-card" id="map">
+                                <div class="map-header">
+                                    <div class="map-addr-wrap">
+                                        <span class="ic" aria-hidden="true">📍</span>
+                                        <span class="map-addr" data-i="mapAddress">7635 Pécs, Kerényi Károly u. 8/A</span>
+                                    </div>
+                                    <a href="https://www.google.com/maps/dir/?api=1&origin=P%C3%A9cs%2C+Ker%C3%A9nyi+K%C3%A1roly+u.+8%2FA"
+                                        target="_blank" rel="noopener noreferrer" class="map-dir-btn">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                            stroke-linejoin="round" aria-hidden="true">
+                                            <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                                        </svg>
+                                        <span data-i="mapDirectionsButton"></span>
+                                    </a>
+                                </div>
+                                <div class="map-frame">
+                                    <iframe
+                                        src="https://maps.google.com/maps?q=P%C3%A9cs%2C+Ker%C3%A9nyi+K%C3%A1roly+u.+8%2FA&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                        width="100%" height="250" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" allowfullscreen="" loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        data-i-title="mapIframeTitle" title="">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+        </section>
+
+        <!-- Booking CTA Section -->
+        <section class="cta" id="book">
+            <h2 data-i="bookingTitle"></h2>
+            <p data-i="bookingText"></p>
+            <div class="btns">
+                <a class="btn" href="#" data-i="bookAirbnb"></a>
+                <a class="btn alt" href="#" data-i="bookBookingCom"></a>
+                <a class="btn alt" href="#" data-i="bookSzallasHu"></a>
+            </div>
+        </section>
+        </main>
+
+        <!-- Footer -->
+        <footer data-i="footerText"></footer>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="{{base}}events-labels.js"></script>
+    <script src="{{base}}events.js"></script>
+    <script src="{{base}}app.js"></script>
+</body>
+
+</html>

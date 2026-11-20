@@ -9,12 +9,14 @@
     --bg: #f4f7f1;
     --card: #ffffff;
     --ink: #1f2d25;
-    --mute: #5b6b61;
+    --mute: #4f5f56;
     --green: #2f5d46;
     --sage: #d9e6d6;
     --sun: #e8b45f;
     --line: #dfe8dc;
     --stage: #e6ece3;
+    --hero-top: #cfe5d3;
+    --focus: #1f6fb2;
 
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
@@ -31,6 +33,8 @@
         --sage: #25382d;
         --line: #2b3a31;
         --stage: #0f1511;
+        --hero-top: #1f3a2b;
+        --focus: #7fc4ff;
     }
 }
 
@@ -44,14 +48,14 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 5rem;
 }
 
 body {
     background: var(--stage);
     color: var(--ink);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -67,51 +71,13 @@ h3 {
 }
 
 /* --------------------------------------------------------------------------
-   3. Preview / Simulation Bar
+   3. Page Wrapper
    -------------------------------------------------------------------------- */
-.bar {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 13px;
-    color: var(--mute);
-    flex-wrap: wrap;
-}
-
-.bar button {
-    font: inherit;
-    border: 1px solid var(--line);
-    background: var(--card);
-    color: var(--ink);
-    padding: 6px 14px;
-    border-radius: 99px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.bar button.on {
-    background: var(--green);
-    color: var(--bg);
-    border-color: var(--green);
-}
-
 .stage {
     width: 100%;
     margin: 0 auto;
-    transition: width 0.3s ease;
     background: var(--bg);
-    container-type: inline-size;
     overflow: hidden;
-}
-
-.stage.m {
-    width: 390px;
-    max-width: 100%;
-    border-radius: 32px;
-    border: 8px solid #1f2d25;
-    margin-bottom: 24px;
 }
 
 /* --------------------------------------------------------------------------
@@ -125,19 +91,19 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
+    padding: 0.75rem 1.25rem;
     background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .logo {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-weight: 700;
     color: var(--green);
-    font-size: 19px;
+    font-size: 1.1875rem;
     letter-spacing: -0.02em;
     line-height: 1.2;
     text-decoration: none;
@@ -156,7 +122,7 @@ h3 {
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 6px;
+    gap: 0.375rem;
     align-items: center;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -175,9 +141,9 @@ h3 {
 .nav ul a {
     text-decoration: none;
     color: var(--mute);
-    font: 500 14px/1 Inter, system-ui, sans-serif;
-    padding: 8px 14px;
-    border-radius: 99px;
+    font: 500 0.875rem/1 Inter, system-ui, sans-serif;
+    padding: 0.5rem 0.875rem;
+    border-radius: 6.1875rem;
     border: 1px solid var(--line);
     background: var(--card);
     transition: all 0.2s ease;
@@ -195,35 +161,36 @@ h3 {
     align-items: center;
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 99px;
-    padding: 3px;
+    border-radius: 6.1875rem;
+    padding: 0.1875rem;
     gap: 2px;
 }
 
 .lang .lang-ic {
-    margin-left: 6px;
+    margin-left: 0.375rem;
     margin-right: 2px;
     color: var(--mute);
     display: inline-flex;
     align-items: center;
 }
 
-.lang button {
+.lang a {
     border: 0;
     background: transparent;
+    text-decoration: none;
     color: var(--mute);
-    font: 600 12px/1 Inter, system-ui, sans-serif;
-    padding: 6px 10px;
-    border-radius: 99px;
+    font: 600 0.75rem/1 Inter, system-ui, sans-serif;
+    padding: 0.375rem 0.625rem;
+    border-radius: 6.1875rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.lang button:hover {
+.lang a:hover {
     color: var(--green);
 }
 
-.lang button.on {
+.lang a.on {
     background: var(--green);
     color: var(--bg);
     text-decoration: none;
@@ -234,8 +201,8 @@ h3 {
    -------------------------------------------------------------------------- */
 .hero {
     position: relative;
-    padding: 48px 20px 170px;
-    background: linear-gradient(#cfe5d3, var(--bg) 90%);
+    padding: 3rem 1.25rem 10.625rem;
+    background: linear-gradient(var(--hero-top), var(--bg) 90%);
     overflow: hidden;
 }
 
@@ -244,7 +211,7 @@ h3 {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 150px;
+    height: 9.375rem;
     pointer-events: none;
     z-index: 1;
 }
@@ -252,10 +219,10 @@ h3 {
 .hero-tower {
     position: absolute;
     left: 78.2%;
-    bottom: 125px;
+    bottom: 7.8125rem;
     transform: translateX(-50%);
-    width: 36px;
-    height: 108px;
+    width: 2.25rem;
+    height: 6.75rem;
     pointer-events: none;
     display: block;
     z-index: 2;
@@ -270,20 +237,20 @@ h3 {
     display: inline-block;
     background: var(--sage);
     color: var(--green);
-    padding: 5px 12px;
-    border-radius: 99px;
+    padding: 0.3125rem 0.75rem;
+    border-radius: 6.1875rem;
     font-family: 'Space Mono', monospace;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 .hero h1 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 2.25rem;
     line-height: 1.12;
     letter-spacing: -0.02em;
     color: var(--green);
@@ -291,24 +258,24 @@ h3 {
 }
 
 .hero p {
-    margin: 16px 0 24px;
+    margin: 1rem 0 1.5rem;
     color: var(--mute);
     max-width: 32em;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
 .btns {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .btn {
     display: block;
     text-align: center;
-    padding: 14px 22px;
-    border-radius: 14px;
+    padding: 0.875rem 1.375rem;
+    border-radius: 0.875rem;
     font-weight: 600;
     text-decoration: none;
     background: var(--green);
@@ -331,69 +298,69 @@ h3 {
    6. General Content Sections & Cards
    -------------------------------------------------------------------------- */
 section {
-    padding: 44px 20px;
+    padding: 2.75rem 1.25rem;
 }
 
 h2 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.18;
     letter-spacing: -0.015em;
     color: var(--green);
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
 }
 
 .grid {
     display: grid;
-    gap: 14px;
-    margin-top: 20px;
+    gap: 0.875rem;
+    margin-top: 1.25rem;
 }
 
 .card {
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 20px;
+    border-radius: 1.125rem;
+    padding: 1.25rem;
 }
 
 .card .ic {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 0.75rem;
     background: var(--sage);
     display: grid;
     place-items: center;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 1.25rem;
+    margin-bottom: 0.625rem;
 }
 
 .card h3 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.2;
-    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
 }
 
 .card p {
     color: var(--mute);
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 1.6;
 }
 
 .facts {
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
     flex-wrap: wrap;
-    margin-top: 18px;
+    margin-top: 1.125rem;
 }
 
 .facts span {
     background: var(--sage);
-    border-radius: 12px;
-    padding: 8px 14px;
-    font-size: 14px;
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
     color: var(--green);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
@@ -405,7 +372,7 @@ h2 {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    margin-top: 20px;
+    margin-top: 1.25rem;
     width: 100%;
 }
 
@@ -416,7 +383,7 @@ h2 {
 .gal {
     position: relative;
     display: flex;
-    gap: 14px;
+    gap: 0.875rem;
     width: 100%;
 }
 
@@ -429,14 +396,15 @@ h2 {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     aspect-ratio: 3/4;
-    border-radius: 16px;
+    background: linear-gradient(135deg, #a9c5a0, #5d8a5a);
+    border-radius: 1rem;
     overflow: hidden;
     display: flex;
     align-items: end;
-    padding: 14px;
+    padding: 0;
     color: #ffffff;
     font-family: 'Space Mono', monospace;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -451,27 +419,7 @@ h2 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 16px;
-}
-
-.gal-extra {
-    display: none;
-}
-
-.gal-item.g1 {
-    background: linear-gradient(135deg, #6f9f7e, #2f5d46);
-}
-
-.gal-item.g2 {
-    background: linear-gradient(135deg, #e8b45f, #b9824a);
-}
-
-.gal-item.g3 {
-    background: linear-gradient(135deg, #8fb8a0, #4c7a63);
-}
-
-.gal-item.g4 {
-    background: linear-gradient(135deg, #a9c5a0, #5d8a5a);
+    border-radius: 1rem;
 }
 
 .area {
@@ -482,31 +430,30 @@ h2 {
     list-style: none;
     display: flex;
     justify-content: space-between;
-    gap: 12px;
-    padding: 12px 0;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
     border-bottom: 1px solid var(--line);
 }
 
 .area li.col-head {
-    padding: 4px 0 8px;
+    padding: 0.25rem 0 0.5rem;
 }
 
 .area li.col-head b {
-    font-size: 11px;
-    opacity: 0.8;
+    font-size: 0.6875rem;
     white-space: normal;
     text-align: right;
 }
 
 .area li.no-line {
     border-bottom: 0;
-    padding-bottom: 4px;
+    padding-bottom: 0.25rem;
     font-weight: 600;
 }
 
 .area li.sub {
     display: block;
-    padding: 0 0 8px 18px;
+    padding: 0 0 0.5rem 1.125rem;
 }
 
 .area li.sub ul {
@@ -514,20 +461,20 @@ h2 {
 }
 
 .area li.sub li {
-    font-size: 14px;
-    padding: 8px 0;
+    font-size: 0.875rem;
+    padding: 0.5rem 0;
     color: var(--mute);
 }
 
 .area ul {
     padding: 0;
-    margin-top: 12px;
+    margin-top: 0.75rem;
 }
 
 .area b {
     color: var(--green);
     font-family: 'Space Mono', monospace;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -557,16 +504,16 @@ h2 {
 }
 
 .cta .btns {
-    max-width: 340px;
-    margin: 20px auto 0;
+    max-width: 21.25rem;
+    margin: 1.25rem auto 0;
 }
 
 footer {
-    padding: 32px 20px;
+    padding: 2rem 1.25rem;
     text-align: center;
     color: var(--mute);
     font-family: 'Space Mono', monospace;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 1.6;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -579,7 +526,7 @@ footer a {
     text-transform: inherit;
     letter-spacing: inherit;
     text-decoration: underline;
-    text-underline-offset: 3px;
+    text-underline-offset: 0.1875rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -587,18 +534,18 @@ footer a {
    -------------------------------------------------------------------------- */
 .chips {
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     flex-wrap: wrap;
-    margin: 16px 0;
+    margin: 1rem 0;
 }
 
 .chips button {
-    font: 500 13px Inter, sans-serif;
+    font: 500 0.8125rem Inter, sans-serif;
     border: 1px solid var(--line);
     background: var(--card);
     color: var(--ink);
-    padding: 7px 14px;
-    border-radius: 99px;
+    padding: 0.4375rem 0.875rem;
+    border-radius: 6.1875rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -611,27 +558,27 @@ footer a {
 
 .cw {
     display: grid;
-    gap: 18px;
+    gap: 1.125rem;
 }
 
 .cal,
 .dp {
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 16px;
+    border-radius: 1.25rem;
+    padding: 1rem;
 }
 
 .ch {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .ch b {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    font-size: 19px;
+    font-size: 1.1875rem;
     font-weight: 700;
     line-height: 1.2;
     text-transform: capitalize;
@@ -642,10 +589,10 @@ footer a {
     border: 1px solid var(--line);
     background: var(--bg);
     color: var(--green);
-    width: 36px;
-    height: 36px;
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -658,26 +605,26 @@ footer a {
 .cg {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 0.25rem;
     text-align: center;
 }
 
 .cg i {
     font-style: normal;
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: var(--mute);
     text-transform: uppercase;
-    padding: 4px 0;
+    padding: 0.25rem 0;
     font-variant-numeric: tabular-nums;
 }
 
 .cg button {
-    aspect-ratio: 1;
+    min-height: 2.75rem;
     border: 0;
-    border-radius: 12px;
+    border-radius: 0.75rem;
     background: var(--bg);
     color: var(--ink);
-    font: 500 14px 'Inter', sans-serif;
+    font: 500 0.875rem 'Inter', sans-serif;
     font-variant-numeric: tabular-nums;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -701,21 +648,21 @@ footer a {
 
 .dp h3 {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
     text-transform: capitalize;
     font-variant-numeric: tabular-nums;
 }
 
 .pg {
     display: flex;
-    gap: 12px;
-    padding: 12px;
+    gap: 0.75rem;
+    padding: 0.75rem;
     border: 1px solid var(--line);
-    border-radius: 14px;
-    margin-bottom: 10px;
+    border-radius: 0.875rem;
+    margin-bottom: 0.625rem;
     background: var(--bg);
 }
 
@@ -726,29 +673,29 @@ footer a {
 
 .pg strong {
     display: block;
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 1.3;
     font-variant-numeric: tabular-nums;
 }
 
 .pg small {
     color: var(--mute);
-    font-size: 13px;
+    font-size: 0.8125rem;
 }
 
 .bd2 {
     display: flex;
-    gap: 6px;
+    gap: 0.375rem;
     flex-wrap: wrap;
-    margin-top: 6px;
+    margin-top: 0.375rem;
 }
 
 .bd2 em {
     font-style: normal;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
-    padding: 2px 9px;
-    border-radius: 99px;
+    padding: 2px 0.5625rem;
+    border-radius: 6.1875rem;
     background: var(--sage);
     color: var(--green);
     font-variant-numeric: tabular-nums;
@@ -765,7 +712,7 @@ footer a {
 }
 
 .pk-l {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #a8731f;
     text-transform: uppercase;
@@ -773,16 +720,24 @@ footer a {
 }
 
 .nt {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--mute);
-    margin-top: 8px;
+    margin-top: 0.5rem;
 }
 
 .pg a {
     color: inherit;
     text-decoration: underline;
     text-decoration-color: var(--sun);
-    text-underline-offset: 3px;
+    text-underline-offset: 0.1875rem;
+}
+
+.events-intro {
+    color: var(--mute);
+}
+
+.pg-body {
+    flex: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -791,10 +746,10 @@ footer a {
 .map-card {
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 20px;
+    border-radius: 1.25rem;
     overflow: hidden;
     margin-top: 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.04);
 }
 
 .map-header {
@@ -802,25 +757,25 @@ footer a {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
+    padding: 0.75rem 1rem;
     background: var(--bg);
     border-bottom: 1px solid var(--line);
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .map-addr-wrap {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.375rem;
 }
 
 .map-addr-wrap .ic {
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .map-addr {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -831,13 +786,13 @@ footer a {
 .map-dir-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.375rem;
     background: #2f5d46;
     color: var(--bg) !important;
-    padding: 7px 14px;
-    border-radius: 99px;
+    padding: 0.4375rem 0.875rem;
+    border-radius: 6.1875rem;
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s ease;
@@ -852,7 +807,7 @@ footer a {
 .map-frame {
     position: relative;
     width: 100%;
-    height: 240px;
+    height: 15rem;
     background: var(--stage);
 }
 
@@ -864,60 +819,58 @@ footer a {
 }
 
 /* --------------------------------------------------------------------------
-   8. Mobile Overrides (@container <= 759px)
+   8. Compact (mobile) layout – base styles, applied at every width
    -------------------------------------------------------------------------- */
-@container (max-width: 759px) {
 
-    /* Hide header navigation links */
-    .nav ul {
-        display: none;
-    }
+/* Hide header navigation links */
+.nav ul {
+    display: none;
+}
 
-    /* Compact language switcher aligned to the right side */
-    .lang {
-        margin-left: auto;
-        padding: 2px;
-        gap: 1px;
-    }
+/* Compact language switcher aligned to the right side */
+.lang {
+    margin-left: auto;
+    padding: 2px;
+    gap: 1px;
+}
 
-    .lang .lang-ic {
-        display: none;
-    }
+.lang .lang-ic {
+    display: none;
+}
 
-    .lang button {
-        padding: 4px 7px;
-        font-size: 11px;
-    }
+.lang a {
+    padding: 0.25rem 0.4375rem;
+    font-size: 0.6875rem;
+}
 
-    /* Ensure the tower element is always visible on mobile */
-    .hero-tower {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        left: 78.2%;
-        bottom: 125px;
-        width: 36px;
-        height: 108px;
-    }
+/* Ensure the tower element is always visible on mobile */
+.hero-tower {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    left: 78.2%;
+    bottom: 7.8125rem;
+    width: 2.25rem;
+    height: 6.75rem;
+}
 
-    /* Mobile sequence for #events: 1. Calendar, 2. Program list, 3. Google Maps */
-    .cal {
-        order: 1;
-    }
+/* Mobile sequence for #events: 1. Calendar, 2. Program list, 3. Google Maps */
+.cal {
+    order: 1;
+}
 
-    .dp {
-        order: 2;
-    }
+.dp {
+    order: 2;
+}
 
-    .map-card {
-        order: 3;
-    }
+.map-card {
+    order: 3;
 }
 
 /* --------------------------------------------------------------------------
-   9. Responsive Enhancements (@container >= 760px)
+   9. Responsive Enhancements (viewport >= 47.5rem)
    -------------------------------------------------------------------------- */
-@container (min-width: 760px) {
+@media (min-width: 47.5rem) {
     .cw {
         grid-template-columns: 1.1fr 1fr;
         grid-template-rows: auto auto;
@@ -944,20 +897,20 @@ footer a {
 
     .cal,
     .dp {
-        padding: 24px;
+        padding: 1.5rem;
     }
 
     .nav {
-        padding: 16px 56px;
+        padding: 1rem 3.5rem;
         flex-wrap: nowrap;
-        gap: 24px;
+        gap: 1.5rem;
     }
 
     .nav ul {
         display: flex;
         width: auto;
         overflow: visible;
-        gap: 6px;
+        gap: 0.375rem;
     }
 
     .nav ul a {
@@ -973,7 +926,7 @@ footer a {
 
     .lang {
         margin-left: 0;
-        padding: 3px;
+        padding: 0.1875rem;
         gap: 2px;
     }
 
@@ -981,55 +934,55 @@ footer a {
         display: inline-flex;
     }
 
-    .lang button {
-        padding: 6px 10px;
-        font-size: 12px;
+    .lang a {
+        padding: 0.375rem 0.625rem;
+        font-size: 0.75rem;
     }
 
     body {
-        font-size: 17px;
+        font-size: 1.0625rem;
     }
 
     .hero {
-        padding: 96px 56px 200px;
+        padding: 6rem 3.5rem 12.5rem;
     }
 
     .hero h1 {
-        font-size: 60px;
+        font-size: 3.75rem;
         line-height: 1.1;
     }
 
     .hero svg {
-        height: 200px;
+        height: 12.5rem;
     }
 
     .hero-tower {
-        bottom: 168px;
-        width: 48px;
-        height: 144px;
+        bottom: 10.5rem;
+        width: 3rem;
+        height: 9rem;
     }
 
     .btns {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 0.75rem;
     }
 
     .btn {
-        padding: 14px 26px;
+        padding: 0.875rem 1.625rem;
     }
 
     .cta .btns {
-        max-width: 750px;
+        max-width: 46.875rem;
         justify-content: center;
     }
 
     section {
-        padding: 80px 56px;
+        padding: 5rem 3.5rem;
     }
 
     h2 {
-        font-size: 38px;
+        font-size: 2.375rem;
         line-height: 1.15;
     }
 
@@ -1048,7 +1001,7 @@ footer a {
     .split {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 56px;
+        gap: 3.5rem;
         align-items: center;
     }
 
@@ -1063,7 +1016,7 @@ footer a {
     .gal {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+        gap: 0.875rem;
         width: auto;
         scroll-snap-type: none;
     }
@@ -1072,8 +1025,7 @@ footer a {
         display: none !important;
     }
 
-    .gal-item,
-    .gal-extra {
+    .gal-item {
         display: block;
         flex: none;
         width: auto;
@@ -1086,10 +1038,99 @@ footer a {
     }
 
     .map-frame {
-        height: 270px;
+        height: 16.875rem;
     }
 
     .map-header {
-        padding: 14px 18px;
+        padding: 0.875rem 1.125rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   10. Language chooser (root page)
+   -------------------------------------------------------------------------- */
+.lang-chooser {
+    min-height: 100dvh;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--bg);
+}
+
+.lang-chooser h1 {
+    color: var(--green);
+}
+
+/* --------------------------------------------------------------------------
+   11. Accessibility: focus, touch targets, reduced motion
+   -------------------------------------------------------------------------- */
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+.nav ul a,
+.chips button,
+.ch button,
+.cg button,
+.map-dir-btn,
+.btn,
+.logo {
+    min-height: 2.75rem;
+}
+
+.ch button {
+    min-width: 2.75rem;
+}
+
+/* Keeps the compact pill look while giving a 44px-tall touch target */
+.lang a {
+    position: relative;
+}
+
+.lang a::after {
+    content: '';
+    position: absolute;
+    inset: -0.75rem -0.125rem;
+}
+
+.lang a,
+.nav ul a,
+.btn,
+.map-dir-btn,
+.chips button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+}
+
+/* The nav landmark stays out of the compact header layout; its links appear on wider screens */
+.nav nav {
+    display: none;
+}
+
+@media (min-width: 47.5rem) {
+    .nav nav {
+        display: block;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 }

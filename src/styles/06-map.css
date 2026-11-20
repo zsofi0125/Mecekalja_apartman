@@ -1,0 +1,77 @@
+/* --------------------------------------------------------------------------
+   7. Map & Directions Section (#map)
+   -------------------------------------------------------------------------- */
+.map-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    margin-top: 0;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.04);
+}
+
+.map-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    gap: 0.625rem;
+}
+
+.map-addr-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.map-addr-wrap .ic {
+    font-size: 1rem;
+}
+
+.map-addr {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #2f5d46;
+    font-variant-numeric: tabular-nums;
+}
+
+.map-dir-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: #2f5d46;
+    color: var(--bg) !important;
+    padding: 0.4375rem 0.875rem;
+    border-radius: 6.1875rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.map-dir-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.map-frame {
+    position: relative;
+    width: 100%;
+    height: 15rem;
+    background: var(--stage);
+}
+
+.map-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}

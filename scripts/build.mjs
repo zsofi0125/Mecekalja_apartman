@@ -1,0 +1,219 @@
+/**
+ * Static site generator: renders src/template.html once per language into
+ * /hu/, /en/ and /de/ with all copy and SEO metadata present in the HTML,
+ * and writes the language-chooser root page, sitemap.xml and robots.txt.
+ * Usage: npm run build
+ */
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import vm from 'node:vm';
+import {
+    SITE_URL, SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, OPEN_GRAPH_LOCALES, OPEN_GRAPH_IMAGE_PATH
+} from './site.config.mjs';
+
+const TITLE_LENGTH = [50, 60];
+const DESCRIPTION_LENGTH = [120, 155];
+
+const escapeHtml = text =>
+    String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+async function loadTranslations() {
+    const sources = await Promise.all(['translations.js', 'events-labels.js'].map(file => readFile(file, 'utf8')));
+    return vm.runInNewContext(`${sources.join('\n')}\n;({ TRANSLATIONS, EVENTS_LABELS })`);
+}
+
+/** Concatenates src/styles/*.css (numeric filename order = cascade order) into style.css. */
+async function bundleStylesheet() {
+    const files = (await readdir('src/styles')).filter(file => file.endsWith('.css')).sort();
+    const parts = await Promise.all(files.map(file => readFile(`src/styles/${file}`, 'utf8')));
+    await writeFile('style.css', parts.map(part => part.trimEnd()).join('\n\n') + '\n');
+}
+
+/** Inline handler on the font stylesheet link; allowed by hash so no 'unsafe-inline' is needed. */
+const FONT_LOAD_HANDLER = "this.media='all'";
+const contentSecurityPolicy = [
+    "default-src 'self'",
+    `script-src 'self' 'unsafe-hashes' 'sha256-${createHash('sha256').update(FONT_LOAD_HANDLER).digest('base64')}'`,
+    "style-src 'self' https://fonts.googleapis.com",
+    'font-src https://fonts.gstatic.com',
+    "img-src 'self' data:",
+    'frame-src https://www.google.com https://maps.google.com',
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'none'"
+].join('; ');
+
+function assertLength(label, text, [min, max]) {
+    if (text.length < min || text.length > max) {
+        throw new Error(`${label} is ${text.length} chars, expected ${min}-${max}: "${text}"`);
+    }
+}
+
+const pageUrl = lang => `${SITE_URL}/${lang}/`;
+
+function buildHreflangLinks() {
+    const alternates = SUPPORTED_LANGUAGES.map(
+        lang => `    <link rel="alternate" hreflang="${lang}" href="${pageUrl(lang)}">`
+    );
+    alternates.push(`    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/">`);
+    return alternates.join('\n');
+}
+
+function buildStructuredData(copy, lang) {
+    const [postalCode, ...rest] = copy.mapAddress.split(' ');
+    const [locality, street] = rest.join(' ').split(', ');
+    return JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LodgingBusiness',
+        name: 'Mecsekalja Apartman',
+        description: copy.metaDescription,
+        url: pageUrl(lang),
+        image: `${SITE_URL}/${OPEN_GRAPH_IMAGE_PATH}`,
+        inLanguage: lang,
+        numberOfRooms: 2,
+        occupancy: { '@type': 'QuantitativeValue', maxValue: 4 },
+        address: {
+            '@type': 'PostalAddress',
+            streetAddress: street,
+            addressLocality: locality.replace(/,$/, ''),
+            postalCode,
+            addressCountry: 'HU'
+        }
+    }).replace(/</g, '\\u003c');
+}
+
+/** Fills every [data-i] element, translated attributes ([data-i-alt] etc.) and the events heading. */
+function fillTranslatedText(html, lang, translations, year) {
+    const copy = translations.TRANSLATIONS[lang];
+    const lookup = key => {
+        if (copy[key] === undefined) throw new Error(`Missing translation "${key}" for ${lang}`);
+        return escapeHtml(copy[key].replace('{year}', year));
+    };
+    const withCopy = html
+        .replace(
+            /(<(\w+)\b[^>]*?\sdata-i="(\w+)"[^>]*>)([\s\S]*?)(<\/\2>)/g,
+            (_match, openTag, _tag, key, _oldText, closeTag) => `${openTag}${lookup(key)}${closeTag}`
+        )
+        .replace(/data-i-([\w-]+)="(\w+)" \1=""/g, (_match, attribute, key) => `${attribute}="${lookup(key)}"`);
+    const eventsCopy = translations.EVENTS_LABELS[lang];
+    return withCopy
+        .replace(/(<h2 id="h2e">)<\/h2>/, `$1${escapeHtml(eventsCopy.h)}</h2>`)
+        .replace(/(<p id="pe"[^>]*>)<\/p>/, `$1${escapeHtml(eventsCopy.p)}</p>`);
+}
+
+function markActiveLanguage(html, lang) {
+    return html.replace(
+        new RegExp(`<a (href="[^"]*" hreflang="${lang}" lang="${lang}" data-lang-link="${lang}")>`),
+        '<a class="on" aria-current="page" $1>'
+    );
+}
+
+function renderLanguagePage(template, lang, translations) {
+    const copy = translations.TRANSLATIONS[lang];
+    assertLength(`${lang} metaTitle`, copy.metaTitle, TITLE_LENGTH);
+    assertLength(`${lang} metaDescription`, copy.metaDescription, DESCRIPTION_LENGTH);
+
+    const values = {
+        lang,
+        base: '../',
+        metaTitle: escapeHtml(copy.metaTitle),
+        metaDescription: escapeHtml(copy.metaDescription),
+        canonicalUrl: pageUrl(lang),
+        hreflangLinks: buildHreflangLinks(),
+        ogImageUrl: `${SITE_URL}/${OPEN_GRAPH_IMAGE_PATH}`,
+        ogLocale: OPEN_GRAPH_LOCALES[lang],
+        structuredData: buildStructuredData(copy, lang),
+        contentSecurityPolicy
+    };
+    const withValues = template.replace(/\{\{(\w+)\}\}/g, (_match, name) => {
+        if (!(name in values)) throw new Error(`Unknown template placeholder {{${name}}}`);
+        return values[name];
+    });
+    return markActiveLanguage(fillTranslatedText(withValues, lang, translations, new Date().getFullYear()), lang);
+}
+
+function renderLanguageChooser() {
+    const languageLinks = SUPPORTED_LANGUAGES
+        .map(lang => `<a class="btn${lang === DEFAULT_LANGUAGE ? '' : ' alt'}" href="${lang}/" hreflang="${lang}" lang="${lang}">${{ hu: 'Magyar', en: 'English', de: 'Deutsch' }[lang]}</a>`)
+        .join('\n                ');
+    return `<!DOCTYPE html>
+<html lang="${DEFAULT_LANGUAGE}">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mecsekalja Apartman · Pécs</title>
+    <meta name="description" content="Mecsekalja Apartman, Pécs – Magyar · English · Deutsch">
+    <meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="canonical" href="${SITE_URL}/">
+${buildHreflangLinks()}
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <script src="lang-redirect.js" defer></script>
+</head>
+
+<body>
+    <main class="lang-chooser">
+        <h1>Mecsekalja Apartman</h1>
+        <nav class="btns" aria-label="Language">
+                ${languageLinks}
+        </nav>
+    </main>
+</body>
+
+</html>
+`;
+}
+
+function renderNotFoundPage(translations) {
+    const languageBlocks = SUPPORTED_LANGUAGES.map(lang => {
+        const copy = translations.TRANSLATIONS[lang];
+        return `<p lang="${lang}">${escapeHtml(copy.notFoundTitle)} · <a href="/${lang}/">${escapeHtml(copy.notFoundHomeLink)}</a></p>`;
+    }).join('\n        ');
+    return `<!DOCTYPE html>
+<html lang="${DEFAULT_LANGUAGE}">
+
+<head>
+    <meta charset="utf-8">
+    <title>404 · Mecsekalja Apartman</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <main class="lang-chooser">
+        <h1>404</h1>
+        ${languageBlocks}
+    </main>
+</body>
+
+</html>
+`;
+}
+
+function renderSitemap(lastModified) {
+    const alternates = [
+        ...SUPPORTED_LANGUAGES.map(l => `    <xhtml:link rel="alternate" hreflang="${l}" href="${pageUrl(l)}"/>`),
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/"/>`
+    ].join('\n');
+    const entries = SUPPORTED_LANGUAGES.map(lang =>
+        `  <url>\n    <loc>${pageUrl(lang)}</loc>\n    <lastmod>${lastModified}</lastmod>\n${alternates}\n  </url>`
+    ).join('\n');
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries}\n</urlset>\n`;
+}
+
+const [template, translations] = await Promise.all([readFile('src/template.html', 'utf8'), loadTranslations()]);
+
+for (const lang of SUPPORTED_LANGUAGES) {
+    await mkdir(lang, { recursive: true });
+    await writeFile(`${lang}/index.html`, renderLanguagePage(template, lang, translations));
+}
+await writeFile('index.html', renderLanguageChooser());
+await writeFile('404.html', renderNotFoundPage(translations));
+await bundleStylesheet();
+await writeFile('sitemap.xml', renderSitemap(new Date().toISOString().slice(0, 10)));
+await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+console.log(`Built ${SUPPORTED_LANGUAGES.join(', ')} + chooser, sitemap.xml, robots.txt`);

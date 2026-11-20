@@ -1,299 +1,329 @@
 /**
  * ==============================================================================
- * Mecsekalja Apartman · Application Logic & UI Controller
+ * Mecsekalja Apartman · Client-side behaviour
+ * Page copy is pre-rendered per language by scripts/build.mjs; this file only
+ * drives the interactive events calendar and the mobile gallery carousel.
  * ==============================================================================
  */
 
 (function () {
     'use strict';
 
-    // --------------------------------------------------------------------------
-    // 1. State Management
-    // --------------------------------------------------------------------------
-    let td = new Date();
-    td.setHours(0, 0, 0, 0);
-
-    let vm = new Date(td.getFullYear(), td.getMonth(), 1);
-    let sel = new Date(td);
-    let ft = 'all';
-    let ko = false;
+    /** @type {LanguageCode} */
+    const DEFAULT_LANGUAGE = 'hu';
+    const FALLBACK_TITLE_LANGUAGE = 'en';
+    const MS_PER_DAY = 864e5;
+    const CAROUSEL_EDGE_TOLERANCE_PX = 15;
+    const CAROUSEL_SCROLL_SETTLE_MS = 80;
+    const CAROUSEL_RESIZE_SETTLE_MS = 150;
 
     // --------------------------------------------------------------------------
-    // 2. Helper Utilities
+    // 1. Helpers
     // --------------------------------------------------------------------------
-    const $ = id => document.getElementById(id);
+    /** @param {string} id */
+    const byId = id => document.getElementById(id);
 
-    const iso = d =>
-        d.getFullYear() +
+    /** @param {unknown} text */
+    const escapeHtml = text =>
+        String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+
+    /** Only http(s) links are rendered; anything else is dropped. */
+    /** @param {string} url */
+    const toSafeUrl = url => (/^https?:\/\//i.test(url) ? escapeHtml(url) : '');
+
+    /** @param {Date} date */
+    const toIsoDate = date =>
+        date.getFullYear() +
         '-' +
-        String(d.getMonth() + 1).padStart(2, '0') +
+        String(date.getMonth() + 1).padStart(2, '0') +
         '-' +
-        String(d.getDate()).padStart(2, '0');
+        String(date.getDate()).padStart(2, '0');
+
+    /** @param {Date} date */
+    const startOfDay = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    /** @param {Date} date */
+    const startOfMonth = date => new Date(date.getFullYear(), date.getMonth(), 1);
 
     // --------------------------------------------------------------------------
-    // 3. Language Controller
+    // 2. Events widget state
     // --------------------------------------------------------------------------
-    function setL(l) {
-        document.documentElement.lang = l;
+    const today = startOfDay(new Date());
+    const eventsState = {
+        visibleMonth: startOfMonth(today),
+        selectedDate: today,
+        categoryFilter: 'all',
+        kidFriendlyOnly: false
+    };
 
-        // Update all text nodes with data-i attributes
-        document.querySelectorAll('[data-i]').forEach(e => {
-            if (T[l] && T[l][e.dataset.i] !== undefined) {
-                e.textContent = T[l][e.dataset.i];
-            }
-        });
-
-        // Update top bar preview label
-        const pv = $('pv');
-        if (pv && T[l]) {
-            pv.textContent = T[l].pv;
-        }
-
-        // Toggle active status on language selector buttons
-        document.querySelectorAll('[data-l]').forEach(b => {
-            b.classList.toggle('on', b.dataset.l === l);
-        });
-
-        // Re-render calendar & events widget with new language strings
-        rc();
+    // --------------------------------------------------------------------------
+    // 3. Events widget rendering
+    // --------------------------------------------------------------------------
+    /**
+     * @param {Program} program
+     * @param {LanguageCode} language
+     */
+    function getProgramTitle(program, language) {
+        return program.title[language] || program.title[FALLBACK_TITLE_LANGUAGE];
     }
 
-    // Expose setL globally if needed
-    window.setL = setL;
+    /** @param {EventsLabelSet} labels */
+    function renderCategoryChips(labels) {
+        const container = byId('chips');
+        if (!container) return;
 
-    // --------------------------------------------------------------------------
-    // 4. Calendar & Events Widget Renderer
-    // --------------------------------------------------------------------------
-    function rc() {
-        const l = document.documentElement.lang || 'hu';
-        const u = U[l] || U.hu;
-        const lc = LC[l] || LC.hu;
-        const ix = 'en hu de'.split(' ').indexOf(l);
+        const categoryButtons = /** @type {('all'|ProgramCategory)[]} */ (['all', ...Object.keys(labels.t)])
+            .map(category => {
+                const isActive = eventsState.categoryFilter === category;
+                const label = category === 'all' ? labels.all : labels.t[category];
+                return `<button data-f="${category}" class="${isActive ? 'on' : ''}">${escapeHtml(label)}</button>`;
+            })
+            .join('');
+        const kidsButton = `<button data-k="1" class="${eventsState.kidFriendlyOnly ? 'on' : ''}">👶 ${escapeHtml(labels.kid)}</button>`;
+        container.innerHTML = categoryButtons + kidsButton;
+    }
 
-        // Section headings
-        const h2e = $('h2e');
-        const pe = $('pe');
-        if (h2e) h2e.textContent = u.h;
-        if (pe) pe.textContent = u.p;
+    /**
+     * @param {string} locale
+     * @param {EventsLabelSet} labels
+     */
+    function renderCalendar(locale, labels) {
+        const container = byId('cal');
+        if (!container) return;
 
-        // Category filter chips
-        const chips = $('chips');
-        if (chips) {
-            chips.innerHTML =
-                ['all', ...Object.keys(u.t)]
-                    .map(
-                        k =>
-                            `<button data-f="${k}" class="${ft === k ? 'on' : ''}">${k === 'all' ? u.all : u.t[k]}</button>`
-                    )
-                    .join('') +
-                `<button data-k="1" class="${ko ? 'on' : ''}">👶 ${u.kid}</button>`;
-        }
+        const { visibleMonth, selectedDate } = eventsState;
+        const leadingBlanks = (visibleMonth.getDay() + 6) % 7; // week starts on Monday
+        const daysInMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 0).getDate();
+        const canGoBack = visibleMonth > startOfMonth(today);
 
-        // Calendar grid calculations
-        const first = (vm.getDay() + 6) % 7;
-        const n = new Date(vm.getFullYear(), vm.getMonth() + 1, 0).getDate();
-        const cur = new Date(td.getFullYear(), td.getMonth(), 1);
-
-        let g = Array.from(
+        const weekdayHeaders = Array.from(
             { length: 7 },
-            (_, i) => `<i>${new Date(2024, 0, 1 + i).toLocaleDateString(lc, { weekday: 'short' })}</i>`
-        ).join('') + '<span></span>'.repeat(first);
+            (_, offset) => `<i>${new Date(2024, 0, 1 + offset).toLocaleDateString(locale, { weekday: 'short' })}</i>`
+        ).join('');
 
-        for (let d = 1; d <= n; d++) {
-            const x = new Date(vm.getFullYear(), vm.getMonth(), d);
-            g += `<button data-d="${iso(x)}" ${x < td ? 'disabled' : ''} class="${+x == +td ? 'td ' : ''}${+x == +sel ? 'sl' : ''}">${d}</button>`;
+        let dayCells = '<span></span>'.repeat(leadingBlanks);
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
+            const classes = [
+                date.getTime() === today.getTime() ? 'td' : '',
+                date.getTime() === selectedDate.getTime() ? 'sl' : ''
+            ].join(' ').trim();
+            dayCells += `<button data-d="${toIsoDate(date)}" ${date < today ? 'disabled' : ''} class="${classes}">${day}</button>`;
         }
 
-        const cal = $('cal');
-        if (cal) {
-            cal.innerHTML = `
-                <div class="ch">
-                    <button data-m="-1" ${vm <= cur ? 'disabled' : ''} aria-label="‹">‹</button>
-                    <b>${vm.toLocaleDateString(lc, { month: 'long', year: 'numeric' })}</b>
-                    <button data-m="1" aria-label="›">›</button>
-                </div>
-                <div class="cg">${g}</div>
-            `;
-        }
-
-        // Program and Event filtering for selected date
-        const mo = sel.getMonth() + 1;
-        const k = iso(sel);
-
-        let base = P.filter(p => p.m.includes(mo)).concat(EVENTS.filter(e => hit(e, k)));
-        const doy = Math.floor((sel - new Date(sel.getFullYear(), 0, 0)) / 864e5);
-        const pk = base.length ? base[doy % base.length] : null;
-
-        let list = base.filter(p => (ft === 'all' || p.t === ft) && (!ko || p.kid));
-        if (pk && list.includes(pk)) {
-            list = [pk, ...list.filter(p => p !== pk)];
-        }
-
-        const dp = $('dp');
-        if (dp) {
-            dp.innerHTML =
-                `<h3>${sel.toLocaleDateString(lc, { weekday: 'long', day: 'numeric', month: 'long' })}</h3>` +
-                (list.length
-                    ? list
-                          .map(
-                              p => `
-                        <div class="pg ${p === pk ? 'pk' : ''}">
-                            <div style="flex:1">
-                                ${p === pk ? `<span class="pk-l">★ ${u.pick}</span>` : ''}
-                                <strong>${p.d ? '📅 ' : ''}${
-                                  p.u
-                                      ? `<a href="${p.u}" target="_blank" rel="noopener">${p.n[ix] || p.n[0]}</a>`
-                                      : p.n[ix] || p.n[0]
-                              }</strong>
-                                <div class="bd2">
-                                    <em>${u.t[p.t]}</em>
-                                    <em>📍 ~${p.km} ${u.km}</em>
-                                    <em class="${p.kid ? 'k' : 'n'}">${p.kid ? '👶 ' + u.ok : X[l].no}</em>
-                                </div>
-                            </div>
-                        </div>`
-                          )
-                          .join('')
-                    : `<p>${u.none}</p>`) +
-                `<p class="nt">${u.note} ${X[l].src}</p>`;
-        }
+        container.innerHTML = `
+            <div class="ch">
+                <button data-m="-1" ${canGoBack ? '' : 'disabled'} aria-label="${escapeHtml(labels.prevMonth)}">‹</button>
+                <b>${visibleMonth.toLocaleDateString(locale, { month: 'long', year: 'numeric' })}</b>
+                <button data-m="1" aria-label="${escapeHtml(labels.nextMonth)}">›</button>
+            </div>
+            <div class="cg">${weekdayHeaders}${dayCells}</div>
+        `;
     }
 
-    // Expose rc globally if needed
-    window.rc = rc;
+    /**
+     * @param {Program} program
+     * @param {boolean} isPickOfTheDay
+     * @param {EventsLabelSet} labels
+     * @param {typeof EVENTS_NOTES} notes
+     * @param {LanguageCode} language
+     */
+    function renderProgramCard(program, isPickOfTheDay, labels, notes, language) {
+        const title = escapeHtml(getProgramTitle(program, language));
+        const safeUrl = program.url ? toSafeUrl(program.url) : '';
+        const titleMarkup = safeUrl
+            ? `<a href="${safeUrl}" target="_blank" rel="noopener">${title}</a>`
+            : title;
+        const kidLabel = program.kidFriendly ? '👶 ' + labels.ok : notes[language].no;
+
+        return `
+            <div class="pg ${isPickOfTheDay ? 'pk' : ''}">
+                <div class="pg-body">
+                    ${isPickOfTheDay ? `<span class="pk-l">★ ${escapeHtml(labels.pick)}</span>` : ''}
+                    <strong>${program.dates ? '📅 ' : ''}${titleMarkup}</strong>
+                    <div class="bd2">
+                        <em>${escapeHtml(labels.t[program.category])}</em>
+                        <em>📍 ~${Number(program.distanceKm)} ${escapeHtml(labels.km)}</em>
+                        <em class="${program.kidFriendly ? 'k' : 'n'}">${escapeHtml(kidLabel)}</em>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    /**
+     * @param {LanguageCode} language
+     * @param {EventsLabelSet} labels
+     * @param {typeof EVENTS_NOTES} notes
+     * @param {string} locale
+     */
+    function renderDayPrograms(language, labels, notes, locale) {
+        const container = byId('dp');
+        if (!container) return;
+
+        const { selectedDate, categoryFilter, kidFriendlyOnly } = eventsState;
+        const month = selectedDate.getMonth() + 1;
+        const isoDate = toIsoDate(selectedDate);
+
+        const programsOfTheDay = RECURRING_PROGRAMS.filter(program => (program.months || []).includes(month))
+            .concat(DATED_EVENTS.filter(event => eventOccursOn(event, isoDate)));
+        const dayOfYear = Math.floor((selectedDate.getTime() - new Date(selectedDate.getFullYear(), 0, 0).getTime()) / MS_PER_DAY);
+        const pickOfTheDay = programsOfTheDay.length
+            ? programsOfTheDay[dayOfYear % programsOfTheDay.length]
+            : null;
+
+        let visiblePrograms = programsOfTheDay.filter(
+            program => (categoryFilter === 'all' || program.category === categoryFilter) && (!kidFriendlyOnly || program.kidFriendly)
+        );
+        if (pickOfTheDay && visiblePrograms.includes(pickOfTheDay)) {
+            visiblePrograms = [pickOfTheDay, ...visiblePrograms.filter(program => program !== pickOfTheDay)];
+        }
+
+        const heading = `<h3>${escapeHtml(selectedDate.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' }))}</h3>`;
+        const body = visiblePrograms.length
+            ? visiblePrograms
+                  .map(program => renderProgramCard(program, program === pickOfTheDay, labels, notes, language))
+                  .join('')
+            : `<p>${escapeHtml(labels.none)}</p>`;
+        container.innerHTML = `${heading}${body}<p class="nt">${escapeHtml(labels.note)} ${escapeHtml(notes[language].src)}</p>`;
+    }
+
+    function renderEventsWidget() {
+        const pageLanguage = document.documentElement.lang;
+        const activeLanguage = /** @type {LanguageCode} */ (pageLanguage in EVENTS_LABELS ? pageLanguage : DEFAULT_LANGUAGE);
+        const labels = EVENTS_LABELS[activeLanguage];
+        const locale = DATE_LOCALES[activeLanguage];
+
+        renderCategoryChips(labels);
+        renderCalendar(locale, labels);
+        renderDayPrograms(activeLanguage, labels, EVENTS_NOTES, locale);
+    }
+
+    function initEventsWidget() {
+        const eventsSection = byId('events');
+        if (!eventsSection) return;
+
+        eventsSection.addEventListener('click', event => {
+            const button = event.target instanceof Element ? event.target.closest('button') : null;
+            if (!button) return;
+
+            const { f: category, k: kidToggle, m: monthOffset, d: isoDate } = button.dataset;
+            if (category) {
+                eventsState.categoryFilter = category;
+            } else if (kidToggle) {
+                eventsState.kidFriendlyOnly = !eventsState.kidFriendlyOnly;
+            } else if (monthOffset) {
+                const { visibleMonth } = eventsState;
+                eventsState.visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + Number(monthOffset), 1);
+            } else if (isoDate) {
+                const [year, month, day] = isoDate.split('-').map(Number);
+                eventsState.selectedDate = new Date(year, month - 1, day);
+            } else {
+                return;
+            }
+            renderEventsWidget();
+        });
+
+        renderEventsWidget();
+    }
 
     // --------------------------------------------------------------------------
-    // 5. Event Listeners & Initialization
+    // 4. Gallery carousel (infinite loop on narrow screens)
+    // --------------------------------------------------------------------------
+    /**
+     * Surrounds the real slides with one clone on each side so scrolling past
+     * either end can jump invisibly to the opposite real slide. Clones are hidden
+     * by CSS once the gallery switches to its desktop grid.
+     */
+    /**
+     * @param {Element} track
+     * @param {Element[]} realSlides
+     */
+    function addLoopClones(track, realSlides) {
+        /** @param {Element} slide */
+        const createClone = slide => {
+            const clone = /** @type {Element} */ (slide.cloneNode(true));
+            clone.classList.add('clone');
+            clone.setAttribute('aria-hidden', 'true');
+            clone.querySelectorAll('img').forEach(image => image.setAttribute('alt', ''));
+            return clone;
+        };
+        track.prepend(createClone(realSlides[realSlides.length - 1]));
+        track.append(createClone(realSlides[0]));
+    }
+
+    function initGalleryCarousel() {
+        const maybeScroller = /** @type {HTMLElement | null} */ (document.querySelector('.gal-wrap'));
+        const track = maybeScroller && maybeScroller.querySelector('.gal');
+        if (!maybeScroller || !track) return;
+        const scroller = maybeScroller;
+
+        const realSlides = /** @type {HTMLElement[]} */ (Array.from(track.querySelectorAll('.gal-item')));
+        if (realSlides.length < 2) return;
+        addLoopClones(track, realSlides);
+
+        const slides = /** @type {HTMLElement[]} */ (Array.from(track.children));
+        const firstRealSlide = slides[1];
+        const lastRealSlide = slides[slides.length - 2];
+        const isScrollable = () => scroller.scrollWidth > scroller.clientWidth;
+        let isJumping = false;
+        /** @type {ReturnType<typeof setTimeout> | undefined} */
+        let settleTimer;
+
+        /** @param {HTMLElement} slide */
+        const scrollToSlide = slide => scroller.scrollTo({ left: slide.offsetLeft, behavior: 'instant' });
+
+        /** @param {HTMLElement} targetSlide */
+        function jumpWithoutSnapping(targetSlide) {
+            isJumping = true;
+            scroller.style.scrollSnapType = 'none';
+            scrollToSlide(targetSlide);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    scroller.style.scrollSnapType = 'x mandatory';
+                    isJumping = false;
+                });
+            });
+        }
+
+        function loopIfAtEdge() {
+            if (isJumping || !isScrollable()) return;
+
+            const position = scroller.scrollLeft;
+            if (position <= slides[0].offsetLeft + CAROUSEL_EDGE_TOLERANCE_PX) {
+                jumpWithoutSnapping(lastRealSlide);
+            } else if (position >= slides[slides.length - 1].offsetLeft - CAROUSEL_EDGE_TOLERANCE_PX) {
+                jumpWithoutSnapping(firstRealSlide);
+            }
+        }
+
+        const showFirstRealSlide = () => {
+            if (isScrollable()) scrollToSlide(firstRealSlide);
+        };
+
+        scroller.addEventListener('scrollend', loopIfAtEdge);
+        scroller.addEventListener('scroll', () => {
+            clearTimeout(settleTimer);
+            settleTimer = setTimeout(loopIfAtEdge, CAROUSEL_SCROLL_SETTLE_MS);
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            clearTimeout(settleTimer);
+            settleTimer = setTimeout(showFirstRealSlide, CAROUSEL_RESIZE_SETTLE_MS);
+        });
+
+        requestAnimationFrame(showFirstRealSlide);
+    }
+
+    // --------------------------------------------------------------------------
+    // 5. Bootstrap
     // --------------------------------------------------------------------------
     function init() {
-        // Language switcher clicks
-        document.querySelectorAll('[data-l]').forEach(b => {
-            b.addEventListener('click', () => setL(b.dataset.l));
-        });
-
-        // Device simulation bar (Desktop / Mobile preview toggle)
-        const st = $('st');
-        const bd = $('bd');
-        const bm = $('bm');
-        const galWrap = document.querySelector('.gal-wrap');
-        let initCarouselLoop = null;
-
-        if (galWrap) {
-            const items = galWrap.querySelectorAll('.gal-item');
-            let isJumping = false;
-            let scrollTimer = null;
-
-            function goToSlide(index, smooth = false) {
-                if (!items[index]) return;
-                galWrap.scrollTo({
-                    left: items[index].offsetLeft,
-                    behavior: smooth ? 'smooth' : 'instant'
-                });
-            }
-
-            function checkInfiniteLoop() {
-                if (isJumping) return;
-                // Only run when in mobile scrollable view
-                if (galWrap.scrollWidth <= galWrap.clientWidth) return;
-                if (items.length < 6) return;
-
-                const sl = galWrap.scrollLeft;
-                const tolerance = 15; // px
-
-                // Snapped to first clone (Clone of Slide 4) -> instantly jump to real Slide 4 (index 4)
-                if (sl <= items[0].offsetLeft + tolerance) {
-                    isJumping = true;
-                    galWrap.style.scrollSnapType = 'none';
-                    goToSlide(4, false);
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            galWrap.style.scrollSnapType = 'x mandatory';
-                            isJumping = false;
-                        });
-                    });
-                }
-                // Snapped to last clone (Clone of Slide 1) -> instantly jump to real Slide 1 (index 1)
-                else if (sl >= items[5].offsetLeft - tolerance) {
-                    isJumping = true;
-                    galWrap.style.scrollSnapType = 'none';
-                    goToSlide(1, false);
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            galWrap.style.scrollSnapType = 'x mandatory';
-                            isJumping = false;
-                        });
-                    });
-                }
-            }
-
-            initCarouselLoop = function () {
-                if (galWrap.scrollWidth > galWrap.clientWidth && items[1]) {
-                    goToSlide(1, false);
-                }
-            };
-
-            galWrap.addEventListener('scrollend', checkInfiniteLoop);
-            galWrap.addEventListener('scroll', () => {
-                clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(checkInfiniteLoop, 80);
-            }, { passive: true });
-
-            requestAnimationFrame(() => {
-                initCarouselLoop();
-            });
-
-            window.addEventListener('resize', () => {
-                clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(initCarouselLoop, 150);
-            });
-        }
-
-        if (bd && bm && st) {
-            bd.addEventListener('click', () => {
-                st.classList.remove('m');
-                bd.classList.add('on');
-                bm.classList.remove('on');
-                if (galWrap) {
-                    galWrap.scrollLeft = 0;
-                }
-            });
-
-            bm.addEventListener('click', () => {
-                st.classList.add('m');
-                bm.classList.add('on');
-                bd.classList.remove('on');
-                if (initCarouselLoop) {
-                    requestAnimationFrame(() => {
-                        initCarouselLoop();
-                    });
-                }
-            });
-        }
-
-        // Calendar and filter clicks delegated on #events section
-        const eventsSec = $('events');
-        if (eventsSec) {
-            eventsSec.addEventListener('click', e => {
-                const b = e.target.closest('button');
-                if (!b) return;
-
-                if (b.dataset.f) {
-                    ft = b.dataset.f;
-                } else if (b.dataset.k) {
-                    ko = !ko;
-                } else if (b.dataset.m) {
-                    vm = new Date(vm.getFullYear(), vm.getMonth() + +b.dataset.m, 1);
-                } else if (b.dataset.d) {
-                    const [y, m, d] = b.dataset.d.split('-');
-                    sel = new Date(+y, m - 1, +d);
-                }
-
-                rc();
-            });
-        }
-
-        // Initialize with Hungarian language as default
-        setL('hu');
+        initGalleryCarousel();
+        initEventsWidget();
     }
 
     if (document.readyState === 'loading') {

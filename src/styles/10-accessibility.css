@@ -1,0 +1,70 @@
+/* --------------------------------------------------------------------------
+   11. Accessibility: focus, touch targets, reduced motion
+   -------------------------------------------------------------------------- */
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+.nav ul a,
+.chips button,
+.ch button,
+.cg button,
+.map-dir-btn,
+.btn,
+.logo {
+    min-height: 2.75rem;
+}
+
+.ch button {
+    min-width: 2.75rem;
+}
+
+/* Keeps the compact pill look while giving a 44px-tall touch target */
+.lang a {
+    position: relative;
+}
+
+.lang a::after {
+    content: '';
+    position: absolute;
+    inset: -0.75rem -0.125rem;
+}
+
+.lang a,
+.nav ul a,
+.btn,
+.map-dir-btn,
+.chips button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+}
+
+/* The nav landmark stays out of the compact header layout; its links appear on wider screens */
+.nav nav {
+    display: none;
+}
+
+@media (min-width: 47.5rem) {
+    .nav nav {
+        display: block;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,178 @@
+/* --------------------------------------------------------------------------
+   9. Responsive Enhancements (viewport >= 47.5rem)
+   -------------------------------------------------------------------------- */
+@media (min-width: 47.5rem) {
+    .cw {
+        grid-template-columns: 1.1fr 1fr;
+        grid-template-rows: auto auto;
+        align-items: start;
+    }
+
+    .cal {
+        grid-column: 1;
+        grid-row: 1;
+        order: unset;
+    }
+
+    .map-card {
+        grid-column: 1;
+        grid-row: 2;
+        order: unset;
+    }
+
+    .dp {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        order: unset;
+    }
+
+    .cal,
+    .dp {
+        padding: 1.5rem;
+    }
+
+    .nav {
+        padding: 1rem 3.5rem;
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+    }
+
+    .nav ul {
+        display: flex;
+        width: auto;
+        overflow: visible;
+        gap: 0.375rem;
+    }
+
+    .nav ul a {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    .nav ul a:hover {
+        background: var(--sage);
+        color: var(--green);
+        border-color: transparent;
+    }
+
+    .lang {
+        margin-left: 0;
+        padding: 0.1875rem;
+        gap: 2px;
+    }
+
+    .lang .lang-ic {
+        display: inline-flex;
+    }
+
+    .lang a {
+        padding: 0.375rem 0.625rem;
+        font-size: 0.75rem;
+    }
+
+    body {
+        font-size: 1.0625rem;
+    }
+
+    .hero {
+        padding: 6rem 3.5rem 12.5rem;
+    }
+
+    .hero h1 {
+        font-size: 3.75rem;
+        line-height: 1.1;
+    }
+
+    .hero svg {
+        height: 12.5rem;
+    }
+
+    .hero-tower {
+        bottom: 10.5rem;
+        width: 3rem;
+        height: 9rem;
+    }
+
+    .btns {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        padding: 0.875rem 1.625rem;
+    }
+
+    .cta .btns {
+        max-width: 46.875rem;
+        justify-content: center;
+    }
+
+    section {
+        padding: 5rem 3.5rem;
+    }
+
+    h2 {
+        font-size: 2.375rem;
+        line-height: 1.15;
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feat-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gal-item img {
+        object-fit: contain;
+    }
+
+    .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3.5rem;
+        align-items: center;
+    }
+
+    .gal-wrap {
+        overflow-x: visible;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .gal {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.875rem;
+        width: auto;
+        scroll-snap-type: none;
+    }
+
+    .gal .clone {
+        display: none !important;
+    }
+
+    .gal-item {
+        display: block;
+        flex: none;
+        width: auto;
+        min-width: 0;
+        max-width: none;
+        padding: 0;
+        aspect-ratio: 3 / 4;
+        scroll-snap-align: none;
+        scroll-snap-stop: normal;
+    }
+
+    .map-frame {
+        height: 16.875rem;
+    }
+
+    .map-header {
+        padding: 0.875rem 1.125rem;
+    }
+}

@@ -1,0 +1,48 @@
+/* --------------------------------------------------------------------------
+   8. Compact (mobile) layout – base styles, applied at every width
+   -------------------------------------------------------------------------- */
+
+/* Hide header navigation links */
+.nav ul {
+    display: none;
+}
+
+/* Compact language switcher aligned to the right side */
+.lang {
+    margin-left: auto;
+    padding: 2px;
+    gap: 1px;
+}
+
+.lang .lang-ic {
+    display: none;
+}
+
+.lang a {
+    padding: 0.25rem 0.4375rem;
+    font-size: 0.6875rem;
+}
+
+/* Ensure the tower element is always visible on mobile */
+.hero-tower {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    left: 78.2%;
+    bottom: 7.8125rem;
+    width: 2.25rem;
+    height: 6.75rem;
+}
+
+/* Mobile sequence for #events: 1. Calendar, 2. Program list, 3. Google Maps */
+.cal {
+    order: 1;
+}
+
+.dp {
+    order: 2;
+}
+
+.map-card {
+    order: 3;
+}

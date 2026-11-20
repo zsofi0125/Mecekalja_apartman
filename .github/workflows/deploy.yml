@@ -32,10 +32,17 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Assemble public site (excludes original photos and dev files)
+        run: |
+          mkdir -p _site/img
+          cp -r hu en de _site/
+          cp index.html style.css app.js events.js events-labels.js lang-redirect.js 404.html favicon.svg sitemap.xml robots.txt _site/
+          cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
+
       - name: Upload static website artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
