@@ -22,6 +22,8 @@
  * @property {string} pick
  * @property {string} none
  * @property {string} note
+ * @property {string} sources - Prefix of the source list under the programs
+ * @property {string} updated - Prefix of the last update date
  * @property {Record<ProgramCategory, string>} t - Category names
  */
 
@@ -39,7 +41,9 @@ const EVENTS_LABELS = {
         km: 'km away',
         pick: 'Pick of the day',
         none: 'Nothing matches these filters.',
-        note: 'Distances are approximate, from the apartment. Please check opening hours before you go.',
+        note: 'Events are collected automatically from the organisers’ websites. Please check the details on the original page before you go.',
+        sources: 'Sources:',
+        updated: 'Last updated:',
         t: {
             relax: 'Relax',
             active: 'Active',
@@ -60,7 +64,9 @@ const EVENTS_LABELS = {
         km: 'km-re',
         pick: 'A nap ajánlata',
         none: 'Nincs a szűrőknek megfelelő program.',
-        note: 'A távolságok hozzávetőlegesek, az apartmantól számítva. Indulás előtt ellenőrizze a nyitvatartást.',
+        note: 'A programokat automatikusan gyűjtjük a szervezők oldalairól. Indulás előtt kérjük, ellenőrizze a részleteket az eredeti oldalon.',
+        sources: 'Források:',
+        updated: 'Utolsó frissítés:',
         t: {
             relax: 'Pihenés',
             active: 'Aktív',
@@ -81,7 +87,9 @@ const EVENTS_LABELS = {
         km: 'km entfernt',
         pick: 'Tipp des Tages',
         none: 'Keine Programme für diese Filter.',
-        note: 'Entfernungen sind ungefähr, ab der Wohnung. Bitte prüfen Sie vorab die Öffnungszeiten.',
+        note: 'Die Veranstaltungen werden automatisch von den Websites der Veranstalter gesammelt. Bitte prüfen Sie die Details vor dem Besuch auf der Originalseite.',
+        sources: 'Quellen:',
+        updated: 'Zuletzt aktualisiert:',
         t: {
             relax: 'Entspannung',
             active: 'Aktiv',
@@ -95,19 +103,16 @@ const EVENTS_LABELS = {
 /**
  * Event source disclaimers and notes.
  */
-/** @type {Record<LanguageCode, {no: string, src: string}>} */
+/** @type {Record<LanguageCode, {no: string}>} */
 const EVENTS_NOTES = {
     en: {
-        no: 'Not specifically for kids',
-        src: 'Event listings from pecsiprogram.hu, pecs.hu, pecsimami.hu and programturizmus.hu, last updated 18 Nov 2026.'
+        no: 'Not specifically for kids'
     },
     hu: {
-        no: 'Nem kifejezetten gyerekeknek',
-        src: 'Az események forrásai: pecsiprogram.hu, pecs.hu, pecsimami.hu és programturizmus.hu, utolsó frissítés: 2026. 11. 18.'
+        no: 'Nem kifejezetten gyerekeknek'
     },
     de: {
-        no: 'Nicht speziell für Kinder',
-        src: 'Veranstaltungen von pecsiprogram.hu, pecs.hu, pecsimami.hu und programturizmus.hu, Stand 18.11.2026.'
+        no: 'Nicht speziell für Kinder'
     }
 };
 

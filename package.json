@@ -4,11 +4,14 @@
   "type": "module",
   "scripts": {
     "images": "node scripts/optimize-images.mjs",
-    "build": "node scripts/build.mjs",
+    "scrape": "node scripts/events/index.mjs",
+    "build": "npm run scrape && node scripts/build.mjs",
+    "build:pages": "node scripts/build.mjs",
     "typecheck": "tsc -p .",
     "contrast": "node scripts/check-contrast.mjs"
   },
   "devDependencies": {
+    "cheerio": "^1.2.0",
     "sharp": "^0.34.0",
     "typescript": "^5.9.3"
   }

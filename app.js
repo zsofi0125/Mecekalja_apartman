@@ -11,7 +11,9 @@
 
     /** @type {LanguageCode} */
     const DEFAULT_LANGUAGE = 'hu';
-    const FALLBACK_TITLE_LANGUAGE = 'en';
+    /** Scraped events have only their original Hungarian title. */
+    /** @type {LanguageCode[]} */
+    const TITLE_FALLBACK_ORDER = ['hu', 'en'];
     const MS_PER_DAY = 864e5;
     const CAROUSEL_EDGE_TOLERANCE_PX = 15;
     const CAROUSEL_SCROLL_SETTLE_MS = 80;
@@ -68,7 +70,7 @@
      * @param {LanguageCode} language
      */
     function getProgramTitle(program, language) {
-        return program.title[language] || program.title[FALLBACK_TITLE_LANGUAGE];
+        return program.title[language] || TITLE_FALLBACK_ORDER.map(code => program.title[code]).find(Boolean) || '';
     }
 
     /** @param {EventsLabelSet} labels */
@@ -146,8 +148,10 @@
                     ${isPickOfTheDay ? `<span class="pk-l">★ ${escapeHtml(labels.pick)}</span>` : ''}
                     <strong>${program.dates ? '📅 ' : ''}${titleMarkup}</strong>
                     <div class="bd2">
+                        ${program.time ? `<em>🕒 ${escapeHtml(program.time)}</em>` : ''}
+                        ${program.venue ? `<em class="pg-venue">📍 ${escapeHtml(program.venue)}</em>` : ''}
+                        ${program.distanceKm === undefined ? '' : `<em>~${Number(program.distanceKm)} ${escapeHtml(labels.km)}</em>`}
                         <em>${escapeHtml(labels.t[program.category])}</em>
-                        <em>📍 ~${Number(program.distanceKm)} ${escapeHtml(labels.km)}</em>
                         <em class="${program.kidFriendly ? 'k' : 'n'}">${escapeHtml(kidLabel)}</em>
                     </div>
                 </div>
@@ -188,7 +192,30 @@
                   .map(program => renderProgramCard(program, program === pickOfTheDay, labels, notes, language))
                   .join('')
             : `<p>${escapeHtml(labels.none)}</p>`;
-        container.innerHTML = `${heading}${body}<p class="nt">${escapeHtml(labels.note)} ${escapeHtml(notes[language].src)}</p>`;
+        container.innerHTML = `${heading}${body}${renderSourceNote(labels, locale)}`;
+    }
+
+    /**
+     * "Sources: a, b and c. Last updated: …" with links to every source that delivered events.
+     * @param {EventsLabelSet} labels
+     * @param {string} locale
+     */
+    function renderSourceNote(labels, locale) {
+        const { sources, updatedOn } = EVENTS_SOURCE_INFO;
+        const sourceLinks = sources
+            .map(source => {
+                const safeUrl = toSafeUrl(source.url);
+                return safeUrl ? `<a href="${safeUrl}" target="_blank" rel="noopener">${escapeHtml(source.label)}</a>` : '';
+            })
+            .filter(Boolean);
+        const sourceList = sourceLinks.length
+            ? ` ${escapeHtml(labels.sources)} ${new Intl.ListFormat(locale, { type: 'conjunction' }).format(sourceLinks)}.`
+            : '';
+        const [year, month, day] = updatedOn.split('-').map(Number);
+        const updated = year
+            ? ` ${escapeHtml(labels.updated)} ${escapeHtml(new Date(year, month - 1, day).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' }))}.`
+            : '';
+        return `<p class="nt">${escapeHtml(labels.note)}${sourceList}${updated}</p>`;
     }
 
     function renderEventsWidget() {

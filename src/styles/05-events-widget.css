@@ -170,6 +170,12 @@
     font-variant-numeric: tabular-nums;
 }
 
+/* Scraped venue names can be long addresses; let them wrap inside the card on narrow screens. */
+.bd2 em.pg-venue {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
 .bd2 em.k {
     background: #e8b45f;
     color: #3b2a0a;
@@ -192,6 +198,13 @@
     font-size: 0.75rem;
     color: var(--mute);
     margin-top: 0.5rem;
+    overflow-wrap: anywhere;
+}
+
+.nt a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.125rem;
 }
 
 .pg a {
@@ -207,4 +220,5 @@
 
 .pg-body {
     flex: 1;
+    min-width: 0;
 }

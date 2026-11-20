@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - main
+  # Daily rebuild so the Programs section shows fresh events (04:15 UTC ≈ 05:15/06:15 in Pécs)
+  schedule:
+    - cron: '15 4 * * *'
   # Allows manual triggering from the Actions tab in GitHub
   workflow_dispatch:
 
@@ -29,6 +32,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install build dependencies
+        run: npm ci
+
+      # Last good scrape per source; used when a source is down or changed its markup.
+      # Each run saves a new entry; the newest one is restored on the next run.
+      - name: Restore event scrape cache
+        uses: actions/cache@v4
+        with:
+          path: src/data/events-cache.json
+          key: events-cache-${{ github.run_id }}
+          restore-keys: events-cache-
+
+      - name: Scrape events and build pages
+        run: npm run build
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -36,7 +60,7 @@ jobs:
         run: |
           mkdir -p _site/img
           cp -r hu en de _site/
-          cp index.html style.css app.js events.js events-labels.js lang-redirect.js 404.html favicon.svg sitemap.xml robots.txt _site/
+          cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon.svg sitemap.xml robots.txt _site/
           cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
 
       - name: Upload static website artifact
@@ -47,3 +71,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Ping Healthchecks.io (success)
+        if: success()
+        env:
+          HEALTHCHECKS_URL: ${{ secrets.HEALTHCHECKS_URL }}
+        run: |
+          if [ -n "$HEALTHCHECKS_URL" ]; then curl -fsS -m 10 --retry 3 "$HEALTHCHECKS_URL"; fi
+
+      - name: Ping Healthchecks.io (failure)
+        if: failure()
+        env:
+          HEALTHCHECKS_URL: ${{ secrets.HEALTHCHECKS_URL }}
+        run: |
+          if [ -n "$HEALTHCHECKS_URL" ]; then curl -fsS -m 10 --retry 3 "$HEALTHCHECKS_URL/fail"; fi
