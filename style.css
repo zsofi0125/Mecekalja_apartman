@@ -540,27 +540,6 @@ h2 {
     margin: 1.25rem auto 0;
 }
 
-footer {
-    padding: 2rem 1.25rem;
-    text-align: center;
-    color: var(--mute);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    line-height: 1.6;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-footer a {
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    text-transform: inherit;
-    letter-spacing: inherit;
-    text-decoration: underline;
-    text-underline-offset: 0.1875rem;
-}
-
 /* --------------------------------------------------------------------------
    7. Calendar & Programs Widget (#events)
    -------------------------------------------------------------------------- */
@@ -1245,5 +1224,165 @@ footer a {
     *::after {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   10. Footer & legal notice page (Impresszum)
+   -------------------------------------------------------------------------- */
+.site-footer {
+    padding: 2rem 1.25rem;
+    color: var(--mute);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: center;
+    max-width: 72rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-rating {
+    display: grid;
+    justify-items: center;
+    gap: 0.375rem;
+}
+
+/* The slot keeps its size whether it holds the placeholder or the logo, so adding the logo shifts nothing. */
+.footer-rating-slot {
+    display: grid;
+    place-items: center;
+    width: 10rem;
+    height: 3rem;
+    border: 1px dashed var(--line);
+    border-radius: 0.75rem;
+}
+
+.footer-rating-slot img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-links a,
+.footer-pending {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+}
+
+.footer-links a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.1875rem;
+}
+
+.footer-pending {
+    cursor: default;
+}
+
+.footer-copy {
+    margin: 0;
+}
+
+@media (min-width: 47.5rem) {
+    .site-footer {
+        padding: 2rem 3.5rem;
+    }
+
+    .footer-inner {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        justify-items: start;
+        text-align: left;
+    }
+
+    .footer-links {
+        justify-self: end;
+    }
+
+    .footer-links ul {
+        justify-content: flex-end;
+    }
+
+    .footer-copy {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Legal notice page */
+.legal {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3rem;
+}
+
+.legal h1 {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--green);
+}
+
+.legal-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--green);
+    text-underline-offset: 0.1875rem;
+}
+
+.legal-list {
+    display: grid;
+    gap: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.legal-item {
+    padding: 1rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+}
+
+.legal-item h2 {
+    margin-bottom: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.legal-item p {
+    overflow-wrap: anywhere;
+}
+
+@media (min-width: 47.5rem) {
+    .legal {
+        padding: 4rem 3.5rem 5rem;
+    }
+
+    .legal h1 {
+        font-size: 2.375rem;
     }
 }

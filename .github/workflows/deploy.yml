@@ -90,6 +90,8 @@ jobs:
           cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
           mkdir -p _site/img/icons
           cp img/icons/*.webp _site/img/icons/
+          mkdir -p _site/houserules
+          cp houserules/*.pdf _site/houserules/
 
       # A re-run keeps the previous attempt's artifacts under the same run id, and deploy-pages
       # refuses to pick between two "github-pages" artifacts. Remove stale ones before uploading.

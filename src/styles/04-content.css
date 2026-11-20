@@ -252,24 +252,3 @@ h2 {
     max-width: 21.25rem;
     margin: 1.25rem auto 0;
 }
-
-footer {
-    padding: 2rem 1.25rem;
-    text-align: center;
-    color: var(--mute);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    line-height: 1.6;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-footer a {
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    text-transform: inherit;
-    letter-spacing: inherit;
-    text-decoration: underline;
-    text-underline-offset: 0.1875rem;
-}

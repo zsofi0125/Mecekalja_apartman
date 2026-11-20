@@ -1,0 +1,21 @@
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <!-- TODO: drop the rating-stars logo into the slot below, e.g.
+                     <img src="{{base}}img/rating-stars.webp" alt="" width="160" height="48">
+                     The slot already reserves 10rem x 3rem, so adding the image causes no layout shift.
+                     Then add a meaningful alt text (translation key) and remove the dashed placeholder style. -->
+                <div class="footer-rating">
+                    <div class="footer-rating-slot" data-slot="rating-stars" aria-hidden="true"></div>
+                    <span data-i="footerRatingLabel"></span>
+                </div>
+                <nav class="footer-links" data-i-aria-label="footerNavLabel" aria-label="">
+                    <ul>
+                        <li><a href="{{base}}{{houseRulesFile}}" target="_blank" rel="noopener" data-i="footerHouseRules"></a></li>
+                        <li><a href="{{base}}{{lang}}/{{legalSlug}}/" data-i="footerImprint"></a></li>
+                        <!-- TODO: link the privacy notice once the document exists (make this an <a href="...">). -->
+                        <li><span class="footer-pending" data-i="footerPrivacy"></span></li>
+                    </ul>
+                </nav>
+                <p class="footer-copy" data-i="footerText"></p>
+            </div>
+        </footer>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{metaTitle}}</title>
+    <meta name="description" content="{{metaDescription}}">
+    <meta name="robots" content="noindex, follow">
+    <meta http-equiv="Content-Security-Policy" content="{{contentSecurityPolicy}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="canonical" href="{{canonicalUrl}}">
+{{hreflangLinks}}
+{{faviconLinks}}
+{{fontLinks}}
+    <link rel="stylesheet" href="{{base}}style.css">
+</head>
+
+<body>
+    <div class="stage">
+        <header class="nav">
+            <a href="{{base}}{{lang}}/" class="logo" data-i="brandName">Mecsekalja apartman</a>
+            <div class="lang" role="group" data-i-aria-label="languageSwitcherLabel" aria-label="">
+                <a href="{{base}}hu/{{legalSlug}}/" hreflang="hu" lang="hu" data-lang-link="hu">HU</a>
+                <a href="{{base}}en/{{legalSlug}}/" hreflang="en" lang="en" data-lang-link="en">EN</a>
+                <a href="{{base}}de/{{legalSlug}}/" hreflang="de" lang="de" data-lang-link="de">DE</a>
+            </div>
+        </header>
+
+        <main class="legal">
+            <h1 data-i="legalHeading"></h1>
+            <p><a class="legal-back" href="{{base}}{{lang}}/" data-i="legalBack"></a></p>
+
+            <!-- TODO: replace each placeholder value in translations.js (legal*Value keys, all three
+                 languages), then delete the matching data-todo attribute. -->
+            <div class="legal-list">
+                <section class="legal-item">
+                    <h2 data-i="legalNameLabel"></h2>
+                    <p data-todo data-i="legalNameValue"></p>
+                </section>
+                <section class="legal-item">
+                    <h2 data-i="legalAddressLabel"></h2>
+                    <p data-todo data-i="legalAddressValue"></p>
+                </section>
+                <section class="legal-item">
+                    <h2 data-i="legalTaxIdLabel"></h2>
+                    <p data-todo data-i="legalTaxIdValue"></p>
+                </section>
+                <section class="legal-item">
+                    <h2 data-i="legalContactLabel"></h2>
+                    <p data-todo data-i="legalContactValue"></p>
+                </section>
+                <section class="legal-item">
+                    <h2 data-i="legalHostingLabel"></h2>
+                    <p data-todo data-i="legalHostingValue"></p>
+                </section>
+            </div>
+        </main>
+
+{{footer}}
+    </div>
+</body>
+
+</html>
