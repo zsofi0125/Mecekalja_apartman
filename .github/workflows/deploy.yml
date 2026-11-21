@@ -82,7 +82,7 @@ jobs:
         run: npm run build:pages
 
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       # Full site, relative links only, so it works at *.github.io/<repo>/ as well as at a domain root.
       # maintenance.html is Cloudflare-only and is deliberately not published here.
