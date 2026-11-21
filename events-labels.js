@@ -18,7 +18,6 @@
  * @property {string} kid
  * @property {string} ok
  * @property {string} km
- * @property {string} pick
  * @property {string} none
  * @property {string} note
  * @property {string} sources - Prefix of the source list under the programs
@@ -37,7 +36,6 @@ const EVENTS_LABELS = {
         kid: 'For kids',
         ok: 'Kid-friendly',
         km: 'km away',
-        pick: 'Pick of the day',
         none: 'Nothing matches these filters.',
         note: 'Events are collected automatically from the organisers’ websites. Please check the details on the original page before you go.',
         sources: 'Sources:',
@@ -60,7 +58,6 @@ const EVENTS_LABELS = {
         kid: 'Gyerekeknek',
         ok: 'Gyerekbarát',
         km: 'km-re',
-        pick: 'A nap ajánlata',
         none: 'Nincs a szűrőknek megfelelő program.',
         note: 'A programokat automatikusan gyűjtjük a szervezők oldalairól. Indulás előtt kérjük, ellenőrizze a részleteket az eredeti oldalon.',
         sources: 'Források:',
@@ -83,7 +80,6 @@ const EVENTS_LABELS = {
         kid: 'Für Kinder',
         ok: 'Kinderfreundlich',
         km: 'km entfernt',
-        pick: 'Tipp des Tages',
         none: 'Keine Programme für diese Filter.',
         note: 'Die Veranstaltungen werden automatisch von den Websites der Veranstalter gesammelt. Bitte prüfen Sie die Details vor dem Besuch auf der Originalseite.',
         sources: 'Quellen:',

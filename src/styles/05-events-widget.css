@@ -182,11 +182,6 @@
     background: var(--bg);
 }
 
-.pg.pk {
-    border-color: var(--sun);
-    background: color-mix(in srgb, var(--sun) 14%, var(--bg));
-}
-
 .pg strong {
     display: block;
     font-size: 0.9375rem;
@@ -226,14 +221,6 @@
 .bd2 em.k {
     background: #e8b45f;
     color: #3b2a0a;
-}
-
-.pk-l {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    color: #a8731f;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
 }
 
 .nt {

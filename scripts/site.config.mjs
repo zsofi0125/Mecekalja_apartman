@@ -1,5 +1,5 @@
 /** Single source of truth for site-wide build settings. */
-export const SITE_URL = 'https://mecsakaljaapartman.hu';
+export const SITE_URL = 'https://mecsekaljaapartman.hu';
 export const SUPPORTED_LANGUAGES = ['hu', 'en', 'de'];
 export const DEFAULT_LANGUAGE = 'hu';
 export const OPEN_GRAPH_LOCALES = { hu: 'hu_HU', en: 'en_GB', de: 'de_DE' };
@@ -13,3 +13,9 @@ export const HOUSE_RULES_FILES = {
 };
 /** Folder name of the legal-notice page below each language folder, e.g. /hu/impressum/. */
 export const LEGAL_PAGE_SLUG = 'impressum';
+/** Privacy policy folder per language, e.g. /hu/adatkezelesi-tajekoztato/. */
+export const PRIVACY_PAGE_SLUGS = {
+    hu: 'adatkezelesi-tajekoztato',
+    en: 'privacy-policy',
+    de: 'datenschutz'
+};

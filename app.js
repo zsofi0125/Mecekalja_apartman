@@ -14,7 +14,6 @@
     /** Scraped events have only their original Hungarian title. */
     /** @type {LanguageCode[]} */
     const TITLE_FALLBACK_ORDER = ['hu', 'en'];
-    const MS_PER_DAY = 864e5;
     const CAROUSEL_EDGE_TOLERANCE_PX = 15;
     const CAROUSEL_SCROLL_SETTLE_MS = 80;
     const CAROUSEL_RESIZE_SETTLE_MS = 150;
@@ -129,11 +128,10 @@
 
     /**
      * @param {Program} program
-     * @param {boolean} isPickOfTheDay
      * @param {EventsLabelSet} labels
      * @param {LanguageCode} language
      */
-    function renderProgramCard(program, isPickOfTheDay, labels, language) {
+    function renderProgramCard(program, labels, language) {
         const title = escapeHtml(getProgramTitle(program, language));
         const safeUrl = program.url ? toSafeUrl(program.url) : '';
         const titleMarkup = safeUrl
@@ -141,9 +139,8 @@
             : title;
 
         return `
-            <div class="pg ${isPickOfTheDay ? 'pk' : ''}">
+            <div class="pg">
                 <div class="pg-body">
-                    ${isPickOfTheDay ? `<span class="pk-l">★ ${escapeHtml(labels.pick)}</span>` : ''}
                     <strong>${program.dates ? '📅 ' : ''}${titleMarkup}</strong>
                     <div class="bd2">
                         ${program.time ? `<em>🕒 ${escapeHtml(program.time)}</em>` : ''}
@@ -171,22 +168,14 @@
 
         const programsOfTheDay = RECURRING_PROGRAMS.filter(program => (program.months || []).includes(month))
             .concat(DATED_EVENTS.filter(event => eventOccursOn(event, isoDate)));
-        const dayOfYear = Math.floor((selectedDate.getTime() - new Date(selectedDate.getFullYear(), 0, 0).getTime()) / MS_PER_DAY);
-        const pickOfTheDay = programsOfTheDay.length
-            ? programsOfTheDay[dayOfYear % programsOfTheDay.length]
-            : null;
-
-        let visiblePrograms = programsOfTheDay.filter(
+        const visiblePrograms = programsOfTheDay.filter(
             program => (categoryFilter === 'all' || program.category === categoryFilter) && (!kidFriendlyOnly || program.kidFriendly)
         );
-        if (pickOfTheDay && visiblePrograms.includes(pickOfTheDay)) {
-            visiblePrograms = [pickOfTheDay, ...visiblePrograms.filter(program => program !== pickOfTheDay)];
-        }
 
         const heading = `<h3 id="dp-heading">${escapeHtml(selectedDate.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' }))}</h3>`;
         const body = visiblePrograms.length
             ? visiblePrograms
-                  .map(program => renderProgramCard(program, program === pickOfTheDay, labels, language))
+                  .map(program => renderProgramCard(program, labels, language))
                   .join('')
             : `<p>${escapeHtml(labels.none)}</p>`;
         // The heading stays put; the cards and the source note scroll (keyboard-focusable, named by the heading).

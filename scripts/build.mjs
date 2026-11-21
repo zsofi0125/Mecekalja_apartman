@@ -9,8 +9,9 @@ import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 import {
     SITE_URL, SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, OPEN_GRAPH_LOCALES, OPEN_GRAPH_IMAGE_PATH,
-    HOUSE_RULES_FILES, LEGAL_PAGE_SLUG
+    HOUSE_RULES_FILES, LEGAL_PAGE_SLUG, PRIVACY_PAGE_SLUGS
 } from './site.config.mjs';
+import { renderMarkdown } from './markdown.mjs';
 
 const TITLE_LENGTH = [50, 60];
 const DESCRIPTION_LENGTH = [120, 155];
@@ -52,6 +53,7 @@ function assertLength(label, text, [min, max]) {
 
 const pageUrl = lang => `${SITE_URL}/${lang}/`;
 const legalPageUrl = lang => `${SITE_URL}/${lang}/${LEGAL_PAGE_SLUG}/`;
+const privacyPageUrl = lang => `${SITE_URL}/${lang}/${PRIVACY_PAGE_SLUGS[lang]}/`;
 
 /** Replaces every {{name}} with values[name]; an unknown placeholder fails the build. */
 function fillPlaceholders(text, values) {
@@ -155,7 +157,32 @@ function renderLanguagePage(template, lang, translations, partials) {
 }
 
 function renderFooter(footerPartial, lang, base) {
-    return fillPlaceholders(footerPartial.trimEnd(), { base, lang, houseRulesFile: HOUSE_RULES_FILES[lang], legalSlug: LEGAL_PAGE_SLUG });
+    return fillPlaceholders(footerPartial.trimEnd(), {
+        base, lang, houseRulesFile: HOUSE_RULES_FILES[lang], legalSlug: LEGAL_PAGE_SLUG, privacySlug: PRIVACY_PAGE_SLUGS[lang]
+    });
+}
+
+/** Privacy policy at /{lang}/{privacy slug}/; body comes from src/privacy/{lang}.md. Thin utility page: noindex, not in the sitemap. */
+function renderPrivacyPage(template, lang, translations, partials, privacyMarkdown) {
+    const copy = translations.TRANSLATIONS[lang];
+    const base = '../../';
+    const values = {
+        lang,
+        base,
+        privacySlugHu: PRIVACY_PAGE_SLUGS.hu,
+        privacySlugEn: PRIVACY_PAGE_SLUGS.en,
+        privacySlugDe: PRIVACY_PAGE_SLUGS.de,
+        metaTitle: escapeHtml(copy.privacyMetaTitle),
+        metaDescription: escapeHtml(copy.privacyMetaDescription),
+        canonicalUrl: privacyPageUrl(lang),
+        hreflangLinks: buildHreflangLinks(privacyPageUrl),
+        faviconLinks: faviconLinks(base),
+        contentSecurityPolicy,
+        fontLinks: partials.fonts.trimEnd(),
+        footer: renderFooter(partials.footer, lang, base),
+        privacyContent: renderMarkdown(privacyMarkdown)
+    };
+    return markActiveLanguage(fillTranslatedText(fillPlaceholders(template, values), lang, translations, new Date().getFullYear()), lang);
 }
 
 /** Legal notice (Impresszum) at /{lang}/impressum/; thin utility page, so noindex and not in the sitemap. */
@@ -251,9 +278,9 @@ function renderSitemap(lastModified) {
     return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries}\n</urlset>\n`;
 }
 
-const [template, legalTemplate, translations, fonts, footer] = await Promise.all([
-    readFile('src/template.html', 'utf8'), readFile('src/impressum.html', 'utf8'), loadTranslations(),
-    loadPartial('fonts'), loadPartial('footer')
+const [template, legalTemplate, privacyTemplate, translations, fonts, footer] = await Promise.all([
+    readFile('src/template.html', 'utf8'), readFile('src/impressum.html', 'utf8'), readFile('src/privacy.html', 'utf8'),
+    loadTranslations(), loadPartial('fonts'), loadPartial('footer')
 ]);
 const partials = { fonts, footer };
 
@@ -262,6 +289,10 @@ for (const lang of SUPPORTED_LANGUAGES) {
     await writeFile(`${lang}/index.html`, renderLanguagePage(template, lang, translations, partials));
     await mkdir(`${lang}/${LEGAL_PAGE_SLUG}`, { recursive: true });
     await writeFile(`${lang}/${LEGAL_PAGE_SLUG}/index.html`, renderLegalPage(legalTemplate, lang, translations, partials));
+    const privacyDirectory = `${lang}/${PRIVACY_PAGE_SLUGS[lang]}`;
+    await mkdir(privacyDirectory, { recursive: true });
+    const privacyMarkdown = await readFile(`src/privacy/${lang}.md`, 'utf8');
+    await writeFile(`${privacyDirectory}/index.html`, renderPrivacyPage(privacyTemplate, lang, translations, partials, privacyMarkdown));
 }
 await writeFile('index.html', renderLanguageChooser());
 await writeFile('404.html', renderNotFoundPage(translations));

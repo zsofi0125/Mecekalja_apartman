@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{metaTitle}}</title>
+    <meta name="description" content="{{metaDescription}}">
+    <meta name="robots" content="noindex, follow">
+    <meta http-equiv="Content-Security-Policy" content="{{contentSecurityPolicy}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="canonical" href="{{canonicalUrl}}">
+{{hreflangLinks}}
+{{faviconLinks}}
+{{fontLinks}}
+    <link rel="stylesheet" href="{{base}}style.css">
+</head>
+
+<body>
+    <div class="stage">
+        <header class="nav">
+            <a href="{{base}}{{lang}}/" class="logo" data-i="brandName">Mecsekalja apartman</a>
+            <div class="lang" role="group" data-i-aria-label="languageSwitcherLabel" aria-label="">
+                <a href="{{base}}hu/{{privacySlugHu}}/" hreflang="hu" lang="hu" data-lang-link="hu">HU</a>
+                <a href="{{base}}en/{{privacySlugEn}}/" hreflang="en" lang="en" data-lang-link="en">EN</a>
+                <a href="{{base}}de/{{privacySlugDe}}/" hreflang="de" lang="de" data-lang-link="de">DE</a>
+            </div>
+        </header>
+
+        <main class="legal legal-document">
+            <p><a class="legal-back" href="{{base}}{{lang}}/" data-i="legalBack"></a></p>
+{{privacyContent}}
+        </main>
+
+{{footer}}
+    </div>
+</body>
+
+</html>

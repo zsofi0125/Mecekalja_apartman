@@ -724,11 +724,6 @@ h2 {
     background: var(--bg);
 }
 
-.pg.pk {
-    border-color: var(--sun);
-    background: color-mix(in srgb, var(--sun) 14%, var(--bg));
-}
-
 .pg strong {
     display: block;
     font-size: 0.9375rem;
@@ -768,14 +763,6 @@ h2 {
 .bd2 em.k {
     background: #e8b45f;
     color: #3b2a0a;
-}
-
-.pk-l {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    color: #a8731f;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
 }
 
 .nt {
@@ -1282,8 +1269,7 @@ h2 {
     list-style: none;
 }
 
-.footer-links a,
-.footer-pending {
+.footer-links a {
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
@@ -1295,12 +1281,10 @@ h2 {
     text-underline-offset: 0.1875rem;
 }
 
-.footer-pending {
-    cursor: default;
-}
-
 .footer-copy {
     margin: 0;
+    justify-self: center;
+    text-align: center;
 }
 
 @media (min-width: 47.5rem) {
@@ -1325,6 +1309,7 @@ h2 {
 
     .footer-copy {
         grid-column: 1 / -1;
+        justify-self: center;
     }
 }
 
@@ -1341,6 +1326,50 @@ h2 {
     font-weight: 700;
     line-height: 1.18;
     color: var(--green);
+}
+
+/* Long-form documents (privacy policy) rendered from Markdown */
+.legal-document h2 {
+    margin: 2rem 0 0.5rem;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--green);
+}
+
+.legal-document h3 {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.3;
+    color: var(--green);
+}
+
+.legal-document p,
+.legal-document li {
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+.legal-document p {
+    margin: 0 0 0.875rem;
+}
+
+.legal-document ul {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+}
+
+.legal-document li {
+    margin-bottom: 0.5rem;
+}
+
+.legal-document li > ul {
+    margin: 0.5rem 0 0;
+}
+
+.legal-document a {
+    color: var(--green);
+    text-underline-offset: 0.1875rem;
 }
 
 .legal-back {
