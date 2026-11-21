@@ -82,16 +82,27 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Assemble public site (excludes original photos and dev files)
+      # TEMPORARY: only the maintenance page is published (as index.html and 404.html) until the
+      # Booking.com, Airbnb and Szallas.hu listings are set up. To restore the full site, use the
+      # commented-out block below instead of these lines.
+      - name: Assemble public site (maintenance page only)
         run: |
-          mkdir -p _site/img
-          cp -r hu en de _site/
-          cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
-          cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
-          mkdir -p _site/img/icons
-          cp img/icons/*.webp _site/img/icons/
-          mkdir -p _site/houserules
-          cp houserules/*.pdf _site/houserules/
+          mkdir -p _site
+          cp maintenance.html _site/index.html
+          cp maintenance.html _site/404.html
+          cp style.css favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png _site/
+          printf 'User-agent: *\nAllow: /\n' > _site/robots.txt
+
+      # - name: Assemble public site (excludes original photos and dev files)
+      #   run: |
+      #     mkdir -p _site/img
+      #     cp -r hu en de _site/
+      #     cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
+      #     cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
+      #     mkdir -p _site/img/icons
+      #     cp img/icons/*.webp _site/img/icons/
+      #     mkdir -p _site/houserules
+      #     cp houserules/*.pdf _site/houserules/
 
       # A re-run keeps the previous attempt's artifacts under the same run id, and deploy-pages
       # refuses to pick between two "github-pages" artifacts. Remove stale ones before uploading.
