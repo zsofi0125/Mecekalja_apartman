@@ -238,10 +238,21 @@ ${faviconLinks('')}
 `;
 }
 
+/**
+ * A 404 page is served for URLs of any depth, so relative links cannot resolve there. This inline
+ * script (allowed by hash in the CSP) points <base> at the site root: the repository folder on
+ * GitHub project pages (*.github.io/<repo>/), the domain root everywhere else.
+ */
+const NOT_FOUND_BASE_SCRIPT = `(function(){var p=location.hostname.slice(-10)==='.github.io'?location.pathname.split('/')[1]:'';var b=document.createElement('base');b.href=p?'/'+p+'/':'/';document.head.prepend(b);})();`;
+
 function renderNotFoundPage(translations) {
+    const notFoundPolicy = contentSecurityPolicy.replace(
+        "script-src 'self'",
+        `script-src 'self' 'sha256-${createHash('sha256').update(NOT_FOUND_BASE_SCRIPT).digest('base64')}'`
+    );
     const languageBlocks = SUPPORTED_LANGUAGES.map(lang => {
         const copy = translations.TRANSLATIONS[lang];
-        return `<p lang="${lang}">${escapeHtml(copy.notFoundTitle)} · <a href="/${lang}/">${escapeHtml(copy.notFoundHomeLink)}</a></p>`;
+        return `<p lang="${lang}">${escapeHtml(copy.notFoundTitle)} · <a href="${lang}/">${escapeHtml(copy.notFoundHomeLink)}</a></p>`;
     }).join('\n        ');
     return `<!DOCTYPE html>
 <html lang="${DEFAULT_LANGUAGE}">
@@ -250,10 +261,11 @@ function renderNotFoundPage(translations) {
     <meta charset="utf-8">
     <title>404 · Mecsekalja Apartman</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}">
+    <meta http-equiv="Content-Security-Policy" content="${notFoundPolicy}">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-${faviconLinks('/')}
-    <link rel="stylesheet" href="/style.css">
+    <script>${NOT_FOUND_BASE_SCRIPT}</script>
+${faviconLinks('')}
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

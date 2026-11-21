@@ -61,10 +61,12 @@ jobs:
           key: events-cache-${{ github.run_id }}
           restore-keys: events-cache-
 
-      # Exits with an error (so nothing below runs and the previous site stays live) only when
+      # Exits with an error only when
       # the result as a whole looks broken, e.g. most sources failing or the event total collapsing.
+      # continue-on-error: the committed events-data.js (last good scrape) is then published as is.
       - name: Scrape events
         id: scrape
+        continue-on-error: true
         run: npm run scrape
 
       # Opens, refreshes or closes the "Event scraper needs attention" issue from scrape-report.json.
@@ -82,27 +84,17 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      # TEMPORARY: only the maintenance page is published (as index.html and 404.html) until the
-      # Booking.com, Airbnb and Szallas.hu listings are set up. To restore the full site, use the
-      # commented-out block below instead of these lines.
-      - name: Assemble public site (maintenance page only)
+      # Full site, relative links only, so it works at *.github.io/<repo>/ as well as at a domain root.
+      # maintenance.html is Cloudflare-only and is deliberately not published here.
+      - name: Assemble public site (excludes original photos and dev files)
         run: |
-          mkdir -p _site
-          cp maintenance.html _site/index.html
-          cp maintenance.html _site/404.html
-          cp style.css favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png _site/
-          printf 'User-agent: *\nAllow: /\n' > _site/robots.txt
-
-      # - name: Assemble public site (excludes original photos and dev files)
-      #   run: |
-      #     mkdir -p _site/img
-      #     cp -r hu en de _site/
-      #     cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
-      #     cp -r img/gallery img/tv_tower.svg img/og-cover.jpg _site/img/
-      #     mkdir -p _site/img/icons
-      #     cp img/icons/*.webp _site/img/icons/
-      #     mkdir -p _site/houserules
-      #     cp houserules/*.pdf _site/houserules/
+          mkdir -p _site/img/icons _site/houserules
+          cp -r hu en de _site/
+          cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
+          cp -r img/gallery _site/img/
+          cp img/tv_tower.svg img/og-cover.jpg _site/img/
+          cp img/icons/*.webp _site/img/icons/
+          cp houserules/*.pdf _site/houserules/
 
       # A re-run keeps the previous attempt's artifacts under the same run id, and deploy-pages
       # refuses to pick between two "github-pages" artifacts. Remove stale ones before uploading.
