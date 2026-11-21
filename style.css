@@ -370,8 +370,42 @@ h2 {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    margin-top: 1.25rem;
     width: 100%;
+}
+
+.gal-carousel {
+    position: relative;
+    margin-top: 1.25rem;
+}
+
+/* Swipe hints (mobile only): purely decorative, never intercept touches. The previous arrow stays hidden until the first swipe. */
+.gal-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-top: -1.375rem;
+    border-radius: 50%;
+    background: rgba(20, 28, 23, 0.55);
+    color: #ffffff;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.gal-arrow-prev {
+    left: 0.5rem;
+}
+
+.gal-arrow-next {
+    right: 0.5rem;
+}
+
+.gal-arrow[hidden] {
+    display: none;
 }
 
 .gal-wrap::-webkit-scrollbar {
@@ -1084,6 +1118,10 @@ h2 {
         align-items: center;
     }
 
+    .gal-arrow {
+        display: none;
+    }
+
     .gal-wrap {
         overflow-x: visible;
         margin-left: 0;
@@ -1413,5 +1451,112 @@ h2 {
 
     .legal h1 {
         font-size: 2.375rem;
+    }
+}
+
+/* ==========================================================================
+   11. Cookie consent banner, footer settings button and map consent overlay
+   ========================================================================== */
+
+.cookie-banner {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    z-index: 100;
+    display: grid;
+    gap: 0.875rem;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 1rem;
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.18);
+}
+
+.cookie-banner[hidden] {
+    display: none;
+}
+
+.cookie-banner-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.cookie-banner-text a {
+    color: var(--green);
+    text-underline-offset: 0.1875rem;
+}
+
+.cookie-banner-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.625rem;
+}
+
+.cookie-banner .btn {
+    min-height: 2.75rem;
+    padding: 0.625rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: normal;
+}
+
+/* Footer "Cookie settings": a button that looks like the other footer links. */
+.footer-link-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.1875rem;
+    cursor: pointer;
+}
+
+/* Map placeholder shown until cookies are accepted or the visitor loads the map. */
+.map-consent {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    text-align: center;
+    background: var(--stage);
+}
+
+.map-consent[hidden] {
+    display: none;
+}
+
+.map-consent p {
+    margin: 0;
+}
+
+.map-consent .btn {
+    min-height: 2.75rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (min-width: 47.5rem) {
+    .cookie-banner {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .cookie-banner-actions {
+        grid-template-columns: auto auto;
     }
 }

@@ -314,12 +314,22 @@
             }
         }
 
+        // Once revealed, the previous arrow stays for the rest of the page view.
+        const previousArrow = document.querySelector('.gal-arrow-prev');
+        function revealPreviousArrowAfterFirstSwipe() {
+            if (!previousArrow || !previousArrow.hasAttribute('hidden')) return;
+            if (Math.abs(scroller.scrollLeft - firstRealSlide.offsetLeft) > CAROUSEL_EDGE_TOLERANCE_PX) {
+                previousArrow.removeAttribute('hidden');
+            }
+        }
+
         const showFirstRealSlide = () => {
             if (isScrollable()) scrollToSlide(firstRealSlide);
         };
 
         scroller.addEventListener('scrollend', loopIfAtEdge);
         scroller.addEventListener('scroll', () => {
+            revealPreviousArrowAfterFirstSwipe();
             clearTimeout(settleTimer);
             settleTimer = setTimeout(loopIfAtEdge, CAROUSEL_SCROLL_SETTLE_MS);
         }, { passive: true });

@@ -6,7 +6,7 @@
     <title>Impressum · Mecsekalja Apartment</title>
     <meta name="description" content="Impressum und Anbieterangaben des Mecsekalja Apartments in Pécs.">
     <meta name="robots" content="noindex, follow">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="canonical" href="https://mecsekaljaapartman.hu/de/impressum/">
     <link rel="alternate" hreflang="hu" href="https://mecsekaljaapartman.hu/hu/impressum/">
@@ -42,28 +42,23 @@
             <h1 data-i="legalHeading">Impressum</h1>
             <p><a class="legal-back" href="../../de/" data-i="legalBack">← Zurück zur Startseite</a></p>
 
-            <!-- TODO: replace each placeholder value in translations.js (legal*Value keys, all three
-                 languages), then delete the matching data-todo attribute. -->
             <div class="legal-list">
                 <section class="legal-item">
-                    <h2 data-i="legalNameLabel">Name / Firma</h2>
-                    <p data-todo data-i="legalNameValue">[TODO: Name des Betreibers bzw. der Firma]</p>
+                    <h2 data-i="legalNameLabel">Name</h2>
+                    <p data-i="legalNameValue">Papp Attila</p>
                 </section>
                 <section class="legal-item">
-                    <h2 data-i="legalAddressLabel">Sitz / Anschrift</h2>
-                    <p data-todo data-i="legalAddressValue">[TODO: Sitz oder Postanschrift]</p>
+                    <h2 data-i="legalAddressLabel">Anschrift</h2>
+                    <p data-i="legalAddressValue">7633 Pécs, Kerényi Károly u. 8/A</p>
                 </section>
                 <section class="legal-item">
                     <h2 data-i="legalTaxIdLabel">Steuernummer</h2>
-                    <p data-todo data-i="legalTaxIdValue">[TODO: Steuernummer]</p>
-                </section>
-                <section class="legal-item">
-                    <h2 data-i="legalContactLabel">Kontakt</h2>
-                    <p data-todo data-i="legalContactValue">[TODO: E-Mail-Adresse und Telefonnummer]</p>
+                    <p data-i="legalTaxIdValue">48970080-1-22</p>
                 </section>
                 <section class="legal-item">
                     <h2 data-i="legalHostingLabel">Hosting-Anbieter</h2>
-                    <p data-todo data-i="legalHostingValue">[TODO: Name, Anschrift und Kontakt des Hosting-Anbieters]</p>
+                    <p data-i="legalHostingValue">Cloudflare, Inc.</p>
+                    <p data-i="legalHostingAddressValue">101 Townsend St, San Francisco, CA 94107, USA</p>
                 </section>
             </div>
         </main>
@@ -83,11 +78,24 @@
                         <li><a href="../../houserules/hausordnung-de.pdf" target="_blank" rel="noopener" data-i="footerHouseRules">Hausordnung</a></li>
                         <li><a href="../../de/impressum/" data-i="footerImprint">Impressum</a></li>
                         <li><a href="../../de/datenschutz/" data-i="footerPrivacy">Datenschutzerklärung</a></li>
+                        <li><button type="button" class="footer-link-button" data-cookie-settings data-i="footerCookieSettings">Cookie-Einstellungen</button></li>
                     </ul>
                 </nav>
                 <p class="footer-copy" data-i="footerText">© 2026 Mecsekalja Apartment · Pécs, Ungarn</p>
             </div>
         </footer>
+
+        <section class="cookie-banner" data-cookie-banner data-ga-id="G-TX60V6N8RH" aria-label="Cookie-Einwilligung" hidden>
+            <p class="cookie-banner-text">
+                <span data-i="cookieBannerText">Wir möchten statistische Cookies (Google Analytics) nutzen, um Besucherzahlen anonym zu messen, und die eingebettete Google-Karte laden. Ohne Ihre Zustimmung wird nichts geladen oder gespeichert.</span>
+                <a href="../../de/datenschutz/" data-i="cookiePrivacyLink">Datenschutzerklärung</a>
+            </p>
+            <div class="cookie-banner-actions">
+                <button type="button" class="btn alt" data-cookie-decline data-i="cookieDecline">Ablehnen</button>
+                <button type="button" class="btn" data-cookie-accept data-i="cookieAccept">Akzeptieren</button>
+            </div>
+        </section>
+        <script src="../../cookie-consent.js" defer></script>
     </div>
 </body>
 

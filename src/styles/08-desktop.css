@@ -156,6 +156,10 @@
         align-items: center;
     }
 
+    .gal-arrow {
+        display: none;
+    }
+
     .gal-wrap {
         overflow-x: visible;
         margin-left: 0;

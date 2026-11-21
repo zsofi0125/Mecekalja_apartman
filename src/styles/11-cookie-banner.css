@@ -1,0 +1,106 @@
+/* ==========================================================================
+   11. Cookie consent banner, footer settings button and map consent overlay
+   ========================================================================== */
+
+.cookie-banner {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    z-index: 100;
+    display: grid;
+    gap: 0.875rem;
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 1rem;
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.18);
+}
+
+.cookie-banner[hidden] {
+    display: none;
+}
+
+.cookie-banner-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.cookie-banner-text a {
+    color: var(--green);
+    text-underline-offset: 0.1875rem;
+}
+
+.cookie-banner-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.625rem;
+}
+
+.cookie-banner .btn {
+    min-height: 2.75rem;
+    padding: 0.625rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: normal;
+}
+
+/* Footer "Cookie settings": a button that looks like the other footer links. */
+.footer-link-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.1875rem;
+    cursor: pointer;
+}
+
+/* Map placeholder shown until cookies are accepted or the visitor loads the map. */
+.map-consent {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    text-align: center;
+    background: var(--stage);
+}
+
+.map-consent[hidden] {
+    display: none;
+}
+
+.map-consent p {
+    margin: 0;
+}
+
+.map-consent .btn {
+    min-height: 2.75rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (min-width: 47.5rem) {
+    .cookie-banner {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .cookie-banner-actions {
+        grid-template-columns: auto auto;
+    }
+}

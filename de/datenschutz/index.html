@@ -6,7 +6,7 @@
     <title>Datenschutzerklärung · Mecsekalja Apartment</title>
     <meta name="description" content="Datenschutzerklärung der Website des Mecsekalja Apartments in Pécs: Datenverarbeitung, Cookies, externe Inhalte und Ihre Rechte.">
     <meta name="robots" content="noindex, follow">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="canonical" href="https://mecsekaljaapartman.hu/de/datenschutz/">
     <link rel="alternate" hreflang="hu" href="https://mecsekaljaapartman.hu/hu/adatkezelesi-tajekoztato/">
@@ -164,11 +164,24 @@
                         <li><a href="../../houserules/hausordnung-de.pdf" target="_blank" rel="noopener" data-i="footerHouseRules">Hausordnung</a></li>
                         <li><a href="../../de/impressum/" data-i="footerImprint">Impressum</a></li>
                         <li><a href="../../de/datenschutz/" data-i="footerPrivacy">Datenschutzerklärung</a></li>
+                        <li><button type="button" class="footer-link-button" data-cookie-settings data-i="footerCookieSettings">Cookie-Einstellungen</button></li>
                     </ul>
                 </nav>
                 <p class="footer-copy" data-i="footerText">© 2026 Mecsekalja Apartment · Pécs, Ungarn</p>
             </div>
         </footer>
+
+        <section class="cookie-banner" data-cookie-banner data-ga-id="G-TX60V6N8RH" aria-label="Cookie-Einwilligung" hidden>
+            <p class="cookie-banner-text">
+                <span data-i="cookieBannerText">Wir möchten statistische Cookies (Google Analytics) nutzen, um Besucherzahlen anonym zu messen, und die eingebettete Google-Karte laden. Ohne Ihre Zustimmung wird nichts geladen oder gespeichert.</span>
+                <a href="../../de/datenschutz/" data-i="cookiePrivacyLink">Datenschutzerklärung</a>
+            </p>
+            <div class="cookie-banner-actions">
+                <button type="button" class="btn alt" data-cookie-decline data-i="cookieDecline">Ablehnen</button>
+                <button type="button" class="btn" data-cookie-accept data-i="cookieAccept">Akzeptieren</button>
+            </div>
+        </section>
+        <script src="../../cookie-consent.js" defer></script>
     </div>
 </body>
 

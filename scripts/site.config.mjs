@@ -19,3 +19,9 @@ export const PRIVACY_PAGE_SLUGS = {
     en: 'privacy-policy',
     de: 'datenschutz'
 };
+
+/**
+ * Google Analytics 4 measurement ID (public, format "G-XXXXXXXXXX"). Leave empty to ship no
+ * analytics at all: the script is only ever added after the visitor accepts, and only if set.
+ */
+export const GA_MEASUREMENT_ID = 'G-TX60V6N8RH';

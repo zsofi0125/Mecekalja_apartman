@@ -9,7 +9,7 @@ import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 import {
     SITE_URL, SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, OPEN_GRAPH_LOCALES, OPEN_GRAPH_IMAGE_PATH,
-    HOUSE_RULES_FILES, LEGAL_PAGE_SLUG, PRIVACY_PAGE_SLUGS
+    HOUSE_RULES_FILES, LEGAL_PAGE_SLUG, PRIVACY_PAGE_SLUGS, GA_MEASUREMENT_ID
 } from './site.config.mjs';
 import { renderMarkdown } from './markdown.mjs';
 
@@ -33,12 +33,17 @@ async function bundleStylesheet() {
 
 /** Inline handler on the font stylesheet link; allowed by hash so no 'unsafe-inline' is needed. */
 const FONT_LOAD_HANDLER = "this.media='all'";
+/** Google Analytics endpoints; only allowed when a measurement ID is configured (and loaded only after consent). */
+const analyticsSources = GA_MEASUREMENT_ID
+    ? { script: ' https://www.googletagmanager.com', connect: " 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com", img: ' https://*.google-analytics.com https://www.googletagmanager.com' }
+    : { script: '', connect: '', img: '' };
 const contentSecurityPolicy = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-hashes' 'sha256-${createHash('sha256').update(FONT_LOAD_HANDLER).digest('base64')}'`,
+    `script-src 'self'${analyticsSources.script} 'unsafe-hashes' 'sha256-${createHash('sha256').update(FONT_LOAD_HANDLER).digest('base64')}'`,
     "style-src 'self' https://fonts.googleapis.com",
     'font-src https://fonts.gstatic.com',
-    "img-src 'self' data:",
+    `img-src 'self' data:${analyticsSources.img}`,
+    ...(GA_MEASUREMENT_ID ? [`connect-src${analyticsSources.connect}`] : []),
     'frame-src https://www.google.com https://maps.google.com',
     "object-src 'none'",
     "base-uri 'self'",
@@ -158,7 +163,7 @@ function renderLanguagePage(template, lang, translations, partials) {
 
 function renderFooter(footerPartial, lang, base) {
     return fillPlaceholders(footerPartial.trimEnd(), {
-        base, lang, houseRulesFile: HOUSE_RULES_FILES[lang], legalSlug: LEGAL_PAGE_SLUG, privacySlug: PRIVACY_PAGE_SLUGS[lang]
+        base, lang, gaMeasurementId: GA_MEASUREMENT_ID, houseRulesFile: HOUSE_RULES_FILES[lang], legalSlug: LEGAL_PAGE_SLUG, privacySlug: PRIVACY_PAGE_SLUGS[lang]
     });
 }
 

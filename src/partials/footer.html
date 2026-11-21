@@ -13,8 +13,21 @@
                         <li><a href="{{base}}{{houseRulesFile}}" target="_blank" rel="noopener" data-i="footerHouseRules"></a></li>
                         <li><a href="{{base}}{{lang}}/{{legalSlug}}/" data-i="footerImprint"></a></li>
                         <li><a href="{{base}}{{lang}}/{{privacySlug}}/" data-i="footerPrivacy"></a></li>
+                        <li><button type="button" class="footer-link-button" data-cookie-settings data-i="footerCookieSettings"></button></li>
                     </ul>
                 </nav>
                 <p class="footer-copy" data-i="footerText"></p>
             </div>
         </footer>
+
+        <section class="cookie-banner" data-cookie-banner data-ga-id="{{gaMeasurementId}}" data-i-aria-label="cookieBannerLabel" aria-label="" hidden>
+            <p class="cookie-banner-text">
+                <span data-i="cookieBannerText"></span>
+                <a href="{{base}}{{lang}}/{{privacySlug}}/" data-i="cookiePrivacyLink"></a>
+            </p>
+            <div class="cookie-banner-actions">
+                <button type="button" class="btn alt" data-cookie-decline data-i="cookieDecline"></button>
+                <button type="button" class="btn" data-cookie-accept data-i="cookieAccept"></button>
+            </div>
+        </section>
+        <script src="{{base}}cookie-consent.js" defer></script>

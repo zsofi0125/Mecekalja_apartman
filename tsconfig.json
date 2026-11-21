@@ -8,5 +8,5 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": []
   },
-  "include": ["app.js", "events-data.js", "events.js", "events-labels.js", "lang-redirect.js"]
+  "include": ["app.js", "events-data.js", "events.js", "events-labels.js", "lang-redirect.js", "cookie-consent.js"]
 }

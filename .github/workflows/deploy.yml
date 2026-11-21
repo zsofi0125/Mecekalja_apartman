@@ -90,7 +90,7 @@ jobs:
         run: |
           mkdir -p _site/img/icons _site/houserules
           cp -r hu en de _site/
-          cp index.html style.css app.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
+          cp index.html style.css app.js cookie-consent.js events-data.js events.js events-labels.js lang-redirect.js 404.html favicon-32.png favicon-48.png favicon-192.png apple-touch-icon.png sitemap.xml robots.txt _site/
           cp -r img/gallery _site/img/
           cp img/tv_tower.svg img/og-cover.jpg _site/img/
           cp img/icons/*.webp _site/img/icons/
